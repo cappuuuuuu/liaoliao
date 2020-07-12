@@ -187,7 +187,7 @@ const Chat = ({location , socket , endPoint }) => {
     }
 
     const changeHandler = (e) => {
-        setMsg(e.target.value.trim());
+        setMsg(e.target.value);
         setTyping(true);
         handleTyping();
     }
