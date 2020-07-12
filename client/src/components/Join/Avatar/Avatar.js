@@ -1,7 +1,7 @@
 import React from 'react';
 
 import './Avatar.scss';
-import avatars from '../Image/AvatarImage';
+import avatars from '../../Image/AvatarImage';
 
 const AvatarContent = ({i,getAvatar,avatar}) => {
     return (

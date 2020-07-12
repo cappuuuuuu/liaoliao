@@ -1,7 +1,7 @@
 import React, { useState, useEffect , useRef } from 'react';
 import Button from '@material-ui/core/Button';
 
-import Avatar from '../Avatar/Avatar';
+import Avatar from './Avatar/Avatar';
 import Bubbles from '../Bubbles/Bubbles';
 import BongoCat from './BongoCat/BongoCat';
 import HomeLoader from '../Loader/HomeLoader';
