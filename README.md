@@ -5,6 +5,9 @@
 # 匿名即時聊天室
 選一個可愛的頭貼、想一個暱稱就可以進入聊天室開始聊天，
 
+# Demo
+[Demo](https://liaoliao.netlify.app/)
+
 # 聊天室功能
 * 基本的日期、時間、傳送貼圖訊息 
 
@@ -24,8 +27,6 @@
   
 
 
-# Demo
-[Demo](https://liaoliao.netlify.app/)
 
 
 ## 前端
