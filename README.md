@@ -6,7 +6,7 @@
 選一個可愛的頭貼、想一個暱稱就可以開始聊天
 
 # 功能
-* 基本的日期、時間、傳送貼圖訊息 * 進入、離開聊天室狀態顯示
+* 基本的日期、時間、傳送貼圖訊息 *             進入、離開聊天室狀態顯示
 
   <img src="https://lh3.googleusercontent.com/jcC9vRx1GC_sIl7CVx0EveGNehHUGdj1wiCAyBadj9SVCEcWmVaJAtiMZ7AuxrJ3atxksDeVCK_gPm0pdszD1iPAnNmX-L0O69xPc6lo4qbmuAx9jvPmxktiGXABHD3jn_YlcsM_8YikmpCGajukyiX2XnTtpG8eLW-yAJepHO3eUWoWUeIVzOHJyS9XhMIr9Th23oE9QoeM8l1MmSQOJcD-2DOge0CkK0gj-gvWDf7uM4Z6sXRa3L-BUp50nw_dVsHLjuf4R__51liCau6CgmnL72u_uJ27hFV4yyfqCyUpH1zT_gL2wbQAFGATxOO4LHzi_NUFELBlT26UOqvQH2_tchvAagOPcymZzu1H3ioj-HmxeoJydleEn6t--MyybaUFobnSquIq1AcbD1S5dAtniQUmZs4g30UAp-qSGaauRKdpeYkLnnxHVL-Pmu7-Jx-_hKCcQ4VAbx3bRJwNghtBH6QzPuvM2CuOgUGxpAPlwiEoUlq3JScr_JdZrtLDIt93uQ3GtI5nEQOYikCld40d6AbI0z-u2K3ibdWOWNSFvq9WJZF3LHyXE6hj9CkaKpR6QLaFdOjAi8Upew8Jhlbej96clyDSWctdXgyBd6zXK_KPCG74ZFlAvuh5m8Qrd7jbwamnP55gFDeWzoSMAsZveh53Ttd9Qgka5c5NzrV9KtGLX9jUijQyfRc5vw=w886-h776-no?authuser=0" width=250>
 
