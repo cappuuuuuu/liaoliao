@@ -29,7 +29,7 @@
 
 
 ## 前端
-使用React框架，
+使用React框架，React component 套件 Material-UI，
 
 ## 後端
-
+socket.io express 資料庫 mongoDB
