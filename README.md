@@ -32,7 +32,7 @@
 
 
 ## client 端
-* 主要架構為 React Hook
+* 主要架構使用 React Hook
 
   * 部分 component 使用 Material-UI 套件 
     <br>如 : 首頁提示使用者選擇頭貼、輸入暱稱之 **snackbar** 、 聊天室內的 **sidebar drawer** 、 **sticker drawer** 、 **sticker popover**
