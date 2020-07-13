@@ -25,11 +25,7 @@
 
   <img src="https://i.ibb.co/grTVZpR/2020-07-13-12-15-54.png" width=250>
   
-* 上線名單
-  
-
-
-
+* 聊天室線上名單
 
 ## client 端
 * 主要架構使用 React Hook
