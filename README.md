@@ -65,9 +65,7 @@
   </li>
   
   <li>
-    listening on *:5000
-    <br>
-    <pre><code>npm run start</code></pre>
+    server 開啟後可以看到 listening on *:5000 訊息<br>
   </li>
 </ol>
 
