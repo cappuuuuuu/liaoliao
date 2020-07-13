@@ -30,7 +30,8 @@
 
 
 ## client 端
-使用React框架，React component 套件 Material-UI，
+主要為 React框架
+component 套件 Material-UI
 
 ## server 端
 socket.io express 資料庫 mongoDB
