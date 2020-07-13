@@ -6,9 +6,7 @@
 選一個可愛的頭貼、想一個暱稱就可以進入聊天室開始聊天，
 
 # Demo
-<a href="https://liaoliao.netlify.app/" target="_blank" >LIVE DEMO</a>
-  
-[Demo](https://liaoliao.netlify.app/){:target="_blank"}
+<a href="https://liaoliao.netlify.app/" target="_blank">LIVE DEMO</a>
 
 # 聊天室功能
 * 基本的日期、時間、傳送貼圖訊息 
