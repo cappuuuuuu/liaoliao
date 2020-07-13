@@ -48,7 +48,7 @@
 <ol>
   <li>
     one<br>
-    <code>console.log("Hello world")</code>
+        console.log("Hello world")
   </li>
   <li>two</li>
 </ol>
