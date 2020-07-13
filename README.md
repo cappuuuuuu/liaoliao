@@ -29,7 +29,7 @@
 
 
 
-## client 端
+## * client 端
 主要為 React 框架
 部分 component 使用 Material-UI 套件 
 如  首頁提示使用者選擇頭貼、輸入暱稱之 snackbar
