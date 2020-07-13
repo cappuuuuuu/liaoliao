@@ -75,6 +75,7 @@
     <pre><code>const endPoint = 'localhost:5000';</code></pre>
   </li>
 </ol>
+
 ## server 端
 <ol>
   <li>
