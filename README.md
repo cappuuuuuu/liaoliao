@@ -48,9 +48,11 @@
 <ol>
   <li>
     one<br>
-        ```
-    console.log("Hello world")
-    ```
+    <pre>
+      <code>
+        npm install 
+      </code>
+    </pre>
   </li>
   <li>two</li>
 </ol>
