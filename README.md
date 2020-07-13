@@ -35,8 +35,10 @@
     <br>EX :  首頁提示使用者選擇頭貼、輸入暱稱之 **snackbar** 、 聊天室內的 **sidebar drawer** 、 **sticker drawer** 、 **sticker popover**
 * socket.io-client 
 
-  * 連接 server 端建置完成的 WebSocket Server 
+  * 連接 server 端建置完成的 WebSocket
 ## server 端
-* Node.js 環境
+  
+* 於 Node.js 環境，以 socket.io 建置 WebSocket 服務
+
 * 透過 mongoose 操作 MongoDB 資料庫 ， 
 * WebSocket socket.io express 資料庫 mongoDB
