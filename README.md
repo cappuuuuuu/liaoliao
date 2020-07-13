@@ -44,13 +44,35 @@
 * 透過 mongoose 操作 MongoDB 資料庫 (儲存聊天記錄)
 
 # 專案安裝流程
+
+## server 端
+<ol>
+  <li>
+    terminal 進入 server 資料夾
+  </li>
+  <li>
+    安裝 npm 套件
+    <pre><code>npm install</code></pre>
+  <li>
+  <li>
+    開啟後端 server
+    <pre><code>npm run start</code></pre>
+  <li>
+</ol>
+
 ## client 端
 <ol>
   <li>
-    one<br>
+    terminal 進入 client 資料夾 <br>
     <pre><code>npm install</code></pre>
   </li>
-  <li>two</li>
+ <li>
+    安裝 npm 套件
+    <pre><code>npm install</code></pre>
+  <li>
+  <li>
+    
+    <pre><code>npm run start</code></pre>
+  <li>
 </ol>
 
-* 環境為 Node.js ， Web 架構使用 express
