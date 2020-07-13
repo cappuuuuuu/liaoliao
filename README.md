@@ -91,8 +91,11 @@
   </li>
   <li>
     socket.io-client 預設連接至部署於 Heroku 之 server <code>https://caputalk.herokuapp.com/</code> <br>
+    <p></p>
     如欲改連接至本地端 server ， 可至 <code>client/src/App.js</code> 改變端點 
+    <p></p>
     <pre><code>const endPoint = 'https://caputalk.herokuapp.com/';</code></pre>
+    <p></p>
     <pre><code>const endPoint = 'localhost:5000';</code></pre>
   </li>
   
