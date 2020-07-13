@@ -49,23 +49,23 @@
 <ol>
   <li>
     開啟 terminal 進入 server 資料夾
-    <br>
+    <br/>
     <pre><code>cd server</code></pre>
   </li>
   <li>
     安裝 npm 套件
-    <br>
+    <br/>
     <pre><code>npm install</code></pre>
   </li>
   
   <li>
     開啟後端 server 
-    <br>
+    <br/>
     <pre><code>npm run start</code></pre>
   </li>
   
   <li>
-    server 開啟後可以看到 listening on *:5000 訊息<br>
+    server 開啟後可以看到 listening on * : 5000 訊息 <br>
   </li>
 </ol>
 
@@ -73,7 +73,7 @@
 <ol>
   <li>
     開啟 terminal 進入 client 資料夾
-    <br>
+    <br/>
     <pre><code>cd client</code></pre>
   </li>
   <li>
