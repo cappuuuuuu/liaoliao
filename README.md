@@ -32,7 +32,8 @@
 ## client 端
 * React 框架
 
-  * 部分 component 使用 Material-UI 套件 如 : 首頁提示使用者選擇頭貼、輸入暱稱之 **snackbar** 、 聊天室內的 **sidebar drawer** 、 **sticker drawer** 、 **sticker popover**
+  * 部分 component 使用 Material-UI 套件 
+    如 : 首頁提示使用者選擇頭貼、輸入暱稱之 **snackbar** 、 聊天室內的 **sidebar drawer** 、 **sticker drawer** 、 **sticker popover**
 * socket.io-client 
 
   * 用來和 server 端 socket 溝通
