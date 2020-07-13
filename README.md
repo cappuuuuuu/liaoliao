@@ -51,14 +51,17 @@
     開啟 terminal 進入 server 資料夾
     <pre><code>cd server</code></pre>
   </li>
+  <br>
   <li>
     安裝 npm 套件
     <pre><code>npm install</code></pre>
   </li>
+  
   <li>
     開啟後端 server 
     <pre><code>npm run start</code></pre>
   </li>
+  
   <li>
     listening on *:5000 
     <pre><code>npm run start</code></pre>
