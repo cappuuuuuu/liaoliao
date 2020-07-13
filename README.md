@@ -30,8 +30,10 @@
 
 
 ## client 端
-主要為 React框架
-component 套件 Material-UI
+主要為 React 框架
+部分 component 使用 Material-UI 套件 
+如  首頁提示使用者選擇頭貼、輸入暱稱之 snackbar
+    聊天室內的sidebar drawer 、 sticker drawer 、 sticker popover
 
 ## server 端
 socket.io express 資料庫 mongoDB
