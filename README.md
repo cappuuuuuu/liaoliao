@@ -8,7 +8,7 @@
 # Demo
 <a href="https://liaoliao.netlify.app/" target="_blank" >LIVE DEMO</a>
   
-[Demo](https://liaoliao.netlify.app/)
+[Demo](https://liaoliao.netlify.app/){:target="_blank"}
 
 # 聊天室功能
 * 基本的日期、時間、傳送貼圖訊息 
