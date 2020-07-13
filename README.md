@@ -3,7 +3,7 @@
 
 
 # 匿名即時聊天室
-選一個可愛的頭貼、想一個暱稱就可以進入聊天室開始聊天，
+選一個可愛的頭貼、想一個暱稱就可以進入聊天室開始聊天，主要以 socket.io
 
 # Demo
 <a href="https://liaoliao.netlify.app/">LIVE DEMO</a>
@@ -36,5 +36,6 @@
 
   * 用來和 server 端 socket 溝通
 ## server 端
-* Node.js 建置
-* socket.io express 資料庫 mongoDB
+* Node.js 環境
+* 透過 mongoose 操作 MongoDB 資料庫 ， 
+* WebSocket lsocket.io express 資料庫 mongoDB
