@@ -24,7 +24,6 @@ app.use(cors());
 
 io.on('connection', (socket) => {
 
-    console.log('socketID : ' + socket.id);
     
     socket.on('getRecord',async ()=>{
         let history = await getData();
@@ -58,7 +57,6 @@ io.on('connection', (socket) => {
     socket.on('disconnect',()=>{
       let leftUser = removeUser(socket.id);
       if(leftUser){
-          console.log(leftUser.name + '離線了 !')
           io.emit('userLeft',leftUser);
           io.emit('reconnecttss');
       }
