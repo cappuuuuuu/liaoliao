@@ -65,7 +65,7 @@
   </li>
   
   <li>
-    server 開啟後可以看到 listening on * : 5000 訊息 <br>
+  server 開啟後可以看到 <code>listening on * : 5000 訊息</code><br>
   </li>
 </ol>
 
