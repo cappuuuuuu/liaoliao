@@ -46,7 +46,10 @@
 # 專案安裝流程
 ## client 端
 <ol>
-  <li>one</li>
+  <li>
+    one<br>
+    <code>console.log("Hello world")</code>
+  </li>
   <li>two</li>
 </ol>
 
