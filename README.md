@@ -37,8 +37,7 @@
 
   * 連接 server 端建置完成的 WebSocket
 ## server 端
-  
-* 於 Node.js 環境，以 socket.io 建置 WebSocket 服務
-
-* 透過 mongoose 操作 MongoDB 資料庫 ， 
+* 環境為 Node.js ， Web 架構使用 express
+* 以 socket.io 建置 WebSocket 服務
+* 透過 mongoose 操作 MongoDB 資料庫 (儲存聊天記錄)
 * WebSocket socket.io express 資料庫 mongoDB
