@@ -48,7 +48,7 @@
 ## server 端
 <ol>
   <li>
-    開啟 terminal 進入 server 資料夾<br>
+    開啟 terminal 進入 server 資料夾
     <pre><code>cd server</code></pre>
   </li>
   <li>
@@ -68,7 +68,7 @@
 ## client 端
 <ol>
   <li>
-    開啟 terminal 進入 client 資料夾 <br>
+    開啟 terminal 進入 client 資料夾
     <pre><code>cd client</code></pre>
   </li>
   <li>
@@ -79,5 +79,15 @@
     啟動應用程式，本機運行
     <pre><code>npm run start</code></pre>
   <li>
+  <li>
+    預設 port 開啟在 http://localhost:3000 
+  <li>
+  <li>
+    socket.io-client 預設連接至部署於 Heroku 之 server https://caputalk.herokuapp.com/ <br>
+    如欲改連接至本地端 server ， 可至 <code>client/src/App.js</code> 改變端點 
+    <pre><code>const endPoint = 'https://caputalk.herokuapp.com/';</code></pre>
+    <pre><code>const endPoint = 'localhost:5000';</code></pre>
+  </li>
+  
 </ol>
 
