@@ -29,6 +29,7 @@
 
 # 架構
 ## client 端
+* 部署於 Netlify
 * 主要架構使用 React Function Component 配合 Hooks
 
   * 部分 component 使用 Material-UI 套件 
@@ -37,6 +38,16 @@
 
   * 連接 server 端建置完成的 WebSocket
 ## server 端
+* 部署於 Heroku
 * 環境為 Node.js ， Web 架構使用 express
 * 以 socket.io 建置 WebSocket 服務
 * 透過 mongoose 操作 MongoDB 資料庫 (儲存聊天記錄)
+
+# 專案安裝流程
+## client 端
+<ol>
+  <li>one</li>
+  <li>two</li>
+</ol>
+
+* 環境為 Node.js ， Web 架構使用 express
