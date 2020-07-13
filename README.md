@@ -27,6 +27,7 @@
   
 * 聊天室線上名單
 
+# 架構
 ## client 端
 * 主要架構使用 React Function Component 配合 Hooks
 
