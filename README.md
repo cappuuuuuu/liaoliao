@@ -83,8 +83,9 @@
   </li>
   <li>
     啟動應用程式，本機運行
-    <br>
-    <pre><code>npm run start</code></pre>
+    <pre>
+    <code>npm run start</code>
+    </pre>
   </li>
   <li>
     預設 port 開啟在 http://localhost:3000
