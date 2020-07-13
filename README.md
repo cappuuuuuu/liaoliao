@@ -28,7 +28,7 @@
 * 聊天室線上名單
 
 ## client 端
-* 主要架構使用 React Hook
+* 主要架構使用 React Function Component 配合 Hooks
 
   * 部分 component 使用 Material-UI 套件 
     <br>EX :  首頁提示使用者選擇頭貼、輸入暱稱之 **snackbar** 、 聊天室內的 **sidebar drawer** 、 **sticker drawer** 、 **sticker popover**
@@ -36,4 +36,5 @@
 
   * 用來和 server 端 socket 溝通
 ## server 端
+* Node.js 建置
 * socket.io express 資料庫 mongoDB
