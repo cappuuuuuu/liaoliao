@@ -48,7 +48,7 @@
 ## client 端
 <ol>
   <li>
-    開啟 terminal 進入 client 資料夾
+    開啟 Terminal 進入 client 資料夾
     <p></p>
     <pre><code>cd client</code></pre>
   </li>
@@ -80,7 +80,7 @@
 ## server 端
 <ol>
   <li>
-    開啟 terminal 進入 server 資料夾
+    開啟 Terminal 進入 server 資料夾
     <p></p>
     <pre><code>cd server</code></pre>
   </li>
@@ -97,7 +97,7 @@
   </li>
   
   <li>
-  terminal 看見以下 <code>listening on * : 5000 </code> 訊息代表 server 已成功開啟<br>
+  Terminal 出現 <code>listening on * : 5000 </code> 訊息代表 server 已成功開啟<br>
   </li>
 </ol>
 
