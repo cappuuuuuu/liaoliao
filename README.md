@@ -3,7 +3,8 @@
 
 
 # 匿名即時聊天室
-選一個可愛的頭貼、想一個暱稱就可以進入聊天室開始聊天，主要以 socket.io
+選個頭貼、想個暱稱就可以進入聊天室聊天。<br>
+主要以 WebSocket 套件 socket.io 來進行前、後端訊息的接收與傳遞，建立一個即時性的網頁應用程式。
 
 # Demo
 <a href="https://liaoliao.netlify.app/">LIVE DEMO</a>
