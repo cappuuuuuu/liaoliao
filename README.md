@@ -97,7 +97,7 @@
   </li>
   
   <li>
-  server 開啟後可以看到 <code>listening on * : 5000 訊息</code><br>
+  terminal 看見以下 <code>listening on * : 5000 </code> 訊息代表 server 已成功開啟<br>
   </li>
 </ol>
 
