@@ -3,10 +3,11 @@
 
 
 # 匿名即時聊天室
-選一個可愛的頭貼、想一個暱稱就可以進入聊天室開始聊天，主要以 socket.io
+選個頭貼、想個暱稱就可以進入聊天室聊天<br>
+主要以 React 框架 搭配 WebSocket 套件 socket.io 來進行前、後端訊息的接收與傳遞，建立一個即時性的 Web 聊天 APP
 
 # Demo
-<a href="https://liaoliao.netlify.app/">LIVE DEMO</a>
+<a href="https://liaoliao.netlify.app/">DEMO</a>
 
 # 聊天室功能
 * 基本的日期、時間、傳送貼圖訊息 
@@ -44,50 +45,59 @@
 * 透過 mongoose 操作 MongoDB 資料庫 (儲存聊天記錄)
 
 # 專案安裝流程
-
-## server 端
-<ol>
-  <li>
-    開啟 terminal 進入 server 資料夾
-    <pre><code>cd server</code></pre>
-  </li>
-  <li>
-    安裝 npm 套件
-    <pre><code>npm install</code></pre>
-  <li>
-  <li>
-    開啟後端 server 
-    <pre><code>npm run start</code></pre>
-  <li>
-  <li>
-    listening on *:5000 
-    <pre><code>npm run start</code></pre>
-  <li>
-</ol>
-
 ## client 端
 <ol>
   <li>
-    開啟 terminal 進入 client 資料夾
+    開啟 Terminal 進入 client 資料夾
+    <p></p>
     <pre><code>cd client</code></pre>
   </li>
   <li>
     安裝 npm 套件
+    <p></p>
     <pre><code>npm install</code></pre>
-  <li>
+  </li>
   <li>
     啟動應用程式，本機運行
+    <p></p>
     <pre><code>npm run start</code></pre>
+  </li>
   <li>
+    port 開啟在 http://localhost:3000
+  </li>
+  <p></p>
   <li>
-    預設 port 開啟在 http://localhost:3000 
-  <li>
-  <li>
-    socket.io-client 預設連接至部署於 Heroku 之 server https://caputalk.herokuapp.com/ <br>
+    socket.io-client 預設連接至部署於 Heroku 之 server <code>https://caputalk.herokuapp.com/</code> <br>
+    <p></p>
     如欲改連接至本地端 server ， 可至 <code>client/src/App.js</code> 改變端點 
+    <p></p>
     <pre><code>const endPoint = 'https://caputalk.herokuapp.com/';</code></pre>
+    <p></p>
     <pre><code>const endPoint = 'localhost:5000';</code></pre>
   </li>
+</ol>
+
+## server 端
+<ol>
+  <li>
+    開啟 Terminal 進入 server 資料夾
+    <p></p>
+    <pre><code>cd server</code></pre>
+  </li>
+  <li>
+    安裝 npm 套件
+    <p></p>
+    <pre><code>npm install</code></pre>
+  </li>
   
+  <li>
+    開啟後端 server 
+    <p></p>
+    <pre><code>npm run start</code></pre>
+  </li>
+  
+  <li>
+  Terminal 出現 <code>listening on * : 5000 </code> 訊息代表 server 已成功開啟<br>
+  </li>
 </ol>
 
