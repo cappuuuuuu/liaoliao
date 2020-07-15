@@ -96,7 +96,9 @@ const Join = ({ history , socket }) => {
     useEffect(()=>{
         setTimeout(()=>{
             setLoadComplete(true);
-        },1500)
+            consecutiveSnackbars.current.handleClick('選一個頭貼，輸入暱稱就可以進入聊天室囉',6000)
+
+        },2000)
         
     },[])
 
@@ -132,23 +134,23 @@ const Join = ({ history , socket }) => {
     const loginHandler = () => {
         
         if(!avatar){
-            consecutiveSnackbars.current.handleClick('選個頭貼 !');
+            consecutiveSnackbars.current.handleClick('選一個頭貼');
             setCheckProgress(false);
             return ''
         }
         if(!user){
-            consecutiveSnackbars.current.handleClick('請輸入暱稱 !');
+            consecutiveSnackbars.current.handleClick('請輸入暱稱');
             setCheckProgress(false);
             return ''
         }
         if(user.length > 8){
-            consecutiveSnackbars.current.handleClick('名字最多 8 個字 !');
+            consecutiveSnackbars.current.handleClick('名字最多 8 個字');
             setCheckProgress(false);
             return ''
         }
        
         if(existUser){
-            consecutiveSnackbars.current.handleClick('暱稱已有人使用 !');
+            consecutiveSnackbars.current.handleClick('暱稱已有人使用');
             setCheckProgress(false);
             return ;
         }

@@ -12,10 +12,10 @@ const useStyles = makeStyles((theme) => ({
         zIndex:1600,
         backgroundColor:'#5081ad',
         fontSize:'.975rem',
-        minWidth:'150px',
+        minWidth:'100px',
         flexGrow:'0',
         "& .MuiSnackbarContent-message": {
-            padding:'8px 0 8px 8px',
+            margin:'auto',
 
         }
     },
@@ -32,11 +32,12 @@ const ConsecutiveSnackbars = forwardRef(( props, ref ) => {
   const [snackPack, setSnackPack] = React.useState([]);
   const [open, setOpen] = React.useState(false);
   const [messageInfo, setMessageInfo] = React.useState(undefined);
+  const [duration , setDuration] = React.useState(0);
   
   useImperativeHandle(ref, () => ({
 
-    handleClick : (message)  => {
-        console.log('message' + message)
+    handleClick : (message , duration = 2000)  => {
+        setDuration(duration);
         setSnackPack((prev) => [...prev, { message, key: new Date().getTime() }]);
         return message
     },
@@ -85,23 +86,12 @@ const classes = useStyles();
           horizontal: 'center',
         }}
         open={open}
-        autoHideDuration={1500}
+        autoHideDuration={duration}
         TransitionComponent={Slide}
         onClose={handleClose}
         onExited={handleExited}
         message={messageInfo ? messageInfo.message : undefined}
-        action={
-          <React.Fragment>
-            <IconButton
-              aria-label="close"
-              color="inherit"
-              className={classes.close}
-              onClick={handleClose}
-            >
-              <CloseIcon />
-            </IconButton>
-          </React.Fragment>
-        }
+       
       />
     </div>
   )
