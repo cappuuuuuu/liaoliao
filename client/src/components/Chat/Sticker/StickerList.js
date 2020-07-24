@@ -105,8 +105,8 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export default function FullWidthTabs({ touchStickerHandler , stickers}) {
-
+export default function FullWidthTabs({ touchStickerHandler , stickers }) {
+  
   const classes = useStyles();
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
@@ -147,12 +147,11 @@ export default function FullWidthTabs({ touchStickerHandler , stickers}) {
           >
             {stickers.map((sticker,i)=>{
                 return (
-                    <div key={sticker.name} value={value} index={0} dir={theme.direction}>
+                    <div key={sticker.name} value={value} index={i} dir={theme.direction}>
                       <div className={classes.listWrapper} >
                         <ul className={classes.stickerList}>
                             {sticker.imageUrl.map((url)=>{
                                 return <li key={url}><Button onClick={touchStickerHandler}><img src={url} alt=""/></Button></li>
-
                             })}
                         </ul>
                       </div>
@@ -162,7 +161,6 @@ export default function FullWidthTabs({ touchStickerHandler , stickers}) {
           </SwipeableViews>
       )
   }
-
 
   return (
     <div className={classes.root}>

@@ -1,12 +1,15 @@
 import React, { useState, useEffect , useRef } from 'react';
 import Button from '@material-ui/core/Button';
 
+//component
 import Avatar from './Avatar/Avatar';
 import Bubbles from '../Bubbles/Bubbles';
 import BongoCat from './BongoCat/BongoCat';
 import HomeLoader from '../Loader/HomeLoader';
 import ConsecutiveSnackbars from './Snackbar/Snackbar'; 
 import CheckUserLoader from '../Loader/CheckUserLoader';
+
+//CSS
 import './Join.scss';
 
 
@@ -50,7 +53,6 @@ const LoginFields = (props) => {
                         開始聊天
                     </div>
                 </Button>
-                
             </div>
         </div>
         
@@ -73,34 +75,26 @@ const Join = ({ history , socket }) => {
 
 
     useEffect(()=>{
-        console.log(window.performance.navigation.type)
         if (!!window.performance && window.performance.navigation.type === 0) {
             //!! 用來檢查 window.performance 是否存在
             //window.performance.navigation.type ===2 表示使用 back or forward
-            console.log('Reloading');
             window.location.reload();//或是其他動作
         }
-    },[])
 
-    
+        setTimeout(()=>{
+            setLoadComplete(true);
+            consecutiveSnackbars.current.handleOpen('選一個頭貼，輸入暱稱就可以進入聊天室囉',6000);
+        },2000)
 
-    useEffect(()=>{
         socket.on('checkResult',(error)=>{
             if(error === 'repeat'){
                 setExistUser(true);
             }
             setCheckUser(true);
         })
+
     },[])
 
-    useEffect(()=>{
-        setTimeout(()=>{
-            setLoadComplete(true);
-            consecutiveSnackbars.current.handleClick('選一個頭貼，輸入暱稱就可以進入聊天室囉',6000)
-
-        },2000)
-        
-    },[])
 
     useEffect(()=>{
         if(firstRender.current){
@@ -134,23 +128,23 @@ const Join = ({ history , socket }) => {
     const loginHandler = () => {
         
         if(!avatar){
-            consecutiveSnackbars.current.handleClick('選一個頭貼');
+            consecutiveSnackbars.current.handleOpen('選一個頭貼');
             setCheckProgress(false);
             return ''
         }
         if(!user){
-            consecutiveSnackbars.current.handleClick('請輸入暱稱');
+            consecutiveSnackbars.current.handleOpen('請輸入暱稱');
             setCheckProgress(false);
             return ''
         }
         if(user.length > 8){
-            consecutiveSnackbars.current.handleClick('名字最多 8 個字');
+            consecutiveSnackbars.current.handleOpen('名字最多 8 個字');
             setCheckProgress(false);
             return ''
         }
        
         if(existUser){
-            consecutiveSnackbars.current.handleClick('暱稱已有人使用');
+            consecutiveSnackbars.current.handleOpen('暱稱已有人使用');
             setCheckProgress(false);
             return ;
         }

@@ -11,11 +11,8 @@ let socket ;
 const App = () => {
     const endPoint = 'https://caputalk.herokuapp.com/';
     // const endPoint = 'localhost:5000';
-    let options = {
-        transports: ['websocket'],
-        'force new connection': true
-    };
-    socket = io(endPoint,options);
+    
+    socket = io(endPoint);
 
     return (
         <Router forceRefresh={true}>
@@ -26,7 +23,7 @@ const App = () => {
                 className="switch-wrapper"
             >
                 <Route path="/" exact render={(props) => <Join {...props} socket={socket}/>}/>
-                <Redirect exact from="/chat/relogin" to="/" />
+                <Redirect exact from="/chat/logout" to="/" />
                 <Route path="/chat" render={(props) => <Chat {...props} endPoint={endPoint} socket={socket} />}/>
             </AnimatedSwitch>
         </Router>

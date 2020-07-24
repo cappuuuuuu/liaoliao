@@ -2,8 +2,6 @@ import React  , { forwardRef, useImperativeHandle } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Snackbar from '@material-ui/core/Snackbar';
 import Slide from '@material-ui/core/Slide';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
 
 const useStyles = makeStyles((theme) => ({
   snackbar: {
@@ -36,7 +34,7 @@ const ConsecutiveSnackbars = forwardRef(( props, ref ) => {
   
   useImperativeHandle(ref, () => ({
 
-    handleClick : (message , duration = 2000)  => {
+    handleOpen : (message , duration = 2000)  => {
         setDuration(duration);
         setSnackPack((prev) => [...prev, { message, key: new Date().getTime() }]);
         return message
@@ -46,7 +44,7 @@ const ConsecutiveSnackbars = forwardRef(( props, ref ) => {
         if (reason === 'clickaway') {
             return;
         }
-    setOpen(false);
+        setOpen(false);
     }
 
   }));
@@ -62,19 +60,19 @@ const ConsecutiveSnackbars = forwardRef(( props, ref ) => {
   }, [snackPack, messageInfo, open]);
   
 
-    const handleClose =  (event, reason) => {
-        if (reason === 'clickaway') {
-            return;
-        }
-    setOpen(false);
-}
+  const handleClose =  (event, reason) => {
+      if (reason === 'clickaway') {
+          return;
+      }
+  setOpen(false);
+  }
   
 
-const handleExited = () => {
-setMessageInfo(undefined);
-};
+  const handleExited = () => {
+  setMessageInfo(undefined);
+  };
 
-const classes = useStyles();
+  const classes = useStyles();
 
   return (
     <div>

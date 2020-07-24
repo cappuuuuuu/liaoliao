@@ -62,13 +62,13 @@ const useStyles = makeStyles(() => ({
 
 }));
 
-export default function Sticker({users , name , sendSticker , stickers }) {
+export default function Sticker({ sendSticker , stickers }) {
   const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
   const classes = useStyles();
   const [state, setState] = React.useState(false); // control mobile sticker
   const [anchorEl, setAnchorEl] = React.useState(null); // control desktop sticker
 
-  //control desktop sticker
+  //control desktop sticker popover
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -78,16 +78,18 @@ export default function Sticker({users , name , sendSticker , stickers }) {
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
 
-  //Mobile sticker toggle
+  
   const toggleSticker = (open) => (event) => {
     if(window.innerWidth > 576) {
       handleClick(event);
       return ;
     }
-     
+
     if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
     }
+
+    //Mobile sticker toggle
     setState(open); 
 
   };
@@ -104,39 +106,41 @@ export default function Sticker({users , name , sendSticker , stickers }) {
     <div className={classes.root}>
         <AppBar position="static" className={classes.appBar}>
             <Toolbar style={{minHeight:'auto',padding:0}}>
-            <IconButton onClick={toggleSticker(true)} edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-                <InsertEmoticonIcon style={{color:'#5081ad'}}/>
-            </IconButton>
-            <Popover
-              id={id}
-              open={open}
-              anchorEl={anchorEl}
-              onClose={handleClose}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'center',
-              }}
-              transformOrigin={{
-                vertical: 'bottom',
-                horizontal: 'right',
-              }}
-              className={classes.stickerPopover}
-            >
-              <StickerList touchStickerHandler={ touchStickerHandler } stickers={stickers}/>
-            </Popover>
+                <IconButton onClick={toggleSticker(true)} edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+                    <InsertEmoticonIcon style={{color:'#5081ad'}}/>
+                </IconButton>
 
-            <SwipeableDrawer
-                anchor="bottom"
-                classes={{paper: classes.drawer}}
-                open={state}
-                onClose={toggleSticker(false)}
-                onOpen={toggleSticker(true)}
-                disableBackdropTransition={!iOS} 
-                disableDiscovery={iOS}
+                {/* desktop sticker popover */}
+                <Popover
+                  id={id}
+                  open={open}
+                  anchorEl={anchorEl}
+                  onClose={handleClose}
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'center',
+                  }}
+                  transformOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'right',
+                  }}
+                  className={classes.stickerPopover}
                 >
-                <StickerList touchStickerHandler={ touchStickerHandler } stickers={stickers}/>
+                  <StickerList touchStickerHandler={ touchStickerHandler } stickers={stickers}/>
+                </Popover>
 
-            </SwipeableDrawer>
+                {/* monbile sticker drawer */}
+                <SwipeableDrawer
+                    anchor="bottom"
+                    classes={{paper: classes.drawer}}
+                    open={state}
+                    onClose={toggleSticker(false)}
+                    onOpen={toggleSticker(true)}
+                    disableBackdropTransition={!iOS} 
+                    disableDiscovery={iOS}
+                    >
+                    <StickerList touchStickerHandler={ touchStickerHandler } stickers={stickers}/>
+                </SwipeableDrawer>
             </Toolbar>
         </AppBar>
     </div>

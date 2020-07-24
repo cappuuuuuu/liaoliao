@@ -95,7 +95,7 @@ const useStyles = makeStyles(()=>({
             },
             "& div" :{
                 display:'flex',
-                alignItems:'flex-end'
+                alignItems:'center'
             },
             "& img" : {
                 width:'35px',
@@ -136,7 +136,7 @@ const useStyles = makeStyles(()=>({
 const Sidebar = ({  users , name , avatar }) => {
     const classes = useStyles();
 
-    const profile = () => {
+    const Profile = () => {
         return (
             <div className={classes.profile}>
                 <div className={classes.avatar}>
@@ -146,11 +146,10 @@ const Sidebar = ({  users , name , avatar }) => {
             </div>
         )
     }
-    const list = () => {
+    const List = () => {
         return (
             <div className={classes.list}>
-            <div style={{fontSize:'1rem'}}>還有誰在聊天室</div>
-
+            <div style={{fontSize:'1rem'}}>誰在線上</div>
             <ul className={classes.userList}>
                 { users.length > 1 ? 
                      users.map((user)=>{
@@ -168,16 +167,13 @@ const Sidebar = ({  users , name , avatar }) => {
                     })
                  : 
                     <div style={{fontSize:'.9rem',marginTop:'20px', color:'#5081AD'}}>
-                        <p style={{margin:'5px 0'}}>好無聊喔只有你一個人ㄋㄟ</p>
-                        <p>不然你幫我找有什麼 bug 好了</p>
+                        <p style={{margin:'5px 0'}}>好無聊喔只有你一個人</p>
                     </div>
-                   
-                    
                 }
             </ul>
     
             <div className={classes.buttonBar}>
-                <Link to="/chat/relogin"><Button><ExitToAppIcon style={{marginRight:'10px',width:20,height:20}}/>登出</Button></Link>
+                <Link to="/chat/logout"><Button><ExitToAppIcon style={{marginRight:'10px',width:20,height:20}}/>登出</Button></Link>
             </div>
             </div>
         )
@@ -185,8 +181,8 @@ const Sidebar = ({  users , name , avatar }) => {
 
     return (
         <div className="sidebar">
-              {profile()}
-              {list()}
+              <Profile />
+              <List />
         </div>
     )
 

@@ -7,31 +7,32 @@ import { animateScroll as scroll } from 'react-scroll';
 import IconButton from '@material-ui/core/IconButton';
 import SendIcon from '@material-ui/icons/Send';
 
-//components
+// components
 import Messages from './Messages/Messages';
 import Navbar from './Navbar/Navbar';
 import Sidebar from './Sidebar/Sidebar';
 import Sticker from './Sticker/Sticker';
 import Bubbles from '../Bubbles/Bubbles';
 import Timer from '../Loader/timer';
-import stickers from '../Image/StickerImage' ;
-import './Chat.scss';
-import './Sidebar/desktopSidebar.scss';
 
+// image
+import stickers from '../Image/StickerImage' ;
+
+// CSS
+import './Chat.scss';
 
 
 const { getTime } = require('./Time/Time.js');
 
-const Chat = ({location , socket , endPoint }) => {
+const Chat = ({ location , socket , endPoint }) => {
   
-
     const [name , setName] = useState('');
     const [avatar , setAvatar] = useState('');
     const [users, setUsers] = useState([]);
     const [msg,setMsg] = useState('');
     const [messages,setMessages] = useState([]);
     const [isTyping,setTyping] = useState(false);
-    const [typing,setTypingStatus] = useState([]);
+    const [typingStatus,setTypingStatus] = useState([]);
     const [loadingMessages,setLoadingMessages] = useState(true);
 
     //ref
@@ -39,47 +40,38 @@ const Chat = ({location , socket , endPoint }) => {
     const messageBox = useRef(null);
     const messageContent = useRef(null);
     const messagesContainer = useRef(null);
-    if (device.os === 'ios') {
-        let viewport = window.visualViewport;
-        const viewportHandler = () => {
-            var layoutViewport = document.getElementById('layoutViewport');
-
-            var offsetLeft = viewport.offsetLeft;
-            var offsetTop = viewport.height - layoutViewport.getBoundingClientRect().height + viewport.offsetTop;
-
-            messageBox.current.style.transform = 'translate(' +
-                offsetLeft + 'px,' +
-                offsetTop + 'px) ' +
-                'scale(' + 1 / viewport.scale + ')';
-        }
-
-        window.visualViewport.addEventListener('scroll', viewportHandler);
-        window.visualViewport.addEventListener('resize', viewportHandler);
-    }
-    
-
-    useEffect(()=>{
-        stickers.forEach((sticker) => {
-          sticker.imageUrl.forEach((url)=>{
-            new Image().src= url;
-          })
-      });
-    },[])
 
     useEffect(()=>{
         const { name , avatar }  = queryString.parse(location.search);
         setName(name);
-        setAvatar(avatar)
+        setAvatar(avatar);
         socket.emit('getRecord');
 
-        return()=>{
-            socket.disconnect();
-            socket.removeAllListeners();
-        } 
+        // iOS Safari input focus keyboard issue 
+        if (device.os === 'ios') {
+            let viewport = window.visualViewport;
+            const viewportHandler = () => {
+                
+                let layoutViewport = document.getElementById('layoutViewport');
+                let offsetLeft = viewport.offsetLeft;
+                let offsetTop = viewport.height - layoutViewport.getBoundingClientRect().height + viewport.offsetTop;
+    
+                messageBox.current.style.transform = 'translate(' +
+                    offsetLeft + 'px,' +
+                    offsetTop + 'px) ' +
+                    'scale(' + 1 / viewport.scale + ')';
+            }
+    
+            window.visualViewport.addEventListener('scroll', viewportHandler);
+            window.visualViewport.addEventListener('resize', viewportHandler);
+        }
 
-    },[ endPoint ,location.search ])
-
-    useEffect(()=>{
+        // preload sticker images
+        stickers.forEach((sticker) => {
+            sticker.imageUrl.forEach((url)=>{
+                new Image().src= url;
+            })
+        });
 
         socket.on('userLeft',(leftUser) => {
             setUsers(users => users.filter((user)=> user.name !== leftUser.name));
@@ -92,7 +84,7 @@ const Chat = ({location , socket , endPoint }) => {
 
         socket.on('join',(newUsers)=>{
             setUsers(newUsers);
-            setMessages(messages => [...messages, { isNewUser: true , name: newUsers[newUsers.length - 1 ].name , time :getTime()}]);
+            setMessages(messages => [...messages, { isNewUser: true , name: newUsers[newUsers.length - 1].name , time :getTime()}]);
             scroll.scrollToBottom({
                 containerId: 'messages', 
                 duration : 1000,
@@ -111,11 +103,11 @@ const Chat = ({location , socket , endPoint }) => {
         })
 
         socket.on('getMessage',(data)=>{
+            let { name } = queryString.parse(location.search) ;
             setTypingStatus({
                 isTyping:false
             });
             setMessages(messages => [...messages , data]);
-            let {name} = queryString.parse(location.search) ;
             if(name === data.name){
                 scroll.scrollToBottom({
                     containerId: 'messages', 
@@ -123,13 +115,6 @@ const Chat = ({location , socket , endPoint }) => {
                 })
             }else{
                 scrollController();
-            }
-            
-            if (device.os !== 'ios') return ;
-            if(messageContent.current.clientHeight < 273){
-                 scroll.scrollTo(0,{
-                     duration:500
-                })
             }
         })
         
@@ -152,17 +137,20 @@ const Chat = ({location , socket , endPoint }) => {
             }
         })
 
+        return()=>{
+            socket.disconnect();
+            socket.removeAllListeners();
+        } 
+
     },[])
 
+    // 根據是否有人正在打字，傳送某人打字狀態到 server
     useEffect(()=>{
-        socket.emit('typing',{ isTyping  , name , avatar});
+        socket.emit('typing',{ isTyping  , name , avatar });
     },[isTyping])
 
+    // 若 viewport底部 距離 messagesContainer底部 400px 以下 ， scrollbar 將滑至底部 
     const scrollController = () => {
-        console.log(messagesContainer.current.scrollTop);
-        console.log(messagesContainer.current.offsetHeight);
-        console.log(messagesContainer.current.scrollHeight);
-
         if( messagesContainer.current.scrollTop + 400 >= messagesContainer.current.scrollHeight - messagesContainer.current.offsetHeight) {
             scroll.scrollToBottom({
                 containerId: 'messages', 
@@ -183,7 +171,6 @@ const Chat = ({location , socket , endPoint }) => {
             time: getTime()
         }
         socket.emit('sendMessage' , data);
-        
     }
 
     const changeHandler = (e) => {
@@ -191,9 +178,10 @@ const Chat = ({location , socket , endPoint }) => {
         setTyping(true);
         handleTyping();
     }
-
     
-    
+    // debounce will be a new function for every render.
+    // use the useCallback hook to make sure that 
+    // the same function is being persisted between renders.
     const handleTyping = useCallback(debounce(() => {
         setTyping(false);
     }, 1000),[]);
@@ -215,8 +203,7 @@ const Chat = ({location , socket , endPoint }) => {
                 <Backdrop open={loadingMessages} style={{backgroundColor:'rgba(0,0,0,.75)',zIndex:'1',position:'absolute'}}>
                     <Timer />
                 </Backdrop>
-                <Messages messages={messages} name={name} isTyping={typing} messageContent={messageContent} messagesContainer={messagesContainer}/>
-                
+                <Messages messages={messages} name={name} isTyping={typingStatus} ref={{ref1:messagesContainer,ref2:messageContent}}/>
                 <div className="message-box" ref={messageBox}>
                     <input type="text"
                     className="message-input"

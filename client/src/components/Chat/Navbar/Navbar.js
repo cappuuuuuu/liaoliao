@@ -4,9 +4,6 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
-
-//////
-
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Sidebar from '../Sidebar/Sidebar';
@@ -55,13 +52,9 @@ export default function NavBar({ users , name , avatar}) {
   const [state, setState] = React.useState(false);
 
   const toggleDrawer = (open) => (event) => {
-    if(event && event.type === 'click'){
-      event.stopPropagation();
-    }
     if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
     }
-    
     setState(open);
   };
 
