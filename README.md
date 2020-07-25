@@ -65,7 +65,7 @@
     <pre><code>npm run start</code></pre>
   </li>
   <li>
-    port 開啟在 http://localhost:3000
+    port 預設開啟在 http://localhost:3000
   </li>
   <p></p>
   <li>
