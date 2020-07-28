@@ -6,6 +6,7 @@ import Backdrop from '@material-ui/core/Backdrop';
 import { animateScroll as scroll } from 'react-scroll';
 import IconButton from '@material-ui/core/IconButton';
 import SendIcon from '@material-ui/icons/Send';
+import { disableBodyScroll } from 'body-scroll-lock';
 
 // components
 import Messages from './Messages/Messages';
@@ -47,17 +48,11 @@ const Chat = ({ location , socket , endPoint }) => {
         setAvatar(avatar);
         socket.emit('getRecord');
 
-        // iOS Safari input focus keyboard issue 
+        // 修正畫面滾動問題
         if(device.os === 'ios'){
-            document.body.addEventListener('touchmove',(e)=>{
-                if(messageContent.current.contains(e.target)){
-                    return ;
-                }
-                e.preventDefault();
-            },{ passive: false })
+            disableBodyScroll(document.getElementById("messages"));
         }
-
-        // preload sticker images
+        // Preload sticker images
         stickers.forEach((sticker) => {
             sticker.imageUrl.forEach((url)=>{
                 new Image().src= url;
