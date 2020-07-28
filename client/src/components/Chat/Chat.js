@@ -48,22 +48,13 @@ const Chat = ({ location , socket , endPoint }) => {
         socket.emit('getRecord');
 
         // iOS Safari input focus keyboard issue 
-        if (device.os === 'ios') {
-            let viewport = window.visualViewport;
-            const viewportHandler = () => {
-                
-                let layoutViewport = document.getElementById('layoutViewport');
-                let offsetLeft = viewport.offsetLeft;
-                let offsetTop = viewport.height - layoutViewport.getBoundingClientRect().height + viewport.offsetTop;
-    
-                messageBox.current.style.transform = 'translate(' +
-                    offsetLeft + 'px,' +
-                    offsetTop + 'px) ' +
-                    'scale(' + 1 / viewport.scale + ')';
-            }
-    
-            window.visualViewport.addEventListener('scroll', viewportHandler);
-            window.visualViewport.addEventListener('resize', viewportHandler);
+        if(device.os === 'ios'){
+            document.body.addEventListener('touchmove',(e)=>{
+                if(messageContent.current.contains(e.target)){
+                    return ;
+                }
+                e.preventDefault();
+            },{ passive: false })
         }
 
         // preload sticker images
