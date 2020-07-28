@@ -1,5 +1,5 @@
 # liaoliao
-<img src="https://i.ibb.co/YjPfXJD/2020-07-12-9-08-18.png">
+<img src="https://i.ibb.co/9nHd9y8/2020-07-25-1-01-39.png">
 
 
 # 匿名即時聊天室
@@ -65,7 +65,7 @@
     <pre><code>npm run start</code></pre>
   </li>
   <li>
-    port 開啟在 http://localhost:3000
+    port 預設開啟在 http://localhost:3000
   </li>
   <p></p>
   <li>
