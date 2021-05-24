@@ -12,9 +12,12 @@ const useStyles = makeStyles(() => ({
   appBar:{
     color:'#35394a',
     backgroundColor:'#FFF',
-    boxShadow:'none',
-    paddingLeft:0
-    
+    paddingLeft:0,
+    boxShadow: 'none',
+
+    ['@media (max-width:992px)']: { 
+      boxShadow: '0 0 6px 0 rgba(152, 132, 158, 0.36)',
+    }
   },
   menuButton: {
     position:'absolute',
@@ -25,6 +28,7 @@ const useStyles = makeStyles(() => ({
     }
 
   },
+
   title: {
     flexGrow: 1,
     color:'#2c3e50',

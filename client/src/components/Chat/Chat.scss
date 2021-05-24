@@ -153,7 +153,9 @@ body{
         
     }
 }
+
 .desktopSidebar {
+    overflow: hidden;
     position: absolute;
     z-index: 2;
     top: 0;
@@ -162,7 +164,7 @@ body{
     min-width: 220px;
     height: 100%;
     background:#32465a;
-    
+    border-radius: 0 20px 20px 0;
 }
 
 
