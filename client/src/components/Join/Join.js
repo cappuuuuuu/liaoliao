@@ -6,7 +6,7 @@ import Avatar from './Avatar/Avatar';
 import Bubbles from '../Bubbles/Bubbles';
 import BongoCat from './BongoCat/BongoCat';
 import HomeLoader from '../Loader/HomeLoader';
-import ConsecutiveSnackbars from './Snackbar/Snackbar'; 
+import ConsecutiveSnackbars from './Snackbar/Snackbar';
 import CheckUserLoader from '../Loader/CheckUserLoader';
 
 //CSS
@@ -40,22 +40,22 @@ const LoginFieldsUser = (props) => {
 
 
 const LoginFields = (props) => {
-    
+
     return (
         <div className="login_fields">
             <LoginFieldsUser getUser={props.getUser} />
             <div className="login_fields__submit">
                 <Button className={props.checkProgress?'check':''} type="submit" onClick= { props.onClick } variant="outlined">
-                    <div className="progress">   
+                    <div className="progress">
                         <CheckUserLoader />
-                    </div> 
+                    </div>
                     <div className="text">
                         開始聊天
                     </div>
                 </Button>
             </div>
         </div>
-        
+
     )
 }
 
@@ -93,17 +93,15 @@ const Join = ({ history , socket }) => {
             setCheckUser(true);
         })
 
-    },[])
+    },[socket])
 
 
     useEffect(()=>{
         if(firstRender.current){
-            firstRender.current = false; 
+            firstRender.current = false;
             return ;
         }
-        if(checkUser){
-            loginHandler();
-        }
+        else if (checkUser) loginHandler()
 
     },[checkUser])
 
@@ -126,7 +124,6 @@ const Join = ({ history , socket }) => {
     }
 
     const loginHandler = () => {
-        
         if(!avatar){
             consecutiveSnackbars.current.handleOpen('選一個頭貼');
             setCheckProgress(false);
@@ -142,7 +139,7 @@ const Join = ({ history , socket }) => {
             setCheckProgress(false);
             return ''
         }
-       
+
         if(existUser){
             consecutiveSnackbars.current.handleOpen('暱稱已有人使用');
             setCheckProgress(false);
@@ -165,9 +162,9 @@ const Join = ({ history , socket }) => {
 
         setTimeout(()=>{
             setStatus('test');
-            setAuthent('');    
+            setAuthent('');
         },2500)
-        
+
         setTimeout(()=>{
             setStatus('close');
         },2800)
@@ -180,7 +177,7 @@ const Join = ({ history , socket }) => {
             history.push(`/chat?name=${user}&avatar=${avatar}`);
         },5500)
     }
-    
+
     return (
         <div className="join-body">
             <div className={`login ${status}`}>
@@ -188,15 +185,15 @@ const Join = ({ history , socket }) => {
                     <Avatar getAvatar={getAvatar}/>
                     <LoginFields onClick={ loginRequest } getUser={ getUser} checkProgress={checkProgress}/>
                     <Success success={success}/>
-                </div> 
+                </div>
             </div>
             <Authent className={`authent ${authent}`}/>
             <Bubbles />
             <HomeLoader loadComplete={loadComplete}/>
             <ConsecutiveSnackbars ref={ consecutiveSnackbars }/>
         </div>
-        
+
     )
-} 
+}
 
 export default Join ;

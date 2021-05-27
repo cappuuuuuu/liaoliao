@@ -14,13 +14,13 @@ const useStyles = makeStyles(() => ({
     backgroundColor:'#FFF',
     boxShadow:'none',
     paddingLeft:0
-    
+
   },
   menuButton: {
     position:'absolute',
     top:0,
     left:'15px',
-    ['@media (min-width:992px)']: { 
+    '@media (min-width:992px)': {
       display:'none'
     }
 
@@ -38,7 +38,7 @@ const useStyles = makeStyles(() => ({
     maxWidth:'250px',
     borderRadius:'0 30px 30px 0',
     zIndex:2017,
-    ['@media (min-width:992px)']: { 
+    '@media (min-width:992px)': {
       display:'none'
     }
   },
@@ -69,7 +69,7 @@ export default function NavBar({ users , name , avatar}) {
               open={state}
               onClose={toggleDrawer(false)}
               onOpen={toggleDrawer(true)}
-              disableBackdropTransition={!iOS} 
+              disableBackdropTransition={!iOS}
               disableDiscovery={iOS}
             >
               <Sidebar users={users} name={name} avatar={avatar}/>

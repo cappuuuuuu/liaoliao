@@ -128,12 +128,12 @@ const Chat = ({ location , socket , endPoint }) => {
             socket.removeAllListeners();
         } 
 
-    },[])
+    },[socket, location.search])
 
     // 根據是否有人正在打字，傳送某人打字狀態到 server
     useEffect(()=>{
         socket.emit('typing',{ isTyping  , name , avatar });
-    },[isTyping])
+    },[name, avatar, socket, isTyping])
 
     // 若 viewport底部 距離 messagesContainer底部 400px 以下 ， scrollbar 將滑至底部 
     const scrollController = () => {

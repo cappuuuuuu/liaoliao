@@ -18,7 +18,7 @@ const useStyles = makeStyles(() => ({
     color:'#727373',
     backgroundColor:'transparent',
     boxShadow:'none',
-   
+
   },
   title: {
     flexGrow: 1,
@@ -27,7 +27,7 @@ const useStyles = makeStyles(() => ({
   drawer: {
     backgroundColor:'#fff',
     height:'300px',
-    ['@media (max-width:576px)']: { 
+    '@media (max-width:576px)': {
       height:'auto',
     }
 
@@ -52,11 +52,11 @@ const useStyles = makeStyles(() => ({
   },
 
   stickerPopover :{
-    
+
     "& .MuiPopover-paper":{
       width:'500px' ,
       borderRadius:'10px'
-      
+
     }
   }
 
@@ -78,7 +78,7 @@ export default function Sticker({ sendSticker , stickers }) {
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
 
-  
+
   const toggleSticker = (open) => (event) => {
     if(window.innerWidth > 576) {
       handleClick(event);
@@ -90,7 +90,7 @@ export default function Sticker({ sendSticker , stickers }) {
     }
 
     //Mobile sticker toggle
-    setState(open); 
+    setState(open);
 
   };
 
@@ -98,7 +98,7 @@ export default function Sticker({ sendSticker , stickers }) {
       sendSticker(e);
       setState(false);
       setAnchorEl(null);
-  } 
+  }
 
 
 
@@ -136,7 +136,7 @@ export default function Sticker({ sendSticker , stickers }) {
                     open={state}
                     onClose={toggleSticker(false)}
                     onOpen={toggleSticker(true)}
-                    disableBackdropTransition={!iOS} 
+                    disableBackdropTransition={!iOS}
                     disableDiscovery={iOS}
                     >
                     <StickerList touchStickerHandler={ touchStickerHandler } stickers={stickers}/>
