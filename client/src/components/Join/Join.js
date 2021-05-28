@@ -33,7 +33,7 @@ const Success = (props) => {
 const LoginFieldsUser = (props) => {
     return (
         <div className="login_fields__user" >
-            <input placeholder="輸入暱稱" type="text" onChange = { props.getUser } />
+            <input placeholder="輸入暱稱" type="text" onChange = { props.getUser } onKeyDown = { props.onKeyDown }/>
         </div>
     )
 }
@@ -43,7 +43,7 @@ const LoginFields = (props) => {
 
     return (
         <div className="login_fields">
-            <LoginFieldsUser getUser={props.getUser} />
+            <LoginFieldsUser getUser={props.getUser} onKeyDown={ props.onKeyDown }/>
             <div className="login_fields__submit">
                 <Button className={props.checkProgress?'check':''} type="submit" onClick= { props.onClick } variant="outlined">
                     <div className="progress">
@@ -105,13 +105,15 @@ const Join = ({ history , socket }) => {
 
     },[checkUser])
 
-
-
     const loginRequest = () => {
         setCheckProgress(true);
         setCheckUser(false);
         setExistUser(false);
         socket.emit('checkUser', user);
+    }
+
+    const inputKeyDownHandler = (e) => {
+        if (e.key === 'Enter') loginRequest()
     }
 
     const getUser = (e) => {
@@ -183,7 +185,7 @@ const Join = ({ history , socket }) => {
             <div className={`login ${status}`}>
                 <div className='login-content'>
                     <Avatar getAvatar={getAvatar}/>
-                    <LoginFields onClick={ loginRequest } getUser={ getUser} checkProgress={checkProgress}/>
+                    <LoginFields onClick={ loginRequest } onKeyDown= { inputKeyDownHandler } getUser={ getUser} checkProgress={checkProgress} />
                     <Success success={success}/>
                 </div>
             </div>
