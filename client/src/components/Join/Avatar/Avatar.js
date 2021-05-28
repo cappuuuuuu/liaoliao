@@ -12,33 +12,30 @@ const AvatarContent = ({ i, getAvatar, avatar }) => {
   )
 }
 const Avatar = ({ getAvatar }) => {
-  return (
+  return(
     <div className="avatar-wrapper">
-      <ul>
+        <ul>
         {
-          avatars
-            .filter((avatar, i) => i < 4)
-            .map((avatar, i) => {
-              return (
-                <AvatarContent i={i} getAvatar={getAvatar} avatar={avatar} key={avatar} />
-              )
+            avatars.map((avatar,i)=>{
+                if(i >= 4) return ;
+                return(
+                    <AvatarContent i={i} getAvatar={getAvatar} avatar={avatar} key={avatar}/>
+                )
             })
         }
-      </ul>
-      <ul>
+        </ul>
+        <ul>
         {
-          avatars
-            .filter((avatar, i) => i >= 4)
-            .map((avatar, i) => {
-              return (
-                <AvatarContent i={i} getAvatar={getAvatar} avatar={avatar} key={avatar} />
-              )
+            avatars.map((avatar,i)=>{
+                if(i <=3 ) return ;
+                return(
+                    <AvatarContent i={i} getAvatar={getAvatar} avatar={avatar} key={avatar}/>
+                )
             })
         }
-      </ul>
+        </ul>
     </div>
   )
-
 }
 
 export default Avatar;
