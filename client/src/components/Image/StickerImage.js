@@ -16,4 +16,5 @@ addImages('rabbit');
 addImages('yosistamp');
 addImages('panda');
 addImages('cat');
+addImages('whitebear');
 export default stickers ;
