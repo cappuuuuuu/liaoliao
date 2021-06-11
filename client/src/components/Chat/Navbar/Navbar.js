@@ -5,16 +5,18 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import MenuIcon from '@material-ui/icons/Menu';
 import Sidebar from '../Sidebar/Sidebar';
 
 const useStyles = makeStyles(() => ({
   appBar:{
     color:'#35394a',
     backgroundColor:'#FFF',
-    boxShadow:'none',
-    paddingLeft:0
-
+    boxShadow:'0 0 6px 0 rgba(152, 132, 158, 0.76);',
+    paddingLeft:0,
+    '@media (min-width:992px)': {
+      boxShadow:'none',
+    },
   },
   menuButton: {
     position:'absolute',
@@ -31,7 +33,6 @@ const useStyles = makeStyles(() => ({
     textAlign:'center',
   },
 
-
   drawer: {
     backgroundColor:'#32465a',
     width:'70%',
@@ -42,7 +43,6 @@ const useStyles = makeStyles(() => ({
       display:'none'
     }
   },
-
 
 }));
 
@@ -76,7 +76,7 @@ export default function NavBar({ users , name , avatar}) {
           </SwipeableDrawer>
           <Typography className={classes.title}>
             <IconButton onClick={toggleDrawer(true)} edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-              <ChevronLeftIcon style={{width:35,height:35}}/>
+              <MenuIcon style={{width:30,height:35,color:'#2c3e50'}}/>
             </IconButton>
             聊天室
           </Typography>
