@@ -8,15 +8,15 @@ const Date = ({ messages , index }) => {
             return (
                 <div className="message-wrapper broadcast">
                     <div className="message new date">
-                        {moment((messages[index]).time).format("MMMDo")}
+                        {moment((messages[index]).time).format("ll")}
                     </div>  
                 </div>
             )
-        }else if(moment(messages[index].time).format("MMMDo") !== moment((messages[index - 1]).time).format("MMMDo")){
+        }else if(moment(messages[index].time).format("ll") !== moment((messages[index - 1]).time).format("ll")){
             return(
                 <div className="message-wrapper broadcast">
                     <div className="message new date">
-                        {moment((messages[index]).time).format("MMMDo")}
+                        {moment((messages[index]).time).format("ll")}
                     </div>  
                 </div>
             )
