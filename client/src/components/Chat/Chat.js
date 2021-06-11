@@ -5,6 +5,7 @@ import device from "current-device";
 import Backdrop from '@material-ui/core/Backdrop';
 import { animateScroll as scroll } from 'react-scroll';
 import IconButton from '@material-ui/core/IconButton';
+import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import SendIcon from '@material-ui/icons/Send';
 import { disableBodyScroll } from 'body-scroll-lock';
 

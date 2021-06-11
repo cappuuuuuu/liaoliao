@@ -215,6 +215,38 @@
 
     }
 }
+
+
+.back__to__top {
+    position: fixed;
+    z-index: 2;
+    right: 30px;
+    bottom: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color:#94b2d3;
+    border-radius: 10px;
+    cursor: pointer;
+    transform: translate(9999px);
+    opacity: 0;  
+    transition: opacity .3s ease;
+    -webkit-tap-highlight-color: transparent;
+
+    & .arrow__icon {
+        width: 20px;
+        height: 20px;
+    }
+
+    &.active {
+        transform: translate(0);
+        opacity: 1;
+        transition: opacity .3s ease;
+    }
+}
+
 @keyframes bounce { 
     0% { transform: matrix3d(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
     4.7% { transform: matrix3d(0.45, 0, 0, 0, 0, 0.45, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
@@ -243,8 +275,6 @@
 
 
 @media (max-width:992px){
-
-
     .messages{
         margin-bottom: 60px;
         .messages-content{
@@ -260,8 +290,10 @@
                 }
             }
         }
-        
     }
 
-    
+    .back__to__top {
+        bottom: 75px;
+        right: 20px;
+    }
 }

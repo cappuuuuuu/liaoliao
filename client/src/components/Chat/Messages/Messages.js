@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import moment from 'moment';
+import debounce from "lodash/debounce";
 import avatars from '../../Image/AvatarImage';
 import './Messages.scss';
 
@@ -26,11 +27,30 @@ const Date = ({ messages , index }) => {
 }
 
 const Messages = React.forwardRef(( { messages , name , isTyping } , ref) => {
-
     let time , prevMessageTime , repeat;
+    const [ backTopButtonActive, setbackTopButtonActive ] = useState(false)
+    const scrollDebounce = useCallback(debounce(() => {
+        setbackTopButtonActive(true)
+    }, 500), []);
+
+    const scrollHandler = () => {
+        setbackTopButtonActive(false)
+        scrollDebounce()
+    }
+
+    const scrollToTop = () => {
+        const DOM = document.querySelector('.messages')
+        DOM.scrollTo({
+            top: 0,
+            behavior: "smooth",
+        })
+    }
 
     return (
-      <div id="messages" className="messages" ref={ref.ref1}>
+      <div id="messages" className="messages" ref={ref.ref1} onScroll={ scrollHandler }>
+            <div className={`back__to__top ${ backTopButtonActive ? 'active' : '' }`} onClick={ scrollToTop }>
+                <img className="arrow__icon" src={require('../images/arrow-up.svg')} />
+            </div>
             <div className="messages-content" name="messgaes-content" ref={ref.ref2}>
                 { messages.map((message,i , messages)=>{
                    
