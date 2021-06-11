@@ -165,7 +165,8 @@ const Sidebar = ({ users, name, avatar }) => {
               })
             :
             <div style={{ fontSize: '.9rem', marginTop: '20px', color: '#5081AD' }}>
-              <p style={{ margin: '5px 0' }}>好無聊喔只有你一個人</p>
+              <p style={{ margin: '5px 0' }}>只有你一個人嗎 ?</p>
+              <p style={{ margin: '5px 0' }}>沒關係的 ! 作者陪你聊 😂</p>
             </div>
           }
         </ul>
