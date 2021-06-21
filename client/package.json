@@ -1,6 +1,7 @@
 {
-  "name": "client",
-  "version": "0.1.0",
+  "name": "liaoliao",
+  "version": "2.0.1",
+  "author": "Cappuu",
   "private": true,
   "dependencies": {
     "@babel/core": "7.9.0",

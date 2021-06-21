@@ -1,3 +1,26 @@
+.project__description {
+    position: absolute;
+    left: 50%;
+    bottom: 70px;
+    display: flex;
+    align-items: center;
+    transform: translateX(-50%);
+}
+
+.project__info {
+    font-size: 12px;
+    margin-right: 20px;
+    color: #5081ad;
+    white-space: nowrap;
+}
+
+.github__link__icon {
+    width: 30px;
+}
+
+.project__info__version {
+    text-align: left;
+}
 
 @media (max-width:992px){
     .sidebar{

@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import avatars from '../../Image/AvatarImage';
 import './Sidebar.scss';
+import projectInfo from '../../../configs/site';
 
 const useStyles = makeStyles(() => ({
 
@@ -145,6 +146,7 @@ const Sidebar = ({ users, name, avatar }) => {
       </div>
     )
   }
+  
   const List = () => {
     return (
       <div className={classes.list}>
@@ -170,6 +172,16 @@ const Sidebar = ({ users, name, avatar }) => {
             </div>
           }
         </ul>
+
+        <div className="project__description">
+          <div className="project__info">
+            <div className="project__info__author">Made By { projectInfo.author }</div>
+            <div className="project__info__version">v{ projectInfo.version }</div>
+          </div>
+          <a className="github__link" href={ projectInfo.githubProjectLink } target="_blank">
+            <img className="github__link__icon" src={require('./images/github-brands.svg')} />
+          </a>
+        </div>
 
         <div className={classes.buttonBar}>
           <Link to="/chat/logout"><Button><ExitToAppIcon style={{ marginRight: '10px', width: 20, height: 20 }} />登出</Button></Link>
