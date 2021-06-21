@@ -9,7 +9,7 @@
 建立一個即時性的 Web 聊天 APP
 
 # Demo
-<a href="https://liaoliao.netlify.app/">DEMO</a>
+<a href="https://cappuuliaoliao.netlify.app/">DEMO</a>
 
 # 聊天室功能
 * 基本的日期、時間、傳送貼圖訊息 
