@@ -7,8 +7,7 @@
 主要以 React 搭配 WebSocket 套件 socket.io 來進行前、後端訊息的接收與傳遞<br>
 建立一個即時性的 Web 聊天 APP
 
-# Demo
-<a href="https://cappuuliaoliao.netlify.app/">DEMO</a>
+# <a href="https://cappuuliaoliao.netlify.app/">Demo</a>
 
 # 版本更新 ( Latest version: v2.0.1 )
 v2.0.1
