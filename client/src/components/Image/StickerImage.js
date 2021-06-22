@@ -1,20 +1,27 @@
 let stickers= [];
 const addImages = ( name ) =>{
-        let items= [] ;
-        for(let i = 1 ; i < 9 ; i++){
+        let items = [] ;
+        let stickerTotalImage = 8
+
+        for(let i = 1 ; i < stickerTotalImage + 1 ; i++){
             items.push(require(`../../assets/sticker/${name}/${name}-${i}.png`));
         }
         stickers.push({
             name,
-            imageUrl:items
+            imageUrl: items,
         });
 }
 
+const stickerNameList = [
+    'rabbit',
+    'yosistamp',
+    'panda',
+    'cat',
+    'whitebear',
+    'whitebear_more_1',
+    'whitebear_more_2',
+    'whitebear_more_3',
+]
 
-// addImages('pepe-frog');
-addImages('rabbit');
-addImages('yosistamp');
-addImages('panda');
-addImages('cat');
-addImages('whitebear');
+stickerNameList.forEach(item => { addImages(item) })
 export default stickers ;

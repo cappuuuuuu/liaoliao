@@ -245,6 +245,11 @@
         opacity: 1;
         transition: opacity .3s ease;
     }
+
+    &.arriveTop { 
+        transform: translate(9999px);
+        opacity: 0;  
+    }
 }
 
 @keyframes bounce { 

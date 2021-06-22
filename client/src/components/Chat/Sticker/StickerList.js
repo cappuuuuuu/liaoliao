@@ -80,8 +80,9 @@ const useStyles = makeStyles((theme) => ({
   stickerList: {
     margin:'auto',
     listStyle: 'none',
-    overflow:'hidden',
+    overflow: 'hidden',
     padding:'10px',
+
     "& li":{
       display:'inline-flex', 
       boxSizing:'border-box',
@@ -93,7 +94,6 @@ const useStyles = makeStyles((theme) => ({
           margin:'auto',
           width:'80px',
       }
-
     }
   },
   stickerArticle: {

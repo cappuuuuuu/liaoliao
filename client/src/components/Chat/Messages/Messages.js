@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import moment from 'moment';
 import debounce from "lodash/debounce";
+import { animateScroll as scroll } from 'react-scroll';
 import avatars from '../../Image/AvatarImage';
 import './Messages.scss';
 
@@ -28,27 +29,30 @@ const Date = ({ messages , index }) => {
 
 const Messages = React.forwardRef(( { messages , name , isTyping } , ref) => {
     let time , prevMessageTime , repeat;
+    const messagesContainer = document.querySelector('.messages')
+    const [ scrollPosition, setScrollPosition ] = useState({ arriveTop: false, arriveBottom: false })
     const [ backTopButtonActive, setbackTopButtonActive ] = useState(false)
     const scrollDebounce = useCallback(debounce(() => {
         setbackTopButtonActive(true)
     }, 500), []);
 
+    const scrollToTop = () => {
+        scroll.scrollToTop({
+            containerId: 'messages', 
+            duration : 1000,
+        })
+    }
+
     const scrollHandler = () => {
         setbackTopButtonActive(false)
         scrollDebounce()
-    }
-
-    const scrollToTop = () => {
-        const DOM = document.querySelector('.messages')
-        DOM.scrollTo({
-            top: 0,
-            behavior: "smooth",
-        })
+        if (messagesContainer.scrollTop === 0) setScrollPosition({ ...scrollPosition, arriveTop: true })
+        else setScrollPosition({ ...scrollPosition, arriveTop: false })
     }
 
     return (
       <div id="messages" className="messages" ref={ref.ref1} onScroll={ scrollHandler }>
-            <div className={`back__to__top ${ backTopButtonActive ? 'active' : '' }`} onClick={ scrollToTop }>
+            <div className={`back__to__top ${ backTopButtonActive ? 'active' : '' } ${ scrollPosition.arriveTop ? 'arriveTop' : ''}`} onClick={ scrollToTop }>
                 <img className="arrow__icon" src={require('../images/arrow-up.svg')} />
             </div>
             <div className="messages-content" name="messgaes-content" ref={ref.ref2}>
