@@ -9,8 +9,8 @@
 
 # <a href="https://cappuuliaoliao.netlify.app/">Demo</a>
 
-# 版本更新 ( Latest version: v2.0.1 )
-v2.0.1
+# 版本更新 
+> v2.0.1 ( Latest version )
 * 新增吐槽白熊貼圖
 * 訊息日期新增年份
 * 修改泡泡背景上升長度、飛行時間
