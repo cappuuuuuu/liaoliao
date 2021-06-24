@@ -34,20 +34,21 @@ const Messages = React.forwardRef(( { messages , name , isTyping } , ref) => {
     const [ backTopButtonActive, setbackTopButtonActive ] = useState(false)
     const scrollDebounce = useCallback(debounce(() => {
         setbackTopButtonActive(true)
+        if (document.querySelector('.messages').scrollTop === 0) setScrollPosition({ ...scrollPosition, arriveTop: true })
+        else setScrollPosition({ ...scrollPosition, arriveTop: false })
     }, 500), []);
 
     const scrollToTop = () => {
         scroll.scrollToTop({
             containerId: 'messages', 
-            duration : 1000,
+            duration : 1500,
+            smooth: 'easeInOutQuint',
         })
     }
 
     const scrollHandler = () => {
         setbackTopButtonActive(false)
         scrollDebounce()
-        if (messagesContainer.scrollTop === 0) setScrollPosition({ ...scrollPosition, arriveTop: true })
-        else setScrollPosition({ ...scrollPosition, arriveTop: false })
     }
 
     return (
