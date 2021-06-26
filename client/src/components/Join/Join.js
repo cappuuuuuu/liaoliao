@@ -7,7 +7,7 @@ import Bubbles from '../Bubbles/Bubbles';
 import BongoCat from './BongoCat/BongoCat';
 import HomeLoader from '../Loader/HomeLoader';
 import ConsecutiveSnackbars from './Snackbar/Snackbar';
-import CheckUserLoader from '../Loader/CheckUserLoader';
+import CheckUserLoader from '../Loader/CircleLoader';
 
 //CSS
 import './Join.scss';

@@ -1,4 +1,4 @@
-import React, { useState, useEffect , useRef , useCallback} from 'react';
+import React, { useState, useEffect , useRef , useCallback } from 'react';
 import queryString from 'query-string';
 import debounce from "lodash/debounce";
 import device from "current-device";
@@ -22,6 +22,7 @@ import stickers from '../Image/StickerImage' ;
 
 // CSS
 import './Chat.scss';
+import { truncate } from 'lodash';
 
 
 const { getTime } = require('./Time/Time.js');
@@ -31,11 +32,12 @@ const Chat = ({ location , socket , endPoint }) => {
     const [name , setName] = useState('');
     const [avatar , setAvatar] = useState('');
     const [users, setUsers] = useState([]);
-    const [msg,setMsg] = useState('');
-    const [messages,setMessages] = useState([]);
-    const [isTyping,setTyping] = useState(false);
-    const [typingStatus,setTypingStatus] = useState([]);
-    const [loadingMessages,setLoadingMessages] = useState(true);
+    const [msg, setMsg] = useState('');
+    const [messages, setMessages] = useState([]);
+    const [isTyping, setTyping] = useState(false);
+    const [typingStatus, setTypingStatus] = useState([]);
+    const [loadingMessages, setLoadingMessages] = useState(true);
+    const [pullLoading, setpullLoading] = useState(false);
 
     //ref
     const inputText = useRef(null);
@@ -47,7 +49,9 @@ const Chat = ({ location , socket , endPoint }) => {
         const { name , avatar }  = queryString.parse(location.search);
         setName(name);
         setAvatar(avatar);
-        socket.emit('getRecord');
+
+        // 一開始先載入第一頁訊息
+        socket.emit('getRecord', 1);
 
         // 修正畫面滾動問題
         if(device.os === 'ios'){
@@ -78,15 +82,20 @@ const Chat = ({ location , socket , endPoint }) => {
             })
         })
         
-        socket.on('chatRecord',(history)=>{
-            setMessages([...history ]); 
-            scroll.scrollToBottom({
-                containerId: 'messages', 
-                duration : 1000,
-            })
+        socket.on('chatRecord', (history) =>{
+            const { page, data, total } = history
+            
+            setMessages(messages => [ ...data, ...messages ]);
             setLoadingMessages(false);
+            setpullLoading(false);
             let userData = queryString.parse(location.search);
-            socket.emit('join', userData );
+            if (page === 1) {
+                socket.emit('join', userData );
+                scroll.scrollToBottom({
+                    containerId: 'messages', 
+                    duration : 1000,
+                })
+            }
         })
 
         socket.on('getMessage',(data)=>{
@@ -183,6 +192,10 @@ const Chat = ({ location , socket , endPoint }) => {
         setMsg('');
     }
 
+    const loadMoreMessage = () => {
+        setpullLoading(true)
+    }
+
     return (
         <div className="chat-container">
             <div className="chat">
@@ -190,7 +203,15 @@ const Chat = ({ location , socket , endPoint }) => {
                 <Backdrop open={loadingMessages} style={{backgroundColor:'rgba(0,0,0,.75)',zIndex:'1',position:'absolute'}}>
                     <Timer />
                 </Backdrop>
-                <Messages messages={messages} name={name} isTyping={typingStatus} ref={{ref1:messagesContainer,ref2:messageContent}}/>
+                <Messages 
+                    loadMoreMessage={ loadMoreMessage } 
+                    pullLoading= {pullLoading}
+                    socket={socket} 
+                    messages={messages} 
+                    name={name} 
+                    isTyping={typingStatus} 
+                    ref={{ref1:messagesContainer,ref2:messageContent}}
+                />
                 <div className="message-box" ref={messageBox}>
                     <input type="text"
                     className="message-input"

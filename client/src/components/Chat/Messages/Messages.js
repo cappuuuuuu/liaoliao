@@ -1,9 +1,11 @@
-import React, { useState, useCallback } from 'react';
+import React, { useRef, useState, useCallback, useEffect } from 'react';
 import moment from 'moment';
+import MessageLoader from '../../Loader/CircleLoader';
 import debounce from "lodash/debounce";
 import { animateScroll as scroll } from 'react-scroll';
 import avatars from '../../Image/AvatarImage';
 import './Messages.scss';
+import { checkPropTypes } from 'prop-types';
 
 const Date = ({ messages , index }) => {
         if(index === 0){
@@ -27,16 +29,23 @@ const Date = ({ messages , index }) => {
     
 }
 
-const Messages = React.forwardRef(( { messages , name , isTyping } , ref) => {
+const Messages = React.forwardRef(( { messages , name , isTyping, socket, loadMoreMessage, pullLoading } , ref) => {
     let time , prevMessageTime , repeat;
     const messagesContainer = document.querySelector('.messages')
     const [ scrollPosition, setScrollPosition ] = useState({ arriveTop: false, arriveBottom: false })
     const [ backTopButtonActive, setbackTopButtonActive ] = useState(false)
+    const loadMessagePage = useRef(2)
+    const pullLoadingProps = useRef(false)
+
     const scrollDebounce = useCallback(debounce(() => {
         setbackTopButtonActive(true)
         if (document.querySelector('.messages').scrollTop === 0) setScrollPosition({ ...scrollPosition, arriveTop: true })
         else setScrollPosition({ ...scrollPosition, arriveTop: false })
     }, 500), []);
+
+    const scrollFewDebounce = useCallback(debounce(() => {
+        pullLoadMessage()
+    }, 100), []);
 
     const scrollToTop = () => {
         scroll.scrollToTop({
@@ -46,10 +55,24 @@ const Messages = React.forwardRef(( { messages , name , isTyping } , ref) => {
         })
     }
 
+    const pullLoadMessage = () => {
+        const arriveTop = document.querySelector('.messages').scrollTop < 10
+        if (arriveTop && !pullLoadingProps.current) {
+            socket.emit('getRecord', loadMessagePage.current)
+            loadMoreMessage() 
+            loadMessagePage.current++
+        }
+    }
+
     const scrollHandler = () => {
         setbackTopButtonActive(false)
         scrollDebounce()
+        scrollFewDebounce()
     }
+
+    useEffect(() => {
+        pullLoadingProps.current = pullLoading
+    }, [pullLoading])
 
     return (
       <div id="messages" className="messages" ref={ref.ref1} onScroll={ scrollHandler }>
@@ -57,6 +80,7 @@ const Messages = React.forwardRef(( { messages , name , isTyping } , ref) => {
                 <img className="arrow__icon" src={require('../images/arrow-up.svg')} />
             </div>
             <div className="messages-content" name="messgaes-content" ref={ref.ref2}>
+                <MessageLoader kind={'message'} load={ pullLoading }/>
                 { messages.map((message,i , messages)=>{
                    
                     repeat = false ;
