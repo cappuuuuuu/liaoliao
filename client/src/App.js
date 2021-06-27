@@ -9,8 +9,8 @@ const io = require('socket.io-client');
 let socket;
 
 const App = () => {
-  // const endPoint = 'https://caputalk.herokuapp.com/';
-  const endPoint = 'localhost:5000';
+  const endPoint = 'https://caputalk.herokuapp.com/';
+  // const endPoint = 'localhost:5000';
 
   socket = io(endPoint);
 
