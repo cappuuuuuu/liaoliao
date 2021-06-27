@@ -38,6 +38,7 @@ const Chat = ({ location , socket , endPoint }) => {
     const [typingStatus, setTypingStatus] = useState([]);
     const [loadingMessages, setLoadingMessages] = useState(true);
     const [pullLoading, setpullLoading] = useState(false);
+    const [totalMessagePage, setTotalMessagePage] = useState(0)
 
     //ref
     const inputText = useRef(null);
@@ -79,11 +80,16 @@ const Chat = ({ location , socket , endPoint }) => {
             scroll.scrollToBottom({
                 containerId: 'messages', 
                 duration : 1000,
+                ignoreCancelEvents: true,
             })
         })
         
         socket.on('chatRecord', (history) =>{
             const { page, data, total } = history
+            setTotalMessagePage(total)
+            for (const message of data) {
+                message.isHistoryMessage = true
+            }
             
             setMessages(messages => [ ...data, ...messages ]);
             setLoadingMessages(false);
@@ -211,6 +217,7 @@ const Chat = ({ location , socket , endPoint }) => {
                     name={name} 
                     isTyping={typingStatus} 
                     ref={{ref1:messagesContainer,ref2:messageContent}}
+                    totalMessagePage={totalMessagePage}
                 />
                 <div className="message-box" ref={messageBox}>
                     <input type="text"
