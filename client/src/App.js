@@ -11,7 +11,6 @@ let socket;
 const App = () => {
   const endPoint = 'https://caputalk.herokuapp.com/';
   // const endPoint = 'localhost:5000';
-
   socket = io(endPoint);
 
   return (

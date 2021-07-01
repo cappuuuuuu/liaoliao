@@ -62,7 +62,7 @@ const Messages = React.forwardRef(( { messages , name , isTyping, socket, loadMo
     const pullLoadMessage = () => {
         beforeMessageRenderScrollTop.current = document.querySelector('.messages').scrollTop
         const arriveTop = document.querySelector('.messages').scrollTop < 150
-        const hasGetFullMessage = loadMessagePage.current - 1 >= (totalMessagePage / 20) 
+        const hasGetFullMessage = loadMessagePage.current - 1 >= (totalMessagePage / 10) 
         if (hasGetFullMessage) return 
         if (arriveTop && !pullLoadingProps.current && !hasSendGetMessageHistoryRequest.current && scrollBarArriveBottom) {
             hasSendGetMessageHistoryRequest.current = true
@@ -88,7 +88,7 @@ const Messages = React.forwardRef(( { messages , name , isTyping, socket, loadMo
         if (!pullLoadingProps.current) {
             const offsetHeight = document.querySelector('.messages-content').offsetHeight - beforeUpdateContainerHeight.current - 65
             document.querySelector('.messages').scrollTop = offsetHeight + beforeMessageRenderScrollTop.current
-            hasSendGetMessageHistoryRequest.current = false
+            setTimeout(() => { hasSendGetMessageHistoryRequest.current = false }, 650)
         }
     }, [pullLoading])
 

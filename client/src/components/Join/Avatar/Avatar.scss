@@ -23,6 +23,8 @@
         background-color: #E9F4F6;
         transition: .3s;
         cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+        
         &:hover{
             transform:scale(1.3);
         }
