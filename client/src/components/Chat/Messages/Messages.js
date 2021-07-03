@@ -28,17 +28,15 @@ const Date = ({ messages , index }) => {
     
 }
 
-const Messages = React.forwardRef(( { messages , name , isTyping, socket, loadMoreMessage, pullLoading, totalMessagePage } , ref) => {
+const Messages = React.forwardRef(( { messages , name , isTyping, socket, loadMoreMessage, pullLoading, totalMessagePage, firstLoadingMessage } , ref) => {
     let time , prevMessageTime , repeat;
-    const messagesContainer = ref.ref1.current
     const [ scrollPosition, setScrollPosition ] = useState({ arriveTop: false, arriveBottom: false })
     const [ backTopButtonActive, setbackTopButtonActive ] = useState(false)
     const loadMessagePage = useRef(2)
     const pullLoadingProps = useRef(false)
     const beforeUpdateContainerHeight = useRef(0)
-    const hasSendGetMessageHistoryRequest = useRef(false)
     const beforeMessageRenderScrollTop = useRef(0)
-    const [scrollBarArriveBottom, setscrollBarArriveBottom] = useState(false)
+    const firstLoadingMessageProps = useRef(true)
 
     const scrollDebounce = useCallback(debounce(() => {
         const messagesContainer = document.querySelector('.messages')
@@ -46,10 +44,6 @@ const Messages = React.forwardRef(( { messages , name , isTyping, socket, loadMo
         if (messagesContainer.scrollTop === 0) setScrollPosition({ ...scrollPosition, arriveTop: true })
         else setScrollPosition({ ...scrollPosition, arriveTop: false })
     }, 500), []);
-
-    // const scrollFewDebounce = useCallback(debounce(() => {
-    //     pullLoadMessage()
-    // }, 100), []);
 
     const scrollToTop = () => {
         scroll.scrollToTop({
@@ -62,10 +56,15 @@ const Messages = React.forwardRef(( { messages , name , isTyping, socket, loadMo
     const pullLoadMessage = () => {
         beforeMessageRenderScrollTop.current = document.querySelector('.messages').scrollTop
         const arriveTop = document.querySelector('.messages').scrollTop < 150
+
+        // 若已經載完全部訊息，不執行請求加載訊息
         const hasGetFullMessage = loadMessagePage.current - 1 >= (totalMessagePage / 10) 
         if (hasGetFullMessage) return 
-        if (arriveTop && !pullLoadingProps.current && !hasSendGetMessageHistoryRequest.current && scrollBarArriveBottom) {
-            hasSendGetMessageHistoryRequest.current = true
+        
+        // 滿足加載訊息判斷 : scroll 符合範圍內、未在 loading 中、且一開始載入已達到底部
+        const fullFillRequest = arriveTop && !pullLoadingProps.current && !firstLoadingMessageProps.current
+
+        if (fullFillRequest) {
             socket.emit('getRecord', loadMessagePage.current)
             loadMoreMessage() 
             loadMessagePage.current++
@@ -77,10 +76,6 @@ const Messages = React.forwardRef(( { messages , name , isTyping, socket, loadMo
         setbackTopButtonActive(false)
         scrollDebounce()
         pullLoadMessage()
-        if (!scrollBarArriveBottom) {
-            const arriveBottom = messagesContainer.scrollTop + messagesContainer.offsetHeight === messagesContainer.scrollHeight
-            if (arriveBottom) setscrollBarArriveBottom(true)
-        }
     }
 
     useEffect(() => {
@@ -88,9 +83,12 @@ const Messages = React.forwardRef(( { messages , name , isTyping, socket, loadMo
         if (!pullLoadingProps.current) {
             const offsetHeight = document.querySelector('.messages-content').offsetHeight - beforeUpdateContainerHeight.current - 65
             document.querySelector('.messages').scrollTop = offsetHeight + beforeMessageRenderScrollTop.current
-            hasSendGetMessageHistoryRequest.current = false
         }
     }, [pullLoading])
+
+    useEffect(() => {
+        firstLoadingMessageProps.current = firstLoadingMessage
+    }, [firstLoadingMessage])
 
     return (
       <div id="messages" className="messages" ref={ref.ref1} onScroll={ scrollHandler }>

@@ -33,7 +33,7 @@ const Chat = ({ location , socket , endPoint }) => {
     const [messages, setMessages] = useState([]);
     const [isTyping, setTyping] = useState(false);
     const [typingStatus, setTypingStatus] = useState([]);
-    const [loadingMessages, setLoadingMessages] = useState(true);
+    const [firstLoadingMessage, setfirstLoadingMessage] = useState(true);
     const [pullLoading, setpullLoading] = useState(false);
     const [totalMessagePage, setTotalMessagePage] = useState(0)
 
@@ -90,17 +90,20 @@ const Chat = ({ location , socket , endPoint }) => {
                 setTimeout(() => {
                     setMessages(messages => [ ...data, ...messages ]);
                     setpullLoading(false);
-                }, 500)
+                }, 1000)
             } else {
                 // 第一次載入
                 let userData = queryString.parse(location.search);
                 setMessages(messages => [ ...data, ...messages ]);
-                setLoadingMessages(false);
                 socket.emit('join', userData );
                 scroll.scrollToBottom({
                     containerId: 'messages', 
                     duration : 1000,
+                    ignoreCancelEvents: true,
                 })
+                setTimeout(() => {
+                    setfirstLoadingMessage(false);
+                }, 1100)
             }
         })
 
@@ -206,11 +209,12 @@ const Chat = ({ location , socket , endPoint }) => {
         <div className="chat-container">
             <div className="chat">
                 <Navbar users={users} name={name} avatar={avatar}/>
-                <Backdrop open={loadingMessages} style={{backgroundColor:'rgba(0,0,0,.75)',zIndex:'1',position:'absolute'}}>
+                <Backdrop open={firstLoadingMessage} style={{backgroundColor:'rgba(0,0,0,.75)',zIndex:'1',position:'absolute'}}>
                     <Timer />
                 </Backdrop>
                 <Messages 
                     loadMoreMessage={ loadMoreMessage } 
+                    firstLoadingMessage = {firstLoadingMessage}
                     pullLoading= {pullLoading}
                     socket={socket} 
                     messages={messages} 
