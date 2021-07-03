@@ -5,7 +5,6 @@ import device from "current-device";
 import Backdrop from '@material-ui/core/Backdrop';
 import { animateScroll as scroll } from 'react-scroll';
 import IconButton from '@material-ui/core/IconButton';
-import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import SendIcon from '@material-ui/icons/Send';
 import { disableBodyScroll } from 'body-scroll-lock';
 
@@ -22,8 +21,6 @@ import stickers from '../Image/StickerImage' ;
 
 // CSS
 import './Chat.scss';
-import { truncate } from 'lodash';
-
 
 const { getTime } = require('./Time/Time.js');
 
@@ -87,15 +84,18 @@ const Chat = ({ location , socket , endPoint }) => {
         socket.on('chatRecord', (history) =>{
             const { page, data, total } = history
             setTotalMessagePage(total)
-            for (const message of data) {
-                message.isHistoryMessage = true
-            }
-            
-            setMessages(messages => [ ...data, ...messages ]);
-            setLoadingMessages(false);
-            setpullLoading(false);
-            let userData = queryString.parse(location.search);
-            if (page === 1) {
+
+            // 上拉加載 
+            if (page !== 1) {
+                setTimeout(() => {
+                    setMessages(messages => [ ...data, ...messages ]);
+                    setpullLoading(false);
+                }, 500)
+            } else {
+                // 第一次載入
+                let userData = queryString.parse(location.search);
+                setMessages(messages => [ ...data, ...messages ]);
+                setLoadingMessages(false);
                 socket.emit('join', userData );
                 scroll.scrollToBottom({
                     containerId: 'messages', 

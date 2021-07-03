@@ -39,7 +39,6 @@ const Messages = React.forwardRef(( { messages , name , isTyping, socket, loadMo
     const hasSendGetMessageHistoryRequest = useRef(false)
     const beforeMessageRenderScrollTop = useRef(0)
     const [scrollBarArriveBottom, setscrollBarArriveBottom] = useState(false)
-    const safariDelayCanGetMessage = useRef(true)
 
     const scrollDebounce = useCallback(debounce(() => {
         const messagesContainer = document.querySelector('.messages')
@@ -65,11 +64,9 @@ const Messages = React.forwardRef(( { messages , name , isTyping, socket, loadMo
         const arriveTop = document.querySelector('.messages').scrollTop < 150
         const hasGetFullMessage = loadMessagePage.current - 1 >= (totalMessagePage / 10) 
         if (hasGetFullMessage) return 
-        if (!safariDelayCanGetMessage.current) return
         if (arriveTop && !pullLoadingProps.current && !hasSendGetMessageHistoryRequest.current && scrollBarArriveBottom) {
             hasSendGetMessageHistoryRequest.current = true
             socket.emit('getRecord', loadMessagePage.current)
-            safariDelayCanGetMessage.current = false
             loadMoreMessage() 
             loadMessagePage.current++
             beforeUpdateContainerHeight.current = document.querySelector('.messages-content').offsetHeight
@@ -92,7 +89,6 @@ const Messages = React.forwardRef(( { messages , name , isTyping, socket, loadMo
             const offsetHeight = document.querySelector('.messages-content').offsetHeight - beforeUpdateContainerHeight.current - 65
             document.querySelector('.messages').scrollTop = offsetHeight + beforeMessageRenderScrollTop.current
             hasSendGetMessageHistoryRequest.current = false
-            setTimeout(() => { safariDelayCanGetMessage.current = true }, 200)
         }
     }, [pullLoading])
 
