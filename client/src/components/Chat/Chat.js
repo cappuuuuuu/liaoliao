@@ -90,7 +90,7 @@ const Chat = ({ location , socket , endPoint }) => {
                 setTimeout(() => {
                     setMessages(messages => [ ...data, ...messages ]);
                     setpullLoading(false);
-                }, 1000)
+                }, 750)
             } else {
                 // 第一次載入
                 let userData = queryString.parse(location.search);

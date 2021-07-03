@@ -37,6 +37,7 @@ const Messages = React.forwardRef(( { messages , name , isTyping, socket, loadMo
     const beforeUpdateContainerHeight = useRef(0)
     const beforeMessageRenderScrollTop = useRef(0)
     const firstLoadingMessageProps = useRef(true)
+    const hasSendGetMessageHistoryRequest = useRef(false)
 
     const scrollDebounce = useCallback(debounce(() => {
         const messagesContainer = document.querySelector('.messages')
@@ -61,10 +62,11 @@ const Messages = React.forwardRef(( { messages , name , isTyping, socket, loadMo
         const hasGetFullMessage = loadMessagePage.current - 1 >= (totalMessagePage / 10) 
         if (hasGetFullMessage) return 
         
-        // 滿足加載訊息判斷 : scroll 符合範圍內、未在 loading 中、且一開始載入已達到底部
-        const fullFillRequest = arriveTop && !pullLoadingProps.current && !firstLoadingMessageProps.current
+        // 滿足加載訊息判斷 
+        const fullFillRequest = arriveTop && !pullLoadingProps.current && !firstLoadingMessageProps.current && !hasSendGetMessageHistoryRequest.current
 
         if (fullFillRequest) {
+            hasSendGetMessageHistoryRequest.current = true
             socket.emit('getRecord', loadMessagePage.current)
             loadMoreMessage() 
             loadMessagePage.current++
@@ -83,6 +85,7 @@ const Messages = React.forwardRef(( { messages , name , isTyping, socket, loadMo
         if (!pullLoadingProps.current) {
             const offsetHeight = document.querySelector('.messages-content').offsetHeight - beforeUpdateContainerHeight.current - 65
             document.querySelector('.messages').scrollTop = offsetHeight + beforeMessageRenderScrollTop.current
+            hasSendGetMessageHistoryRequest.current = false
         }
     }, [pullLoading])
 
