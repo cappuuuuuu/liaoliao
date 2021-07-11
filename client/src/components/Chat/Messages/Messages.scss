@@ -65,6 +65,7 @@
             }
 
         }
+
         &.broadcast {
             width: 100%;
             max-width: 100%;
@@ -73,6 +74,7 @@
             margin:5px 0 !important;
             
             .message{
+                text-align: center;
                 background-color: #7495b8;
                 border-radius: 10px;
                 font-size: .75rem;
@@ -83,6 +85,22 @@
             }
         }
 
+        &.load-message-status {
+            display: none;
+            justify-content: center;
+
+            &.load-complete {
+                display: flex;
+                width: 100%;
+                margin-bottom: 5px;
+
+                & .message {
+                    font-size: 16px;
+                    padding: 8px 20px;
+                    letter-spacing: 3px
+                }
+            }
+        }
 
         .time{
             position: absolute;

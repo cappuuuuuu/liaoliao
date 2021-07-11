@@ -27,7 +27,7 @@ const Date = ({ messages , index }) => {
         return null ;
 }
 
-const Messages = React.forwardRef(( { messages , name , isTyping, socket, loadMoreMessage, pullLoading, totalMessagePage, firstLoadingMessage } , ref) => {
+const Messages = React.forwardRef(( { messages , name , isTyping, socket, loadMoreMessage, pullLoading, totalMessageCount, firstLoadingMessage } , ref) => {
     let time , prevMessageTime , repeat;
     const [ scrollPosition, setScrollPosition ] = useState({ arriveTop: false, arriveBottom: false })
     const [ backTopButtonActive, setbackTopButtonActive ] = useState(false)
@@ -37,6 +37,7 @@ const Messages = React.forwardRef(( { messages , name , isTyping, socket, loadMo
     const beforeMessageRenderScrollTop = useRef(0)
     const firstLoadingMessageProps = useRef(true)
     const hasSendGetMessageHistoryRequest = useRef(false)
+    const loadMessageCount = 10
    
     const scrollDebounce = useCallback(debounce(() => {
         const messagesContainer = document.querySelector('.messages')
@@ -58,7 +59,7 @@ const Messages = React.forwardRef(( { messages , name , isTyping, socket, loadMo
         const arriveTop = document.querySelector('.messages').scrollTop < 150
 
         // 若已經載完全部訊息，不執行請求加載訊息
-        const hasGetFullMessage = loadMessagePage.current - 1 >= (totalMessagePage / 10) 
+        const hasGetFullMessage = loadMessagePage.current - 1 >= (totalMessageCount / loadMessageCount) 
         if (hasGetFullMessage) return 
         
         // 滿足加載訊息判斷 
@@ -68,7 +69,7 @@ const Messages = React.forwardRef(( { messages , name , isTyping, socket, loadMo
 
             const getRecordRequestBody = {
                 page: loadMessagePage.current,
-                loadCount: 10,
+                loadCount: loadMessageCount,
             }
         
             hasSendGetMessageHistoryRequest.current = true
@@ -104,6 +105,9 @@ const Messages = React.forwardRef(( { messages , name , isTyping, socket, loadMo
                 <img className="arrow__icon" src={require('../images/arrow-up.svg')} />
             </div>
             <div className="messages-content" name="messgaes-content" ref={ref.ref2}>
+                <div className={ `message-wrapper broadcast load-message-status ${totalMessageCount && messages.filter(item => item.msg).length === totalMessageCount ? 'load-complete' : ''}`}>
+                    <div className="message">這是最上面囉🥲</div>
+                </div>
                 <MessageLoader kind={'message'} load={ pullLoading }/>
                 { messages.map((message, i , messages) => {
                     repeat = false ;

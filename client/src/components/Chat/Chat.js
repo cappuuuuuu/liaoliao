@@ -35,7 +35,7 @@ const Chat = ({ location , socket , endPoint }) => {
     const [typingStatus, setTypingStatus] = useState([]);
     const [firstLoadingMessage, setfirstLoadingMessage] = useState(true);
     const [pullLoading, setpullLoading] = useState(false);
-    const [totalMessagePage, setTotalMessagePage] = useState(0)
+    const [totalMessageCount, setTotalMessageCount] = useState(0)
 
     //ref
     const inputText = useRef(null);
@@ -88,7 +88,7 @@ const Chat = ({ location , socket , endPoint }) => {
         
         socket.on('chatRecord', (history) =>{
             const { page, data, total } = history
-            setTotalMessagePage(total)
+            setTotalMessageCount(total)
 
             // 上拉加載 
             if (page !== 1) {
@@ -226,7 +226,7 @@ const Chat = ({ location , socket , endPoint }) => {
                     name={name} 
                     isTyping={typingStatus} 
                     ref={{ref1:messagesContainer,ref2:messageContent}}
-                    totalMessagePage={totalMessagePage}
+                    totalMessageCount={totalMessageCount}
                 />
                 <div className="message-box" ref={messageBox}>
                     <input type="text"
