@@ -48,8 +48,13 @@ const Chat = ({ location , socket , endPoint }) => {
         setName(name);
         setAvatar(avatar);
 
+        const getRecordRequestBody = {
+            page: 1,
+            loadCount: 10,
+        }
+
         // 一開始先載入第一頁訊息
-        socket.emit('getRecord', 1);
+        socket.emit('getRecord', getRecordRequestBody);
 
         // 修正畫面滾動問題
         if(device.os === 'ios'){

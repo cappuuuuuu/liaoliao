@@ -19,11 +19,11 @@ app.use(cors());
 
 io.on('connection', (socket) => {
 
-    socket.on('getRecord', async (page) => {
-        const loadNumber = 10
+    socket.on('getRecord', async ({ page, loadCount = 10 }) => {
+        const loadCount = 10
         const allHistory = await getData()
-        const sliceIndex = allHistory.length - (page - 1) * loadNumber
-        const pageHistory = allHistory.slice(sliceIndex - loadNumber < 0 ? 0 : sliceIndex - loadNumber, sliceIndex)
+        const sliceIndex = allHistory.length - (page - 1) * loadCount
+        const pageHistory = allHistory.slice(sliceIndex - loadCount < 0 ? 0 : sliceIndex - loadCount, sliceIndex)
         const data = {
           page: page,
           data: pageHistory,

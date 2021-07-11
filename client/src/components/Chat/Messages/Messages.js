@@ -37,7 +37,7 @@ const Messages = React.forwardRef(( { messages , name , isTyping, socket, loadMo
     const beforeMessageRenderScrollTop = useRef(0)
     const firstLoadingMessageProps = useRef(true)
     const hasSendGetMessageHistoryRequest = useRef(false)
-
+   
     const scrollDebounce = useCallback(debounce(() => {
         const messagesContainer = document.querySelector('.messages')
         setbackTopButtonActive(true)
@@ -65,8 +65,14 @@ const Messages = React.forwardRef(( { messages , name , isTyping, socket, loadMo
         const fullFillRequest = arriveTop && !pullLoadingProps.current && !firstLoadingMessageProps.current && !hasSendGetMessageHistoryRequest.current
 
         if (fullFillRequest) {
+
+            const getRecordRequestBody = {
+                page: loadMessagePage.current,
+                loadCount: 10,
+            }
+        
             hasSendGetMessageHistoryRequest.current = true
-            socket.emit('getRecord', loadMessagePage.current)
+            socket.emit('getRecord', getRecordRequestBody)
             loadMoreMessage() 
             loadMessagePage.current++
             beforeUpdateContainerHeight.current = document.querySelector('.messages-content').offsetHeight
