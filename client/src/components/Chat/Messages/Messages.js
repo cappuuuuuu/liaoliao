@@ -7,7 +7,7 @@ import avatars from '../../Image/AvatarImage';
 import './Messages.scss';
 
 const Date = ({ messages , index }) => {
-        if(index === 0){
+        if (index === 0) {
             return (
                 <div className="message-wrapper broadcast">
                     <div className="message new date">
@@ -15,7 +15,7 @@ const Date = ({ messages , index }) => {
                     </div>  
                 </div>
             )
-        }else if(moment(messages[index].time).format("ll") !== moment((messages[index - 1]).time).format("ll")){
+        } else if (moment(messages[index].time).format("ll") !== moment((messages[index - 1]).time).format("ll")) {
             return(
                 <div className="message-wrapper broadcast">
                     <div className="message new date">
@@ -25,7 +25,6 @@ const Date = ({ messages , index }) => {
             )
         }
         return null ;
-    
 }
 
 const Messages = React.forwardRef(( { messages , name , isTyping, socket, loadMoreMessage, pullLoading, totalMessagePage, firstLoadingMessage } , ref) => {
