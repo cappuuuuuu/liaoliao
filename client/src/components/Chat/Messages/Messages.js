@@ -37,6 +37,7 @@ const Messages = React.forwardRef(( { messages , name , isTyping, socket, loadMo
     const beforeMessageRenderScrollTop = useRef(0)
     const firstLoadingMessageProps = useRef(true)
     const hasSendGetMessageHistoryRequest = useRef(false)
+    const scrollBarArriveBottom = useRef(false)
     const loadMessageCount = 10
    
     const scrollDebounce = useCallback(debounce(() => {
@@ -63,10 +64,9 @@ const Messages = React.forwardRef(( { messages , name , isTyping, socket, loadMo
         if (hasGetFullMessage) return 
         
         // 滿足加載訊息判斷 
-        const fullFillRequest = arriveTop && !pullLoadingProps.current && !firstLoadingMessageProps.current && !hasSendGetMessageHistoryRequest.current
+        const fullFillRequest = arriveTop && !pullLoadingProps.current && !firstLoadingMessageProps.current && !hasSendGetMessageHistoryRequest.current && scrollBarArriveBottom.current
 
         if (fullFillRequest) {
-
             const getRecordRequestBody = {
                 page: loadMessagePage.current,
                 loadCount: loadMessageCount,
@@ -84,6 +84,11 @@ const Messages = React.forwardRef(( { messages , name , isTyping, socket, loadMo
         setbackTopButtonActive(false)
         scrollDebounce()
         pullLoadMessage()
+        if (!scrollBarArriveBottom.current) {
+            const messagesContainer = document.querySelector('.messages')
+            const arriveBottom = messagesContainer.scrollTop + messagesContainer.offsetHeight === messagesContainer.scrollHeight
+            if (arriveBottom) scrollBarArriveBottom.current = true
+        }
     }
 
     useEffect(() => {
