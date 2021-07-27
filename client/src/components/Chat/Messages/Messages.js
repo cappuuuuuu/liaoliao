@@ -111,7 +111,7 @@ const Messages = React.forwardRef(( { messages , name , isTyping, socket, loadMo
             </div>
             <div className="messages-content" name="messgaes-content" ref={ref.ref2}>
                 <div className={ `message-wrapper broadcast load-message-status ${totalMessageCount && messages.filter(item => item.msg).length === totalMessageCount ? 'load-complete' : ''}`}>
-                    <div className="message">這是最上面囉🥲</div>
+                    <div className="message">已經沒有更多訊息了!</div>
                 </div>
                 <MessageLoader kind={'message'} load={ pullLoading }/>
                 { messages.map((message, i , messages) => {

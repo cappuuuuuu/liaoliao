@@ -1,4 +1,5 @@
 import React, { useState, useEffect , useRef , useCallback } from 'react';
+import { useSelector } from 'react-redux';
 import queryString from 'query-string';
 import debounce from "lodash/debounce";
 import device from "current-device";
@@ -7,6 +8,7 @@ import { animateScroll as scroll } from 'react-scroll';
 import IconButton from '@material-ui/core/IconButton';
 import SendIcon from '@material-ui/icons/Send';
 import { disableBodyScroll } from 'body-scroll-lock';
+import { activeBubbleBackground } from '../../features/bubbleBackground/bubbleBackgroundSlice';
 
 // components
 import Messages from './Messages/Messages';
@@ -36,6 +38,7 @@ const Chat = ({ location , socket , endPoint }) => {
     const [firstLoadingMessage, setfirstLoadingMessage] = useState(true);
     const [pullLoading, setpullLoading] = useState(false);
     const [totalMessageCount, setTotalMessageCount] = useState(0)
+    const bubbleBackground = useSelector(activeBubbleBackground);
 
     //ref
     const inputText = useRef(null);
@@ -246,7 +249,9 @@ const Chat = ({ location , socket , endPoint }) => {
             <div className='desktopSidebar'>
                 <Sidebar users={users} name={name} avatar={avatar}/>
             </div>   
-            <Bubbles />
+            <div className="bubbles__container" style={ bubbleBackground ? { visibility: 'visible' } : { visibility: 'hidden' }}>
+                <Bubbles />
+            </div>
         </div>
 
     )

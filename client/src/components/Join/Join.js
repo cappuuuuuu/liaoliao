@@ -73,7 +73,6 @@ const Join = ({ history , socket }) => {
     const firstRender = useRef(true);
     const consecutiveSnackbars = useRef(null);
 
-
     useEffect(()=>{
         if (!!window.performance && window.performance.navigation.type === 0) {
             //!! 用來檢查 window.performance 是否存在

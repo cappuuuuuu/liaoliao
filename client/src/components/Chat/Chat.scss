@@ -61,6 +61,7 @@ body{
     display: flex;
     justify-content: space-between;
     flex-direction: column;
+    background: rgba(148, 178, 211, 0.05);
 }
 
 .chat-title {
@@ -174,7 +175,6 @@ body{
         height: 100%; 
         max-height: none;
         border-radius:0;
-        background: transparent;
     }
     .desktopSidebar{
         display: none;
