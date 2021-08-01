@@ -168,7 +168,7 @@ const Sidebar = ({ users, name, avatar }) => {
             :
             <div style={{ fontSize: '.9rem', marginTop: '20px', color: '#5081AD' }}>
               <p style={{ margin: '5px 0' }}>只有你一個人嗎 ?</p>
-              <p style={{ margin: '5px 0' }}>沒關係的 ! 作者陪你聊 😂</p>
+              <p style={{ margin: '5px 0' }}>沒關係的 ! 作者陪你聊 <span role="img" aria-label="smile">😂</span></p>
             </div>
           }
         </ul>
@@ -178,8 +178,8 @@ const Sidebar = ({ users, name, avatar }) => {
             <div className="project__info__author">Made By { projectInfo.author }</div>
             <div className="project__info__version">v{ projectInfo.version }</div>
           </div>
-          <a className="github__link" href={ projectInfo.githubProjectLink } target="_blank">
-            <img className="github__link__icon" src={require('./images/github-brands.svg')} />
+          <a className="github__link" href={ projectInfo.githubProjectLink } target="_blank" rel="noopener noreferrer">
+            <img className="github__link__icon" src={require('./images/github-brands.svg')} alt=""/>
           </a>
         </div>
 

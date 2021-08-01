@@ -8,7 +8,7 @@ import { animateScroll as scroll } from 'react-scroll';
 import IconButton from '@material-ui/core/IconButton';
 import SendIcon from '@material-ui/icons/Send';
 import { disableBodyScroll } from 'body-scroll-lock';
-import { activeBubbleBackground } from '../../features/bubbleBackground/bubbleBackgroundSlice';
+import { activeBubbleBackground } from '@/features/bubbleBackground/bubbleBackgroundSlice';
 
 // components
 import Messages from './Messages/Messages';

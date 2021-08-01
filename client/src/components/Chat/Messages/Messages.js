@@ -107,7 +107,7 @@ const Messages = React.forwardRef(( { messages , name , isTyping, socket, loadMo
     return (
       <div id="messages" className="messages" ref={ref.ref1} onScroll={ scrollHandler }>
             <div className={`back__to__top ${ backTopButtonActive ? 'active' : '' } ${ scrollPosition.arriveTop ? 'arriveTop' : ''}`} onClick={ scrollToTop }>
-                <img className="arrow__icon" src={require('../images/arrow-up.svg')} />
+                <img className="arrow__icon" src={require('../images/arrow-up.svg')} alt=""/>
             </div>
             <div className="messages-content" name="messgaes-content" ref={ref.ref2}>
                 <div className={ `message-wrapper broadcast load-message-status ${totalMessageCount && messages.filter(item => item.msg).length === totalMessageCount ? 'load-complete' : ''}`}>

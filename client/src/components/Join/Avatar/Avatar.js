@@ -17,7 +17,7 @@ const Avatar = ({ getAvatar }) => {
         <ul>
         {
             avatars.map((avatar,i)=>{
-                if(i >= 4) return ;
+                if(i >= 4) return null;
                 return(
                     <AvatarContent i={i} getAvatar={getAvatar} avatar={avatar} key={avatar}/>
                 )
@@ -27,7 +27,7 @@ const Avatar = ({ getAvatar }) => {
         <ul>
         {
             avatars.map((avatar,i)=>{
-                if(i <=3 ) return ;
+                if(i <=3 ) return null;
                 return(
                     <AvatarContent i={i} getAvatar={getAvatar} avatar={avatar} key={avatar}/>
                 )
