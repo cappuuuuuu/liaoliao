@@ -9,11 +9,12 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch'
 import IconButton from '@material-ui/core/IconButton'
 import MoreVertIcon from '@material-ui/icons/MoreVert'
+import ShareIcon from '@material-ui/icons/Share';
 import './style.scss';
 
 const menuList = [
   { label: '背景泡泡效果', name: 'bubbleBackground', hasSwitch: true },
-  { label: '分享', name: 'share'},
+  { label: '分享', name: 'share', icon: ShareIcon },
 ]
 
 const useStyles = makeStyles(() => ({
@@ -30,6 +31,13 @@ const useStyles = makeStyles(() => ({
     '&:last-child': {
       paddingBottom: '15px',
     },
+  },
+
+  menuItemIcon: {
+    marginLeft: '12px',
+    marginBottom: '2px',
+    fontSize: '18px',
+    color: '#5081ad',
   },
 
   moreVertIcon: {
@@ -80,6 +88,18 @@ export default function MoreVertMenu () {
     dispatch(toggle())
   }
 
+  const menuItemClickHandler = (name) => {
+    if (navigator.share && name === 'share') {
+      navigator.share({
+        title: document.title,
+        text: 'ㄌㄌ',
+        url: window.location.host,
+      })
+        .then(() => console.log('分享成功！'))
+        .catch((error) => console.warn('分享發生錯誤 !', error));
+    }
+  }
+
   return (
     <div>
       <IconButton 
@@ -115,7 +135,9 @@ export default function MoreVertMenu () {
             <MenuItem 
               className={classes.menuItem} 
               key={item.label}
+              onClick={() => menuItemClickHandler(item.name)}
             > { item.label }
+              { item?.icon ? React.createElement(item.icon, { className: classes.menuItemIcon }) : null }
             </MenuItem>
         ))}
       </FormGroup>
