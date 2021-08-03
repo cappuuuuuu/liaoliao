@@ -89,7 +89,9 @@ export default function MoreVertMenu () {
 
   const menuItemClickHandler = (name) => {
     if (navigator.share && name === 'share') {
-      navigator.share()
+      navigator.share({
+        url: window.location.origin,
+      })
         .then(() => console.log('分享成功！'))
         .catch((error) => console.warn('分享發生錯誤 !', error));
     }
