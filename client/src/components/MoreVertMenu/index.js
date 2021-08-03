@@ -35,7 +35,6 @@ const useStyles = makeStyles(() => ({
 
   menuItemIcon: {
     marginLeft: '12px',
-    marginBottom: '2px',
     fontSize: '18px',
     color: '#5081ad',
   },
@@ -90,11 +89,7 @@ export default function MoreVertMenu () {
 
   const menuItemClickHandler = (name) => {
     if (navigator.share && name === 'share') {
-      navigator.share({
-        title: document.title,
-        text: 'ㄌㄌ',
-        url: window.location.host,
-      })
+      navigator.share()
         .then(() => console.log('分享成功！'))
         .catch((error) => console.warn('分享發生錯誤 !', error));
     }
