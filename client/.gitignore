@@ -2,8 +2,10 @@ node_modules/
 build/
 .DS_Store
 package-lock.json
+src/configs/index.json
 
 # Project custom
 .env.development
+.env.config.json
 localhost-key.pem
 localhost.pem

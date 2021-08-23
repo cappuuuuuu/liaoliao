@@ -24,7 +24,7 @@
     "case-sensitive-paths-webpack-plugin": "2.3.0",
     "css-loader": "3.4.2",
     "current-device": "^0.10.1",
-    "dotenv": "8.2.0",
+    "dotenv": "^10.0.0",
     "dotenv-expand": "5.1.0",
     "eslint": "^6.6.0",
     "eslint-config-react-app": "^5.2.1",
@@ -82,12 +82,14 @@
     "webpack": "4.42.0",
     "webpack-dev-server": "^3.11.2",
     "webpack-manifest-plugin": "2.2.0",
-    "workbox-webpack-plugin": "4.3.1"
+    "workbox-webpack-plugin": "4.3.1",
+    "yargs": "^17.1.0"
   },
   "scripts": {
     "start": "HTTPS=true node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js"
+    "test": "node scripts/test.js",
+    "env": "node scripts/env/index.js"
   },
   "eslintConfig": {
     "extends": "react-app"
