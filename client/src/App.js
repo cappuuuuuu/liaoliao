@@ -1,18 +1,15 @@
-import dotenv from 'dotenv'
 import React from 'react';
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import { AnimatedSwitch } from 'react-router-transition';
 import Join from './components/Join/Join';
 import Chat from './components/Chat/Chat';
+import { SOCKET_END_POINT } from '@/configs/index.json'
 import './AnimatedSwitch.css';
 const io = require('socket.io-client');
-require('dotenv').config()
 
 const App = () => {
-  // const isDevMode = process.env === 'development'
-  // const isProductMode = process.env === 'production'
-  console.log(JSON.stringify(process.env))
-  const endPoint = 'https://caputalk.herokuapp.com/'
+  const useProductServer = process.env.NODE_ENV === 'production'
+  const endPoint = useProductServer ? 'https://caputalk.herokuapp.com/' : SOCKET_END_POINT
   const socket = io(endPoint);
 
   return (
