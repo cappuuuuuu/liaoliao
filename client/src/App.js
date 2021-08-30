@@ -5,9 +5,9 @@ import Join from './components/Join/Join';
 import Chat from './components/Chat/Chat';
 import { getConfigsJSONFromLocal } from '@/helper'
 import './AnimatedSwitch.css';
+require('dotenv').config()
 
-const io = require('socket.io-client');
-console.log(process.env)
+const io = require('socket.io-client')
 const { SOCKET_END_POINT } = getConfigsJSONFromLocal() || process.env
 
 const App = () => {
