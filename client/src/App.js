@@ -7,8 +7,7 @@ import { getConfigsJSONFromLocal } from '@/helper'
 import './AnimatedSwitch.css';
 
 const io = require('socket.io-client');
-const productServerSocketEndPoint = 'https://caputalk.herokuapp.com/'
-const { SOCKET_END_POINT } = getConfigsJSONFromLocal() || { SOCKET_END_POINT: productServerSocketEndPoint }
+const { SOCKET_END_POINT } = getConfigsJSONFromLocal() || process.env
 
 const App = () => {
   const socket = io(SOCKET_END_POINT);

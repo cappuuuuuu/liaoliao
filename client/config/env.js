@@ -85,6 +85,7 @@ function getClientEnvironment(publicUrl) {
         WDS_SOCKET_HOST: process.env.WDS_SOCKET_HOST,
         WDS_SOCKET_PATH: process.env.WDS_SOCKET_PATH,
         WDS_SOCKET_PORT: process.env.WDS_SOCKET_PORT,
+        SOCKET_END_POINT: process.env.SOCKET_END_POINT,
       }
     );
   // Stringify all values so we can feed into webpack DefinePlugin
