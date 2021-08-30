@@ -7,6 +7,7 @@ import { getConfigsJSONFromLocal } from '@/helper'
 import './AnimatedSwitch.css';
 
 const io = require('socket.io-client');
+console.log(process.env)
 const { SOCKET_END_POINT } = getConfigsJSONFromLocal() || process.env
 
 const App = () => {
