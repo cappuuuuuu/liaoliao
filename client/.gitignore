@@ -3,7 +3,6 @@ build/
 .DS_Store
 package-lock.json
 src/configs/index.json
-.eslintrc.js
 
 # Project custom
 .env.development
