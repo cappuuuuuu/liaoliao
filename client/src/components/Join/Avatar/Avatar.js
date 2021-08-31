@@ -1,6 +1,6 @@
-import React from 'react';
-import './Avatar.scss';
-import avatars from '../../Image/AvatarImage';
+import React from 'react'
+import './Avatar.scss'
+import avatars from '../../Image/AvatarImage'
 
 const AvatarContent = ({ i, getAvatar, avatar }) => {
   return (
@@ -12,25 +12,25 @@ const AvatarContent = ({ i, getAvatar, avatar }) => {
   )
 }
 const Avatar = ({ getAvatar }) => {
-  return(
+  return (
     <div className="avatar-wrapper">
         <ul>
         {
-            avatars.map((avatar,i)=>{
-                if(i >= 4) return null;
-                return(
+            avatars.map((avatar, i) => {
+              if (i >= 4) return null
+              return (
                     <AvatarContent i={i} getAvatar={getAvatar} avatar={avatar} key={avatar}/>
-                )
+              )
             })
         }
         </ul>
         <ul>
         {
-            avatars.map((avatar,i)=>{
-                if(i <=3 ) return null;
-                return(
+            avatars.map((avatar, i) => {
+              if (i <= 3) return null
+              return (
                     <AvatarContent i={i} getAvatar={getAvatar} avatar={avatar} key={avatar}/>
-                )
+              )
             })
         }
         </ul>
@@ -38,4 +38,4 @@ const Avatar = ({ getAvatar }) => {
   )
 }
 
-export default Avatar;
+export default Avatar

@@ -1,11 +1,11 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import avatars from '../../Image/AvatarImage';
-import './Sidebar.scss';
-import projectInfo from '../../../configs/site';
+import React from 'react'
+import { Link } from 'react-router-dom'
+import { makeStyles } from '@material-ui/core/styles'
+import Button from '@material-ui/core/Button'
+import ExitToAppIcon from '@material-ui/icons/ExitToApp'
+import avatars from '../../Image/AvatarImage'
+import './Sidebar.scss'
+import projectInfo from '../../../configs/site'
 
 const useStyles = makeStyles(() => ({
 
@@ -37,11 +37,11 @@ const useStyles = makeStyles(() => ({
     margin: 'auto',
     marginBottom: '5px',
     backgroundColor: 'rgba(111, 160, 224, 0.25)',
-    "@media(min-width:992px)": {
+    '@media(min-width:992px)': {
       width: '80px',
-      height: '80px',
+      height: '80px'
     },
-    "& img": {
+    '& img': {
       width: '50px',
       margin: 'auto'
     }
@@ -65,7 +65,7 @@ const useStyles = makeStyles(() => ({
     backgroundColor: '#32465a',
     color: '#fff',
     textAlign: 'center',
-    "& p": {
+    '& p': {
       fontSize: '1.2rem',
       height: '80px',
       lineHeight: '80px'
@@ -78,9 +78,9 @@ const useStyles = makeStyles(() => ({
     overflowY: 'auto',
     padding: '0 15px',
     '@media (max-width:992px)': {
-      height: '320px',
+      height: '320px'
     },
-    "& li": {
+    '& li': {
       height: '35px',
       lineHeight: '35px',
       backgroundColor: '#32465a',
@@ -91,16 +91,16 @@ const useStyles = makeStyles(() => ({
       color: '#94b2d3',
       textAlign: 'left',
       '@media (min-width:992px)': {
-        height: '55px',
+        height: '55px'
       },
-      "& div": {
+      '& div': {
         display: 'flex',
         alignItems: 'center'
       },
-      "& img": {
+      '& img': {
         width: '35px',
         verticalAlign: 'top',
-        marginRight: '15px',
+        marginRight: '15px'
       }
     }
   },
@@ -115,7 +115,7 @@ const useStyles = makeStyles(() => ({
     transform: 'translateX(-50%)',
     background: '#32465a',
     overflow: 'hidden',
-    "& button": {
+    '& button': {
       color: '#fff',
       width: '100%',
       height: '100%',
@@ -130,11 +130,8 @@ const useStyles = makeStyles(() => ({
   }
 }))
 
-
-
-
 const Sidebar = ({ users, name, avatar }) => {
-  const classes = useStyles();
+  const classes = useStyles()
 
   const Profile = () => {
     return (
@@ -146,14 +143,14 @@ const Sidebar = ({ users, name, avatar }) => {
       </div>
     )
   }
-  
+
   const List = () => {
     return (
       <div className={classes.list}>
         <div style={{ fontSize: '1rem' }}>誰在線上</div>
         <ul className={classes.userList}>
-          {users.length > 1 ?
-            users
+          {users.length > 1
+            ? users
               .filter(user => user.name !== name)
               .map((user) => {
                 return (
@@ -165,8 +162,7 @@ const Sidebar = ({ users, name, avatar }) => {
                   </li>
                 )
               })
-            :
-            <div style={{ fontSize: '.9rem', marginTop: '20px', color: '#5081AD' }}>
+            : <div style={{ fontSize: '.9rem', marginTop: '20px', color: '#5081AD' }}>
               <p style={{ margin: '5px 0' }}>只有你一個人嗎 ?</p>
               <p style={{ margin: '5px 0' }}>沒關係的 ! 作者陪你聊 <span role="img" aria-label="smile">😂</span></p>
             </div>
@@ -196,7 +192,6 @@ const Sidebar = ({ users, name, avatar }) => {
       <List />
     </div>
   )
-
 }
 
-export default Sidebar;
+export default Sidebar

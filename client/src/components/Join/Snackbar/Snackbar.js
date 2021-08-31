@@ -1,78 +1,75 @@
-import React  , { forwardRef, useImperativeHandle } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Snackbar from '@material-ui/core/Snackbar';
-import Slide from '@material-ui/core/Slide';
+import React, { forwardRef, useImperativeHandle } from 'react'
+import { makeStyles } from '@material-ui/core/styles'
+import Snackbar from '@material-ui/core/Snackbar'
+import Slide from '@material-ui/core/Slide'
 
 const useStyles = makeStyles((theme) => ({
   snackbar: {
-    top:'35px',
-    "& .MuiSnackbarContent-root": {
-        zIndex:1600,
-        backgroundColor:'#5081ad',
-        fontSize:'.975rem',
-        minWidth:'100px',
-        flexGrow:'0',
-        "& .MuiSnackbarContent-message": {
-            margin:'auto',
+    top: '35px',
+    '& .MuiSnackbarContent-root': {
+      zIndex: 1600,
+      backgroundColor: '#5081ad',
+      fontSize: '.975rem',
+      minWidth: '100px',
+      flexGrow: '0',
+      '& .MuiSnackbarContent-message': {
+        margin: 'auto'
 
-        }
-    },
-  },  
-  close: {
-    padding: theme.spacing(0.5),
-    
+      }
+    }
   },
-  
+  close: {
+    padding: theme.spacing(0.5)
 
-}));
+  }
 
-const ConsecutiveSnackbars = forwardRef(( props, ref ) => {
-  const [snackPack, setSnackPack] = React.useState([]);
-  const [open, setOpen] = React.useState(false);
-  const [messageInfo, setMessageInfo] = React.useState(undefined);
-  const [duration , setDuration] = React.useState(0);
-  
+}))
+
+const ConsecutiveSnackbars = forwardRef((props, ref) => {
+  const [snackPack, setSnackPack] = React.useState([])
+  const [open, setOpen] = React.useState(false)
+  const [messageInfo, setMessageInfo] = React.useState(undefined)
+  const [duration, setDuration] = React.useState(0)
+
   useImperativeHandle(ref, () => ({
 
-    handleOpen : (message , duration = 2000)  => {
-        setDuration(duration);
-        setSnackPack((prev) => [...prev, { message, key: new Date().getTime() }]);
-        return message
+    handleOpen: (message, duration = 2000) => {
+      setDuration(duration)
+      setSnackPack((prev) => [...prev, { message, key: new Date().getTime() }])
+      return message
     },
-    
-    handleClose : (event, reason) => {
-        if (reason === 'clickaway') {
-            return;
-        }
-        setOpen(false);
+
+    handleClose: (event, reason) => {
+      if (reason === 'clickaway') {
+        return
+      }
+      setOpen(false)
     }
 
-  }));
+  }))
 
   React.useEffect(() => {
     if (snackPack.length && !messageInfo) {
-      setMessageInfo({ ...snackPack[0] });
-      setSnackPack((prev) => prev.slice(1));
-      setOpen(true);
+      setMessageInfo({ ...snackPack[0] })
+      setSnackPack((prev) => prev.slice(1))
+      setOpen(true)
     } else if (snackPack.length && messageInfo && open) {
-      setOpen(false);
+      setOpen(false)
     }
-  }, [snackPack, messageInfo, open]);
-  
+  }, [snackPack, messageInfo, open])
 
-  const handleClose =  (event, reason) => {
-      if (reason === 'clickaway') {
-          return;
-      }
-  setOpen(false);
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return
+    }
+    setOpen(false)
   }
-  
 
   const handleExited = () => {
-  setMessageInfo(undefined);
-  };
+    setMessageInfo(undefined)
+  }
 
-  const classes = useStyles();
+  const classes = useStyles()
 
   return (
     <div>
@@ -81,7 +78,7 @@ const ConsecutiveSnackbars = forwardRef(( props, ref ) => {
         key={messageInfo ? messageInfo.key : undefined}
         anchorOrigin={{
           vertical: 'top',
-          horizontal: 'center',
+          horizontal: 'center'
         }}
         open={open}
         autoHideDuration={duration}
@@ -89,10 +86,10 @@ const ConsecutiveSnackbars = forwardRef(( props, ref ) => {
         onClose={handleClose}
         onExited={handleExited}
         message={messageInfo ? messageInfo.message : undefined}
-       
+
       />
     </div>
   )
 })
 
-export default ConsecutiveSnackbars ;
+export default ConsecutiveSnackbars

@@ -1,10 +1,10 @@
-import React from 'react';
-import './timer.scss';
+import React from 'react'
+import './timer.scss'
 const Timer = () => {
-    return (
+  return (
         <div className="timer">
         </div>
-    )
+  )
 }
 
-export default Timer;
+export default Timer

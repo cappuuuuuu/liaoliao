@@ -1,17 +1,17 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
-import { AnimatedSwitch } from 'react-router-transition';
-import Join from './components/Join/Join';
-import Chat from './components/Chat/Chat';
+import React from 'react'
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
+import { AnimatedSwitch } from 'react-router-transition'
+import Join from './components/Join/Join'
+import Chat from './components/Chat/Chat'
 import { getConfigsJSONFromLocal } from '@/helper'
-import './AnimatedSwitch.css';
+import './AnimatedSwitch.css'
 require('dotenv').config()
 
 const io = require('socket.io-client')
 const { SOCKET_END_POINT } = getConfigsJSONFromLocal() || process.env
 
 const App = () => {
-  const socket = io(SOCKET_END_POINT);
+  const socket = io(SOCKET_END_POINT)
   return (
     <Router forceRefresh={true}>
       <AnimatedSwitch
@@ -28,4 +28,4 @@ const App = () => {
   )
 }
 
-export default App;
+export default App
