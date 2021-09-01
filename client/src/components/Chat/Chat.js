@@ -24,9 +24,13 @@ import stickers from '../Image/StickerImage'
 // CSS
 import './Chat.scss'
 
+// context
+import { useSocket } from '@/contexts/SocketProvider.js'
+
 const { getTime } = require('./Time/Time.js')
 
-const Chat = ({ location, socket, endPoint }) => {
+const Chat = ({ location }) => {
+  const socket = useSocket()
   const [name, setName] = useState('')
   const [avatar, setAvatar] = useState('')
   const [users, setUsers] = useState([])
@@ -46,6 +50,7 @@ const Chat = ({ location, socket, endPoint }) => {
   const messagesContainer = useRef(null)
 
   useEffect(() => {
+    if (socket === null) return
     const { name, avatar } = queryString.parse(location.search)
     setName(name)
     setAvatar(avatar)
@@ -156,6 +161,7 @@ const Chat = ({ location, socket, endPoint }) => {
 
   // 根據是否有人正在打字，傳送某人打字狀態到 server
   useEffect(() => {
+    if (socket === null) return
     socket.emit('typing', { isTyping, name, avatar })
   }, [name, avatar, socket, isTyping])
 
@@ -220,7 +226,6 @@ const Chat = ({ location, socket, endPoint }) => {
                     loadMoreMessage={ loadMoreMessage }
                     firstLoadingMessage = {firstLoadingMessage}
                     pullLoading= {pullLoading}
-                    socket={socket}
                     messages={messages}
                     name={name}
                     isTyping={typingStatus}

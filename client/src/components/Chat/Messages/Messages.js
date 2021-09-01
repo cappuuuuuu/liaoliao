@@ -5,6 +5,7 @@ import debounce from 'lodash/debounce'
 import { animateScroll as scroll } from 'react-scroll'
 import avatars from '../../Image/AvatarImage'
 import './Messages.scss'
+import { useSocket } from '@/contexts/SocketProvider.js'
 
 const Date = ({ messages, index }) => {
   if (index === 0) {
@@ -27,8 +28,9 @@ const Date = ({ messages, index }) => {
   return null
 }
 
-const Messages = React.forwardRef(({ messages, name, isTyping, socket, loadMoreMessage, pullLoading, totalMessageCount, firstLoadingMessage }, ref) => {
+const Messages = React.forwardRef(({ messages, name, isTyping, loadMoreMessage, pullLoading, totalMessageCount, firstLoadingMessage }, ref) => {
   let time, prevMessageTime, repeat
+  const socket = useSocket()
   const [scrollPosition, setScrollPosition] = useState({ arriveTop: false, arriveBottom: false })
   const [backTopButtonActive, setbackTopButtonActive] = useState(false)
   const loadMessagePage = useRef(2)

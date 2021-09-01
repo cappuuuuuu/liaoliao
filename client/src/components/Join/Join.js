@@ -12,6 +12,9 @@ import CheckUserLoader from '../Loader/CircleLoader'
 // CSS
 import './Join.scss'
 
+// context
+import { useSocket } from '@/contexts/SocketProvider.js'
+
 const Authent = (props) => {
   return (
         <div className={props.className}>
@@ -56,7 +59,8 @@ const LoginFields = (props) => {
   )
 }
 
-const Join = ({ history, socket }) => {
+const Join = ({ history }) => {
+  const socket = useSocket()
   const [user, setUser] = useState('') // 登入名字
   const [avatar, setAvatar] = useState('')
   const [existUser, setExistUser] = useState(false)
@@ -70,6 +74,7 @@ const Join = ({ history, socket }) => {
   const consecutiveSnackbars = useRef(null)
 
   useEffect(() => {
+    if (socket === null) return
     if (!!window.performance && window.performance.navigation.type === 0) {
       //! ! 用來檢查 window.performance 是否存在
       // window.performance.navigation.type ===2 表示使用 back or forward
