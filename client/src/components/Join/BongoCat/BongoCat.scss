@@ -3,32 +3,27 @@ $code-typing-animation-duration: 1200ms;
 
 .content {
   position: absolute;
-  width: 100vw;
-  height:100vh;
-  top:50%;
+  top: 50%;
   left: 50%;
-  transform: translate(-50%,-50%);
-  
+  width: 100vw;
+  height: 100vh;
+  transform: translate(-50%, -50%);
 }
 
 .container {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 #bongo-cat {
   position: absolute;
-//   height: 80%;
-//   width: 80%;
-//   top: 50%;  
-//   left:50%; 
-  height:60%;
-  width:60%;
-  max-width: 400px;
-  top:59%;
-  left:51%;  
-  transform: translate(-50%,-50%);
+  top: 59%;
+  left: 51%;
   margin: auto;
+  width: 60%;
+  max-width: 400px;
+  height: 60%;
+  transform: translate(-50%, -50%);
 }
 
 .typing-animation {
@@ -40,81 +35,81 @@ $code-typing-animation-duration: 1200ms;
 @for $line from 1 through 9 {
   $fn-group: ceil($line / 3);
   path#f#{$fn-group}-l#{$line} {
-    animation-name: typing-f#{$fn-group}-l#{$line}
+    animation-name: typing-f#{$fn-group}-l#{$line};
   }
 }
 
 @keyframes typing-f3-l9 {
-  0% { d: path('M8,25L8,25') }
-  82% { d: path('M8,25L8,25') }
-  92% { d: path('M8,25L96,25') }
-  100% { d: path('M8,25L96,25') }
+  0% { d: path('M8,25L8,25'); }
+  82% { d: path('M8,25L8,25'); }
+  92% { d: path('M8,25L96,25'); }
+  100% { d: path('M8,25L96,25'); }
 }
 
 @keyframes typing-f3-l8 {
-  0% { d: path('M8,13L8,13') }
-  68% { d: path('M8,13L8,13') }
-  82% { d: path('M8,13L146,13') }
-  100% { d: path('M8,13L146,13') }
+  0% { d: path('M8,13L8,13'); }
+  68% { d: path('M8,13L8,13'); }
+  82% { d: path('M8,13L146,13'); }
+  100% { d: path('M8,13L146,13'); }
 }
 
 @keyframes typing-f3-l7 {
-  0% { d: path('M0,1L0,1') }
-  60% { d: path('M0,1L0,1') }
-  68% { d: path('M0,1L96,1') }
-  100% { d: path('M0,1L96,1') }
+  0% { d: path('M0,1L0,1'); }
+  60% { d: path('M0,1L0,1'); }
+  68% { d: path('M0,1L96,1'); }
+  100% { d: path('M0,1L96,1'); }
 }
 
 @keyframes typing-f2-l6 {
-  0% { d: path('M8,25L8,25') }
-  54% { d: path('M8,25L8,25') }
-  60% { d: path('M8,25L69,25') }
-  100% { d: path('M8,25L69,25') }
+  0% { d: path('M8,25L8,25'); }
+  54% { d: path('M8,25L8,25'); }
+  60% { d: path('M8,25L69,25'); }
+  100% { d: path('M8,25L69,25'); }
 }
 
 @keyframes typing-f2-l5 {
-  0% { d: path('M8,13L8,13') }
-  44% { d: path('M8,13L8,13') }
-  54% { d: path('M8,13L114,13') }
-  100% { d: path('M8,13L114,13') }
+  0% { d: path('M8,13L8,13'); }
+  44% { d: path('M8,13L8,13'); }
+  54% { d: path('M8,13L114,13'); }
+  100% { d: path('M8,13L114,13'); }
 }
 
 @keyframes typing-f2-l4 {
-  0% { d: path('M0,1L0,1') }
-  30% { d: path('M0,1L0,1') }
-  44% { d: path('M0,1L136,1') }
-  100% { d: path('M0,1L136,1') }
+  0% { d: path('M0,1L0,1'); }
+  30% { d: path('M0,1L0,1'); }
+  44% { d: path('M0,1L136,1'); }
+  100% { d: path('M0,1L136,1'); }
 }
 
 @keyframes typing-f1-l3 {
-  0% { d: path('M8,25L8,25') }
-  24% { d: path('M8,25L8,25') }
-  30% { d: path('M8,25L61,25') }
-  100% { d: path('M8,25L61,25') }
+  0% { d: path('M8,25L8,25'); }
+  24% { d: path('M8,25L8,25'); }
+  30% { d: path('M8,25L61,25'); }
+  100% { d: path('M8,25L61,25'); }
 }
 
 @keyframes typing-f1-l2 {
-  0% { d: path('M8,13L8,13') }
-  14% { d: path('M8,13L8,13') }
-  24% { d: path('M8,13L124,13') }
-  100% { d: path('M8,13L124,13') }
+  0% { d: path('M8,13L8,13'); }
+  14% { d: path('M8,13L8,13'); }
+  24% { d: path('M8,13L124,13'); }
+  100% { d: path('M8,13L124,13'); }
 }
 
 @keyframes typing-f1-l1 {
-  0% { d: path('M0,1L0,1') }
-  14% { d: path('M0,1L160,1') }
-  100% { d: path('M0,1L160,1') }
+  0% { d: path('M0,1L0,1'); }
+  14% { d: path('M0,1L160,1'); }
+  100% { d: path('M0,1L160,1'); }
 }
 
-#paw-right--up, 
-#paw-right--down, 
+#paw-right--up,
+#paw-right--down,
 #paw-left--up,
 #paw-left--down {
   animation: blink $base-typing-speed infinite;
 }
 
 #paw-right--up,
-#paw-left--down{
+#paw-left--down {
   animation-delay: $base-typing-speed/2;
 }
 
@@ -128,8 +123,6 @@ $code-typing-animation-duration: 1200ms;
   transform: rotateX(-37deg) rotateY(-46deg) rotateZ(-23deg) translateX(8px) translateY(20px) translateZ(-50px);
 }
 
-g{
-    fill:#5081ad
+g {
+  fill: #5081ad;
 }
-
-
