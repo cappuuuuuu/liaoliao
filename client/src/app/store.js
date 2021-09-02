@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
-import bubbleBackgroundReducer from '../features/bubbleBackground/bubbleBackgroundSlice'
+import bubbleBackgroundReducer from '@/features/bubbleBackground/bubbleBackgroundSlice'
 
 export default configureStore({
   reducer: {
