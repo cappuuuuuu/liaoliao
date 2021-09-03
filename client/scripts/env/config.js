@@ -26,15 +26,14 @@ const argv = yargs
   .option('env', {
     desc: 'Switch environment configuration',
     type: 'string',
-    alias: 'e',
+    alias: 'e'
   })
   .argv
 
 let configs = getConfigsFromLocal()
 configs = interpolateVariables(configs, {
-  VERSION: packageJSON.version,
+  VERSION: packageJSON.version
 })
-
 
 if (configs[argv.env] === undefined) {
   console.log(chalk.red(`Invalid env: ${argv.env}!`), `use one of the following: [${chalk.green(Object.keys(configs).join(', '))}] instead.`)
