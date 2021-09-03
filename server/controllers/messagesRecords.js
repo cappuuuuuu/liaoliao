@@ -6,9 +6,7 @@ const saveMessage = (obj) => {
 }
 
 const getMessage = async () => {
-  const data = await MessagesModel.find()
-  console.log('data', data)
-  return data
+  return MessagesModel.find()
 }
 
 module.exports = { saveMessage, getMessage }
