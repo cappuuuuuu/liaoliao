@@ -1,4 +1,4 @@
-const { pushMessage, getMessage } = require('./messagesRecords')
+const { saveMessage, getMessage } = require('./messagesRecords')
 const { removeUser, addUser, checkUsers } = require('./usersHandler')
 
 function socketHandler (io, socket) {
@@ -24,7 +24,7 @@ function socketHandler (io, socket) {
   })
 
   socket.on('sendMessage', data => {
-    pushMessage(data)
+    saveMessage(data)
     io.emit('getMessage', data)
   })
 

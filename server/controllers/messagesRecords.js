@@ -5,7 +5,7 @@ const saveMessage = (obj) => {
   message.save()
 }
 
-const getMessage = async () => {
+const getMessage = () => {
   return MessagesModel.find()
 }
 
