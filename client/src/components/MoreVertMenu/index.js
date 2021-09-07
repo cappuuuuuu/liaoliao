@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { makeStyles, withStyles } from '@material-ui/core/styles'
-import { toggle, activeBubbleBackground } from '../../features/bubbleBackground/bubbleBackgroundSlice'
+import { toggle, activeBubbleBackground } from '@/redux/slices/bubbleBackgroundSlice'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import FormGroup from '@material-ui/core/FormGroup'

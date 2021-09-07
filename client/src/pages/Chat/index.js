@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import queryString from 'query-string'
 import debounce from 'lodash/debounce'
 import device from 'current-device'
@@ -8,7 +8,8 @@ import { animateScroll as scroll } from 'react-scroll'
 import IconButton from '@material-ui/core/IconButton'
 import SendIcon from '@material-ui/icons/Send'
 import { disableBodyScroll } from 'body-scroll-lock'
-import { activeBubbleBackground } from '@/features/bubbleBackground/bubbleBackgroundSlice'
+import { activeBubbleBackground } from '@/redux/slices/bubbleBackgroundSlice'
+import { getAvatarDataThunk, avatarData } from '@/redux/slices/avatarDataSlice'
 
 // components
 import Messages from '@/components/Messages'
@@ -31,6 +32,8 @@ const { getTime } = require('@/components/Time')
 
 const Chat = ({ location }) => {
   const socket = useSocket()
+  const dispatch = useDispatch()
+  const avatarList = useSelector(avatarData)
   const [name, setName] = useState('')
   const [avatar, setAvatar] = useState('')
   const [users, setUsers] = useState([])
@@ -48,6 +51,10 @@ const Chat = ({ location }) => {
   const messageBox = useRef(null)
   const messageContent = useRef(null)
   const messagesContainer = useRef(null)
+
+  useEffect(() => {
+    if (!avatarList.length) dispatch(getAvatarDataThunk())
+  }, [])
 
   useEffect(() => {
     if (socket === null) return

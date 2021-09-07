@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react'
 import Button from '@material-ui/core/Button'
+import { useDispatch, useSelector } from 'react-redux'
+import { getAvatarDataThunk, avatarData } from '@/redux/slices/avatarDataSlice'
 
 // component
-import Avatar from '@/components/Avatar'
+import AvatarChoose from '@/components/Avatar/AvatarChoose'
 import Bubbles from '@/components/Bubbles'
 import BongoCat from '@/components/BongoCat'
 import HomeLoader from '@/components/Loading/SquareLoading'
@@ -61,6 +63,8 @@ const LoginFields = (props) => {
 
 const Login = ({ history }) => {
   const socket = useSocket()
+  const dispatch = useDispatch()
+  const avatarList = useSelector(avatarData)
   const [user, setUser] = useState('') // 登入名字
   const [avatar, setAvatar] = useState('')
   const [existUser, setExistUser] = useState(false)
@@ -72,6 +76,10 @@ const Login = ({ history }) => {
   const [loadComplete, setLoadComplete] = useState(false)
   const firstRender = useRef(true)
   const consecutiveSnackbars = useRef(null)
+
+  useEffect(() => {
+    if (!avatarList.length) dispatch(getAvatarDataThunk())
+  }, [])
 
   useEffect(() => {
     if (socket === null) return
@@ -179,7 +187,7 @@ const Login = ({ history }) => {
     <div className="login-body">
         <div className={`login ${status}`}>
             <div className='login-content'>
-              <Avatar getAvatar={getAvatar}/>
+              <AvatarChoose getAvatar={getAvatar}/>
               <LoginFields onClick={ loginRequest } onKeyDown= { inputKeyDownHandler } getUser={ getUser} checkProgress={checkProgress} />
               <Success success={success}/>
             </div>

@@ -1,39 +1,11 @@
 import React from 'react'
 import './style.scss'
-import avatars from '@/components/AvatarImage'
 
-const AvatarContent = ({ i, getAvatar, avatar }) => {
+const Avatar = ({ index, getAvatar, name, imageUrl }) => {
   return (
-    <li>
-      <input type="radio" name="avatar" id={`avatar${i + 1}`} value={i} onChange={getAvatar} />
-      <label htmlFor={`avatar${i + 1}`} style={{ backgroundImage: `url(${avatar})` }}>
-      </label>
-    </li>
-  )
-}
-const Avatar = ({ getAvatar }) => {
-  return (
-    <div className="avatar-wrapper">
-        <ul>
-        {
-          avatars.map((avatar, i) => {
-            if (i >= 4) return null
-            return (
-              <AvatarContent i={i} getAvatar={getAvatar} avatar={avatar} key={avatar}/>
-            )
-          })
-        }
-        </ul>
-        <ul>
-        {
-          avatars.map((avatar, i) => {
-            if (i <= 3) return null
-            return (
-              <AvatarContent i={i} getAvatar={getAvatar} avatar={avatar} key={avatar}/>
-            )
-          })
-        }
-        </ul>
+    <div className="single-avatar">
+      <input type="radio" name="avatar" id={name} value={index} onChange={getAvatar} />
+      <label htmlFor={name} style={{ backgroundImage: `url(${imageUrl})` }}></label>
     </div>
   )
 }

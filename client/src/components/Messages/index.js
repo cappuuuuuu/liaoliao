@@ -3,9 +3,11 @@ import moment from 'moment'
 import MessageLoader from '@/components/Loading/CircleLoading'
 import debounce from 'lodash/debounce'
 import { animateScroll as scroll } from 'react-scroll'
-import avatars from '@/components/AvatarImage'
 import './style.scss'
 import { useSocket } from '@/contexts/SocketProvider.js'
+import Avatar from '@/components/Avatar'
+import { useSelector } from 'react-redux'
+import { avatarData } from '@/redux/slices/avatarDataSlice'
 
 const Date = ({ messages, index }) => {
   if (index === 0) {
@@ -30,6 +32,7 @@ const Date = ({ messages, index }) => {
 
 const Messages = React.forwardRef(({ messages, name, isTyping, loadMoreMessage, pullLoading, totalMessageCount, firstLoadingMessage }, ref) => {
   let time, prevMessageTime, repeat
+  const avatarList = useSelector(avatarData)
   const socket = useSocket()
   const [scrollPosition, setScrollPosition] = useState({ arriveTop: false, arriveBottom: false })
   const [backTopButtonActive, setbackTopButtonActive] = useState(false)
@@ -193,9 +196,7 @@ const Messages = React.forwardRef(({ messages, name, isTyping, loadMoreMessage, 
                             <React.Fragment key={message.time}>
                                 <Date messages={messages} index={i}/>
                                 <div className={`message-wrapper${repeat ? ' repeat' : ''}`} key={message.time} name="message">
-                                    <div className="avatar">
-                                        <img src={avatars[message.avatar]} alt=""/>
-                                    </div>
+                                    <Avatar imageUrl={avatarList?.[message.avatar]?.url}/>
                                     { message.typesOf === 'sticker'
                                       ? <div style={{ position: 'relative' }}>
                                         <div className="name">{message.name}</div>
@@ -222,9 +223,7 @@ const Messages = React.forwardRef(({ messages, name, isTyping, loadMoreMessage, 
                 {
                     isTyping.isTyping
                       ? <div className="message-wrapper typing">
-                            <div className="avatar">
-                                <img src={avatars[isTyping.avatar]} alt=""/>
-                            </div>
+                            <Avatar imageUrl={avatarList?.[isTyping.avatar]?.url}/>
                             <div>
                                 <div className="name">{isTyping.name}</div>
                                 <div className="message new loading">

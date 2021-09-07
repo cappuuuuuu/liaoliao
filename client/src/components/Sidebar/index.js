@@ -3,9 +3,11 @@ import { Link } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
 import ExitToAppIcon from '@material-ui/icons/ExitToApp'
-import avatars from '@/components/AvatarImage'
 import './style.scss'
 import projectInfo from '@/configs/site'
+import Avatar from '@/components/Avatar'
+import { useSelector } from 'react-redux'
+import { avatarData } from '@/redux/slices/avatarDataSlice'
 
 const useStyles = makeStyles(() => ({
 
@@ -13,7 +15,13 @@ const useStyles = makeStyles(() => ({
     margin: '20px auto',
     textAlign: 'center',
     color: '#fff',
-    fontSize: '1.1rem'
+    fontSize: '1.1rem',
+
+    '& > .single-avatar > label': {
+      width: '70px',
+      height: '70px',
+      backgroundColor: 'rgba(111, 160, 224, 0.25)'
+    }
   },
   arrowBtn: {
     backgroundColor: '#32465a',
@@ -27,24 +35,6 @@ const useStyles = makeStyles(() => ({
   arrowIcon: {
     width: 40,
     height: 40
-  },
-  avatar: {
-    display: 'flex',
-    width: '60px',
-    height: '60px',
-    borderRadius: '50%',
-    padding: '10px',
-    margin: 'auto',
-    marginBottom: '5px',
-    backgroundColor: 'rgba(111, 160, 224, 0.25)',
-    '@media(min-width:992px)': {
-      width: '80px',
-      height: '80px'
-    },
-    '& img': {
-      width: '50px',
-      margin: 'auto'
-    }
   },
   name: {
     color: '#fff'
@@ -97,10 +87,17 @@ const useStyles = makeStyles(() => ({
         display: 'flex',
         alignItems: 'center'
       },
-      '& img': {
+      '& .single-avatar': {
         width: '35px',
         verticalAlign: 'top',
-        marginRight: '15px'
+        margin: 0,
+        marginRight: '15px',
+
+        '& > label': {
+          backgroundColor: 'transparent',
+          height: '30px',
+          backgroundSize: 'cover'
+        }
       }
     }
   },
@@ -127,18 +124,20 @@ const useStyles = makeStyles(() => ({
       }
 
     }
+  },
+  LogoutLink: {
+    textDecoration: 'none'
   }
 }))
 
 const Sidebar = ({ users, name, avatar }) => {
+  const avatarList = useSelector(avatarData)
   const classes = useStyles()
 
   const Profile = () => {
     return (
       <div className={classes.profile}>
-        <div className={classes.avatar}>
-          <img src={avatars[avatar]} alt="" />
-        </div>
+        <Avatar imageUrl={avatarList?.[avatar]?.url}/>
         <div className={classes.name}>{name}</div>
       </div>
     )
@@ -156,7 +155,8 @@ const Sidebar = ({ users, name, avatar }) => {
                 return (
                   <li key={user.id}>
                     <div>
-                      <img src={avatars[user.avatar]} alt="" />
+                      {/* <img src={avatars[user.avatar]} alt="" /> */}
+                      <Avatar imageUrl={avatarList?.[avatar]?.url}/>
                       <span>{user.name}</span>
                     </div>
                   </li>
