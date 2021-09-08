@@ -1,11 +1,11 @@
 import React from 'react'
 import './style.scss'
 
-const Timer = () => {
+const TimeLoading = () => {
   return (
     <div className="timer">
     </div>
   )
 }
 
-export default Timer
+export default TimeLoading

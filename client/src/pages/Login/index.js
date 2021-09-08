@@ -7,7 +7,7 @@ import { getAvatarDataThunk, avatarData } from '@/redux/slices/avatarDataSlice'
 import AvatarChoose from '@/components/Avatar/AvatarChoose'
 import Bubbles from '@/components/Bubbles'
 import BongoCat from '@/components/BongoCat'
-import HomeLoader from '@/components/Loading/SquareLoading'
+import squareLoading from '@/components/Loading/SquareLoading'
 import ConsecutiveSnackbars from '@/components/Snackbar'
 import CheckUserLoader from '@/components/Loading/CircleLoading'
 
@@ -194,7 +194,7 @@ const Login = ({ history }) => {
         </div>
         <Authent className={`authent ${authent}`}/>
         <Bubbles count={20}/>
-        <HomeLoader loadComplete={loadComplete}/>
+        <squareLoading loadComplete={loadComplete}/>
         <ConsecutiveSnackbars ref={ consecutiveSnackbars }/>
     </div>
   )

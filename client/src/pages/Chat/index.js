@@ -17,7 +17,7 @@ import Navbar from '@/components/Navbar'
 import Sidebar from '@/components/Sidebar'
 import Sticker from '@/components/Sticker'
 import Bubbles from '@/components/Bubbles'
-import Timer from '@/components/Loading/TimeLoading'
+import TimeLoading from '@/components/Loading/TimeLoading'
 
 // image
 import stickers from '@/components/StickerImage'
@@ -227,7 +227,7 @@ const Chat = ({ location }) => {
             <div className="chat">
                 <Navbar users={users} name={name} avatar={avatar}/>
                 <Backdrop open={firstLoadingMessage} style={{ backgroundColor: 'rgba(0,0,0,.75)', zIndex: '1', position: 'absolute' }}>
-                    <Timer />
+                  <TimeLoading />
                 </Backdrop>
                 <Messages
                     loadMoreMessage={ loadMoreMessage }
