@@ -28,7 +28,8 @@ import './style.scss'
 // context
 import { useSocket } from '@/contexts/SocketProvider.js'
 
-const { getTime } = require('@/components/Time')
+// Time helper
+import { getTime } from '@/helper'
 
 const Chat = ({ location }) => {
   const socket = useSocket()
