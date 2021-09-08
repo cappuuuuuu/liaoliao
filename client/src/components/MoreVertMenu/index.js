@@ -1,65 +1,20 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { makeStyles, withStyles } from '@material-ui/core/styles'
 import { toggle, activeBubbleBackground } from '@/redux/slices/bubbleBackgroundSlice'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import FormGroup from '@material-ui/core/FormGroup'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
-import Switch from '@material-ui/core/Switch'
 import IconButton from '@material-ui/core/IconButton'
 import MoreVertIcon from '@material-ui/icons/MoreVert'
 import ShareIcon from '@material-ui/icons/Share'
+import { useStyles, BlueSwitch } from './style'
 import './style.scss'
 
 const menuList = [
   { label: '背景泡泡效果', name: 'bubbleBackground', hasSwitch: true },
   { label: '分享', name: 'share', icon: ShareIcon }
 ]
-
-const useStyles = makeStyles(() => ({
-  menuItem: {
-    margin: 0,
-    padding: '5px 10px 5px 25px',
-    color: 'rgb(44, 62, 80)',
-    fontWeight: '450',
-
-    '&:first-child': {
-      paddingTop: '15px'
-    },
-
-    '&:last-child': {
-      paddingBottom: '15px'
-    }
-  },
-
-  menuItemIcon: {
-    marginLeft: '12px',
-    fontSize: '18px',
-    color: '#5081ad'
-  },
-
-  moreVertIcon: {
-    color: 'rgb(44, 62, 80)'
-  }
-}))
-
-const BlueSwitch = withStyles({
-  switchBase: {
-    '&$checked': {
-      color: '#5081ad',
-
-      '&:hover': {
-        backgroundColor: 'rgba(0, 0, 0, 0.04)'
-      }
-    },
-    '&$checked + $track': {
-      backgroundColor: '#5081ad'
-    }
-  },
-  checked: {},
-  track: {}
-})(Switch)
 
 export default function MoreVertMenu () {
   const classes = useStyles()
@@ -99,9 +54,7 @@ export default function MoreVertMenu () {
 
   return (
     <div>
-      <IconButton
-        onClick={toggleMenu}
-      >
+      <IconButton onClick={toggleMenu}>
         <MoreVertIcon className={classes.moreVertIcon}/>
       </IconButton>
       <Menu
@@ -117,25 +70,25 @@ export default function MoreVertMenu () {
           }
         }}
       >
-      <FormGroup>
-        {menuList.map((item) => (
-          item.hasSwitch
-            ? <FormControlLabel
-              className={classes.menuItem}
-              key={item.label}
-              control={<BlueSwitch checked={switchState[item.name]} onChange={handleSwitchChange} name={item.name} />}
-              label={item.label}
-              labelPlacement="start"
-            />
-            : <MenuItem
-              className={classes.menuItem}
-              key={item.label}
-              onClick={() => menuItemClickHandler(item.name)}
-            > { item.label }
-              { item?.icon ? React.createElement(item.icon, { className: classes.menuItemIcon }) : null }
-            </MenuItem>
-        ))}
-      </FormGroup>
+        <FormGroup>
+          { menuList.map(item => (
+            item.hasSwitch
+              ? <FormControlLabel
+                  className={classes.menuItem}
+                  key={item.label}
+                  control={<BlueSwitch checked={switchState[item.name]} onChange={handleSwitchChange} name={item.name} />}
+                  label={item.label}
+                  labelPlacement="start"
+                />
+              : <MenuItem
+                  className={classes.menuItem}
+                  key={item.label}
+                  onClick={() => menuItemClickHandler(item.name)}
+                > { item.label }
+                  { item?.icon ? React.createElement(item.icon, { className: classes.menuItemIcon }) : null }
+                </MenuItem>
+          )) }
+        </FormGroup>
       </Menu>
     </div>
   )
