@@ -1,23 +1,16 @@
 import React from 'react'
 import './style.scss'
 
-const Bubbles = () => {
+const Bubbles = ({ count }) => {
+  const children = Array(count)
+    .fill(count)
+    .map((_, index) => (
+      <li key={index}></li>
+    ))
+
   return (
     <ul className="bg-bubbles">
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
+      { children }
     </ul>
   )
 }

@@ -258,7 +258,7 @@ const Chat = ({ location }) => {
                 <Sidebar users={users} name={name} avatar={avatar}/>
             </div>
             <div className="bubbles__container" style={ bubbleBackground ? { visibility: 'visible' } : { visibility: 'hidden' }}>
-                <Bubbles />
+                <Bubbles count={14}/>
             </div>
         </div>
 

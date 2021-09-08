@@ -9,7 +9,6 @@
 
   li {
     position: absolute;
-    // background-color: rgba(233, 244, 246,1);
     bottom: -160px;
     display: block;
     width: 40px;
@@ -136,12 +135,6 @@
       animation-duration: 15s;
     }
   }
-}
-
-@media (max-width: 576px) {
-  // .bg-bubbles{
-  // 	display:none;
-  // }
 }
 
 @-webkit-keyframes square {

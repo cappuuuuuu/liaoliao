@@ -193,7 +193,7 @@ const Login = ({ history }) => {
             </div>
         </div>
         <Authent className={`authent ${authent}`}/>
-        <Bubbles />
+        <Bubbles count={20}/>
         <HomeLoader loadComplete={loadComplete}/>
         <ConsecutiveSnackbars ref={ consecutiveSnackbars }/>
     </div>
