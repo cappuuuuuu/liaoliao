@@ -1,7 +1,7 @@
 import React from 'react'
 import './style.scss'
 
-const squareLoading = ({ loadComplete }) => {
+const SquareLoading = ({ loadComplete }) => {
   return (
     <div className={`loader-container ${loadComplete ? 'already' : ''} `}>
       <div className="loader">
@@ -11,4 +11,4 @@ const squareLoading = ({ loadComplete }) => {
   )
 }
 
-export default squareLoading
+export default SquareLoading
