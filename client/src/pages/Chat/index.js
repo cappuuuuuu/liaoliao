@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import queryString from 'query-string'
 import debounce from 'lodash/debounce'
-import device from 'current-device'
+import { isIOS } from 'react-device-detect'
 import Backdrop from '@material-ui/core/Backdrop'
 import { animateScroll as scroll } from 'react-scroll'
 import IconButton from '@material-ui/core/IconButton'
@@ -72,9 +72,8 @@ const Chat = ({ location }) => {
     socket.emit('getRecord', getRecordRequestBody)
 
     // 修正畫面滾動問題
-    if (device.os === 'ios') {
-      disableBodyScroll(document.getElementById('messages'))
-    }
+    if (isIOS) disableBodyScroll(document.getElementById('messages'))
+
     // Preload sticker images
     stickers.forEach((sticker) => {
       sticker.imageUrl.forEach((url) => {

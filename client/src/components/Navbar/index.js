@@ -7,9 +7,10 @@ import SwipeableDrawer from '@material-ui/core/SwipeableDrawer'
 import MenuIcon from '@material-ui/icons/Menu'
 import Sidebar from '@/components/Sidebar'
 import MoreVertMenu from '@/components/MoreVertMenu'
+import { isIOS } from 'react-device-detect'
+import { useStyles } from './style'
 
 export default function NavBar ({ users, name, avatar }) {
-  const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent)
   const classes = useStyles()
   const [state, setState] = React.useState(false)
 
@@ -30,8 +31,8 @@ export default function NavBar ({ users, name, avatar }) {
               open={state}
               onClose={toggleDrawer(false)}
               onOpen={toggleDrawer(true)}
-              disableBackdropTransition={!iOS}
-              disableDiscovery={iOS}
+              disableBackdropTransition={!isIOS}
+              disableDiscovery={isIOS}
             >
               <Sidebar users={users} name={name} avatar={avatar}/>
           </SwipeableDrawer>

@@ -4134,11 +4134,6 @@ csstype@^3.0.2:
   resolved "https://registry.yarnpkg.com/csstype/-/csstype-3.0.8.tgz#d2266a792729fb227cd216fb572f43728e1ad340"
   integrity sha512-jXKhWqXPmlUeoQnF/EhTtTl4C9SnrxSH/jZUih3jmO6lBKr99rP3/+FmrMj4EFpOXzMtXHAZkd3x0E6h6Fgflw==
 
-current-device@^0.10.1:
-  version "0.10.2"
-  resolved "https://registry.yarnpkg.com/current-device/-/current-device-0.10.2.tgz#1e40176bee7da655383ab7245b853fae7d2dfc8e"
-  integrity sha512-FN223n2Cp1fRI/gyjJEAdagHhJ/2Z2STz3tUg1t4F259BhmVRCChkmxcgFtjYJsWuIacQEs7bqJpnAczIXIkWw==
-
 currently-unhandled@^0.4.1:
   version "0.4.1"
   resolved "https://registry.yarnpkg.com/currently-unhandled/-/currently-unhandled-0.4.1.tgz#988df33feab191ef799a61369dd76c17adf957ea"
@@ -10151,6 +10146,13 @@ react-dev-utils@^11.0.4:
     strip-ansi "6.0.0"
     text-table "0.2.0"
 
+react-device-detect@^1.17.0:
+  version "1.17.0"
+  resolved "https://registry.yarnpkg.com/react-device-detect/-/react-device-detect-1.17.0.tgz#a00b4fd6880cebfab3fd8a42a79dc0290cdddca9"
+  integrity sha512-bBblIStwpHmoS281JFIVqeimcN3LhpoP5YKDWzxQdBIUP8S2xPvHDgizLDhUq2ScguLfVPmwfF5y268EEQR60w==
+  dependencies:
+    ua-parser-js "^0.7.24"
+
 react-dom@^16.13.1:
   version "16.14.0"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.14.0.tgz#7ad838ec29a777fb3c75c3a190f661cf92ab8b89"
@@ -12228,6 +12230,11 @@ typescript@^3.9.2:
   version "3.9.10"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.9.10.tgz#70f3910ac7a51ed6bef79da7800690b19bf778b8"
   integrity sha512-w6fIxVE/H1PkLKcCPsFqKE7Kv7QUwhU8qQY2MueZXWx5cPZdwFupLgKK3vntcK98BtNHZtAF4LA/yl2a7k8R6Q==
+
+ua-parser-js@^0.7.24:
+  version "0.7.28"
+  resolved "https://registry.yarnpkg.com/ua-parser-js/-/ua-parser-js-0.7.28.tgz#8ba04e653f35ce210239c64661685bf9121dec31"
+  integrity sha512-6Gurc1n//gjp9eQNXjD9O3M/sMwVtN5S8Lv9bvOYBfKfDNiIIhqiyi01vMBO45u4zkDE420w/e0se7Vs+sIg+g==
 
 unbox-primitive@^1.0.1:
   version "1.0.1"

@@ -1,4 +1,5 @@
 import React from 'react'
+import { isIOS } from 'react-device-detect'
 import { makeStyles } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
@@ -63,7 +64,6 @@ const useStyles = makeStyles(() => ({
 }))
 
 export default function Sticker ({ sendSticker, stickers }) {
-  const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent)
   const classes = useStyles()
   const [state, setState] = React.useState(false) // control mobile sticker
   const [anchorEl, setAnchorEl] = React.useState(null) // control desktop sticker
@@ -132,8 +132,8 @@ export default function Sticker ({ sendSticker, stickers }) {
                     open={state}
                     onClose={toggleSticker(false)}
                     onOpen={toggleSticker(true)}
-                    disableBackdropTransition={!iOS}
-                    disableDiscovery={iOS}
+                    disableBackdropTransition={!isIOS}
+                    disableDiscovery={isIOS}
                     >
                     <StickerList touchStickerHandler={ touchStickerHandler } stickers={stickers}/>
                 </SwipeableDrawer>
