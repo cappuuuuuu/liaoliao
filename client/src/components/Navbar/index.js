@@ -12,13 +12,13 @@ import { useStyles } from './style'
 
 export default function NavBar ({ users, name, avatar }) {
   const classes = useStyles()
-  const [state, setState] = React.useState(false)
+  const [openDrawerStatus, setOpenDrawerStatus] = React.useState(false)
 
   const toggleDrawer = (open) => (event) => {
     if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return
     }
-    setState(open)
+    setOpenDrawerStatus(open)
   }
 
   return (
@@ -28,13 +28,13 @@ export default function NavBar ({ users, name, avatar }) {
           <SwipeableDrawer
               anchor="left"
               classes={{ paper: classes.drawer }}
-              open={state}
+              open={openDrawerStatus}
               onClose={toggleDrawer(false)}
               onOpen={toggleDrawer(true)}
               disableBackdropTransition={!isIOS}
               disableDiscovery={isIOS}
             >
-              <Sidebar users={users} name={name} avatar={avatar}/>
+            <Sidebar users={users} name={name} avatar={avatar}/>
           </SwipeableDrawer>
           <Typography className={classes.title}>
             <IconButton onClick={toggleDrawer(true)} edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
