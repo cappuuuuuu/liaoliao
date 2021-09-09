@@ -1,38 +1,16 @@
 import React, { forwardRef, useImperativeHandle } from 'react'
-import { makeStyles } from '@material-ui/core/styles'
+import { useStyles } from './style'
 import Snackbar from '@material-ui/core/Snackbar'
 import Slide from '@material-ui/core/Slide'
-
-const useStyles = makeStyles((theme) => ({
-  snackbar: {
-    top: '35px',
-    '& .MuiSnackbarContent-root': {
-      zIndex: 1600,
-      backgroundColor: '#5081ad',
-      fontSize: '.975rem',
-      minWidth: '100px',
-      flexGrow: '0',
-      '& .MuiSnackbarContent-message': {
-        margin: 'auto'
-
-      }
-    }
-  },
-  close: {
-    padding: theme.spacing(0.5)
-
-  }
-
-}))
 
 const ConsecutiveSnackbars = forwardRef((props, ref) => {
   const [snackPack, setSnackPack] = React.useState([])
   const [open, setOpen] = React.useState(false)
   const [messageInfo, setMessageInfo] = React.useState(undefined)
   const [duration, setDuration] = React.useState(0)
+  const classes = useStyles()
 
   useImperativeHandle(ref, () => ({
-
     handleOpen: (message, duration = 2000) => {
       setDuration(duration)
       setSnackPack((prev) => [...prev, { message, key: new Date().getTime() }])
@@ -68,8 +46,6 @@ const ConsecutiveSnackbars = forwardRef((props, ref) => {
   const handleExited = () => {
     setMessageInfo(undefined)
   }
-
-  const classes = useStyles()
 
   return (
     <div>

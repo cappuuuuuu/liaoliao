@@ -1,6 +1,5 @@
 import React from 'react'
 import { isIOS } from 'react-device-detect'
-import { makeStyles } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Popover from '@material-ui/core/Popover'
@@ -8,60 +7,7 @@ import IconButton from '@material-ui/core/IconButton'
 import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon'
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer'
 import StickerList from '@/components/StickerList'
-
-const useStyles = makeStyles(() => ({
-  root: {
-    position: 'absolute',
-    right: '55px'
-
-  },
-  appBar: {
-    color: '#727373',
-    backgroundColor: 'transparent',
-    boxShadow: 'none'
-
-  },
-  title: {
-    flexGrow: 1,
-    color: '#2c3e50'
-  },
-  drawer: {
-    backgroundColor: '#fff',
-    height: '300px',
-    '@media (max-width:576px)': {
-      height: 'auto'
-    }
-
-  },
-
-  arrowBtn: {
-    backgroundColor: '#32465a',
-    color: 'rgb(255,255,255)',
-    float: 'right'
-
-  },
-  arrowIcon: {
-    width: 40,
-    height: 40
-  },
-  listWrapper: {
-    boxSizing: 'border-box',
-    width: '100%',
-    padding: '20px',
-    color: '#FFF',
-    textAlign: 'center'
-  },
-
-  stickerPopover: {
-
-    '& .MuiPopover-paper': {
-      width: '500px',
-      borderRadius: '10px'
-
-    }
-  }
-
-}))
+import { useStyles } from './style'
 
 export default function Sticker ({ sendSticker, stickers }) {
   const classes = useStyles()
