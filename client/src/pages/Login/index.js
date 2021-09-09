@@ -2,13 +2,13 @@ import React, { useState, useEffect, useRef } from 'react'
 import Button from '@material-ui/core/Button'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAvatarDataThunk, avatarData } from '@/redux/slices/avatarDataSlice'
+import { useSnackBar } from '@/contexts/SnackBarProvider.js'
 
 // component
 import AvatarChoose from '@/components/Avatar/AvatarChoose'
 import Bubbles from '@/components/Bubbles'
 import BongoCat from '@/components/BongoCat'
 import SquareLoading from '@/components/Loading/SquareLoading'
-import ConsecutiveSnackbars from '@/components/Snackbar'
 import CheckUserLoader from '@/components/Loading/CircleLoading'
 
 // CSS
@@ -75,7 +75,7 @@ const Login = ({ history }) => {
   const [success, setSuccess] = useState('') // 控制登入動畫
   const [loadComplete, setLoadComplete] = useState(false)
   const firstRender = useRef(true)
-  const consecutiveSnackbars = useRef(null)
+  const { openSnackBar } = useSnackBar()
 
   useEffect(() => {
     if (!avatarList.length) dispatch(getAvatarDataThunk())
@@ -91,7 +91,7 @@ const Login = ({ history }) => {
 
     setTimeout(() => {
       setLoadComplete(true)
-      consecutiveSnackbars.current.handleOpen('選一個頭貼，輸入暱稱就可以進入聊天室囉', 6000)
+      openSnackBar('選一個頭貼，輸入暱稱就可以進入聊天室囉', 6000)
     }, 2000)
 
     socket.on('checkResult', (error) => {
@@ -130,23 +130,23 @@ const Login = ({ history }) => {
 
   const loginHandler = () => {
     if (!avatar) {
-      consecutiveSnackbars.current.handleOpen('選一個頭貼')
+      openSnackBar('選一個頭貼')
       setCheckProgress(false)
       return ''
     }
     if (!user) {
-      consecutiveSnackbars.current.handleOpen('請輸入暱稱')
+      openSnackBar('請輸入暱稱')
       setCheckProgress(false)
       return ''
     }
     if (user.length > 8) {
-      consecutiveSnackbars.current.handleOpen('名字最多 8 個字')
+      openSnackBar('名字最多 8 個字')
       setCheckProgress(false)
       return ''
     }
 
     if (existUser) {
-      consecutiveSnackbars.current.handleOpen('暱稱已有人使用')
+      openSnackBar('暱稱已有人使用')
       setCheckProgress(false)
       return
     }
@@ -195,7 +195,6 @@ const Login = ({ history }) => {
         <Authent className={`authent ${authent}`}/>
         <Bubbles count={20}/>
         <SquareLoading loadComplete={loadComplete}/>
-        <ConsecutiveSnackbars ref={ consecutiveSnackbars }/>
     </div>
   )
 }

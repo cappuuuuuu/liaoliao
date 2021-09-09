@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { toggle, activeBubbleBackground } from '@/redux/slices/bubbleBackgroundSlice'
+import { useSnackBar } from '@/contexts/SnackBarProvider.js'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import FormGroup from '@material-ui/core/FormGroup'
@@ -21,13 +22,12 @@ export default function MoreVertMenu () {
   const dispatch = useDispatch()
   const bubbleBackground = useSelector(activeBubbleBackground)
   const [anchorEl, setAnchorEl] = useState(null)
-
+  const open = Boolean(anchorEl)
+  const { openSnackBar } = useSnackBar()
   const [switchState, setSwitchState] = useState({
     bubbleBackground,
     share: true
   })
-
-  const open = Boolean(anchorEl)
 
   const toggleMenu = (event) => {
     setAnchorEl(event.currentTarget)
@@ -43,11 +43,15 @@ export default function MoreVertMenu () {
   }
 
   const menuItemClickHandler = (name) => {
+    if (navigator.share === undefined) {
+      const errorMessage = '很抱歉 你的瀏覽器不支援分享功能 !'
+      openSnackBar(errorMessage)
+    }
+
     if (navigator.share && name === 'share') {
       navigator.share({
         url: window.location.origin
       })
-        .then(() => console.log('分享成功！'))
         .catch((error) => console.warn('分享發生錯誤 !', error))
     }
   }
