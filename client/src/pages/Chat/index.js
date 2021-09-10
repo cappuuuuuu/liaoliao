@@ -10,6 +10,7 @@ import SendIcon from '@material-ui/icons/Send'
 import { disableBodyScroll } from 'body-scroll-lock'
 import { activeBubbleBackground } from '@/redux/slices/bubbleBackgroundSlice'
 import { getAvatarDataThunk, avatarData } from '@/redux/slices/avatarDataSlice'
+import { StickerProvider } from '@/contexts/StickerProvider'
 
 // components
 import Messages from '@/components/Messages'
@@ -18,9 +19,6 @@ import Sidebar from '@/components/Sidebar'
 import Sticker from '@/components/Sticker'
 import Bubbles from '@/components/Bubbles'
 import TimeLoading from '@/components/Loading/TimeLoading'
-
-// image
-import stickers from '@/components/StickerImage'
 
 // CSS
 import './style.scss'
@@ -42,7 +40,7 @@ const Chat = ({ location }) => {
   const [messages, setMessages] = useState([])
   const [isTyping, setTyping] = useState(false)
   const [typingStatus, setTypingStatus] = useState([])
-  const [firstLoadingMessage, setfirstLoadingMessage] = useState(true)
+  const [loadingHistoryMessage, setLoadingHistoryMessage] = useState(true)
   const [pullLoading, setpullLoading] = useState(false)
   const [totalMessageCount, setTotalMessageCount] = useState(0)
   const bubbleBackground = useSelector(activeBubbleBackground)
@@ -73,13 +71,6 @@ const Chat = ({ location }) => {
 
     // 修正畫面滾動問題
     if (isIOS) disableBodyScroll(document.getElementById('messages'))
-
-    // Preload sticker images
-    stickers.forEach((sticker) => {
-      sticker.imageUrl.forEach((url) => {
-        new Image().src = url
-      })
-    })
 
     socket.on('userLeft', (leftUser) => {
       setUsers(users => users.filter((user) => user.name !== leftUser.name))
@@ -121,7 +112,7 @@ const Chat = ({ location }) => {
           ignoreCancelEvents: true
         })
         setTimeout(() => {
-          setfirstLoadingMessage(false)
+          setLoadingHistoryMessage(false)
         }, 1100)
       }
     })
@@ -224,14 +215,15 @@ const Chat = ({ location }) => {
 
   return (
         <div className="chat-container">
+          <StickerProvider>
             <div className="chat">
                 <Navbar users={users} name={name} avatar={avatar}/>
-                <Backdrop open={firstLoadingMessage} style={{ backgroundColor: 'rgba(0,0,0,.75)', zIndex: '1', position: 'absolute' }}>
+                <Backdrop open={loadingHistoryMessage} style={{ backgroundColor: 'rgba(0,0,0,.75)', zIndex: '1', position: 'absolute' }}>
                   <TimeLoading />
                 </Backdrop>
                 <Messages
                     loadMoreMessage={ loadMoreMessage }
-                    firstLoadingMessage = {firstLoadingMessage}
+                    loadingHistoryMessage = {loadingHistoryMessage}
                     pullLoading= {pullLoading}
                     messages={messages}
                     name={name}
@@ -247,7 +239,7 @@ const Chat = ({ location }) => {
                     onKeyPress={ e => e.key === 'Enter' ? sendMessage(e) : null }
                     onChange={changeHandler}
                     placeholder="輸入訊息" />
-                    <Sticker sendSticker={sendSticker} stickers={stickers}/>
+                    <Sticker sendSticker={sendSticker}/>
                     <IconButton className="message-submit" onClick={ sendMessage }>
                         <SendIcon style={{ color: '#5081ad' }}/>
                     </IconButton>
@@ -260,6 +252,7 @@ const Chat = ({ location }) => {
             <div className="bubbles__container" style={ bubbleBackground ? { visibility: 'visible' } : { visibility: 'hidden' }}>
                 <Bubbles count={14}/>
             </div>
+          </StickerProvider>
         </div>
 
   )

@@ -1,110 +1,77 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, { useState } from 'react'
 import SwipeableViews from 'react-swipeable-views'
 import { useTheme } from '@material-ui/core/styles'
 import { useStyles } from './style'
+import { useSticker } from '@/contexts/StickerProvider'
 import AppBar from '@material-ui/core/AppBar'
 import Button from '@material-ui/core/Button'
 import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
-import Typography from '@material-ui/core/Typography'
-import Box from '@material-ui/core/Box'
 
-function TabPanel (props) {
-  const { children, value, index, ...other } = props
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`full-width-tabpanel-${index}`}
-      aria-labelledby={`full-width-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box p={3}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  )
-}
-
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired
-}
-
-function a11yProps (index) {
-  return {
-    id: `full-width-tab-${index}`,
-    'aria-controls': `full-width-tabpanel-${index}`
-  }
-}
-
-export default function FullWidthTabs ({ touchStickerHandler, stickers }) {
+export default function StickerList ({ touchStickerHandler }) {
+  const stickerList = useSticker()
   const classes = useStyles()
   const theme = useTheme()
-  const [value, setValue] = React.useState(0)
+  const [activeIndex, setActiveIndex] = useState(0)
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue)
+  const tabChangeHandler = (_, activeIndex) => {
+    setActiveIndex(activeIndex)
   }
 
-  const handleChangeIndex = (index) => {
-    setValue(index)
+  const swipeableViewsChangeHandler = (activeIndex) => {
+    setActiveIndex(activeIndex)
   }
 
-  const TabsContent = ({ value }) => {
-    return (
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          indicatorColor="primary"
-          textColor="primary"
-          variant="fullWidth"
-          aria-label="full width tabs example"
-        >
-          {stickers.map((sticker, i) => {
-            return (
-                <Tab key={sticker.name} className={classes.stickerArticle} style={{ backgroundImage: `url(${sticker.imageUrl[0]})` }} {...a11yProps(i)} />
-            )
-          })}
-        </Tabs>
-    )
-  }
+  const TabsContent = ({ activeIndex }) => (
+    <Tabs
+      value={activeIndex}
+      onChange={tabChangeHandler}
+      variant="fullWidth"
+    >
+      {
+        stickerList.map(sticker => (
+          <Tab
+            key={sticker.name}
+            className={classes.stickerArticle}
+            style={{ backgroundImage: `url(${sticker.data[0].url})` }}
+          />
+        ))
+      }
+    </Tabs>
+  )
 
-  const StickerWrapper = ({ value }) => {
-    return (
-          <SwipeableViews
-          axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-          index={value}
-          onChangeIndex={handleChangeIndex}
-          >
-            {stickers.map((sticker, i) => {
-              return (
-                    <div key={sticker.name} value={value} index={i} dir={theme.direction}>
-                      <div className={classes.listWrapper} >
-                        <ul className={classes.stickerList}>
-                            {sticker.imageUrl.map((url) => {
-                              return <li key={url}><Button onClick={touchStickerHandler}><img src={url} alt=""/></Button></li>
-                            })}
-                        </ul>
-                      </div>
-                    </div>
-              )
-            })}
-          </SwipeableViews>
-    )
-  }
+  const StickerImageList = ({ imageUrlList }) => (
+    imageUrlList.map(item => (
+      <Button key={item.description} onClick={touchStickerHandler}>
+        <img src={item.url} alt=""/>
+      </Button>
+    ))
+  )
+
+  const StickerWrapper = ({ activeIndex }) => (
+    <SwipeableViews
+      axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+      index={activeIndex}
+      onChangeIndex={swipeableViewsChangeHandler}
+    >
+      {
+        stickerList.map(sticker => (
+          <div key={sticker.name} className={classes.listWrapper} >
+            <ul className={classes.stickerList}>
+              <StickerImageList imageUrlList={sticker.data} />
+            </ul>
+          </div>
+        ))
+      }
+    </SwipeableViews>
+  )
 
   return (
     <div className={classes.root}>
       <AppBar position="static" color="default">
-          <TabsContent value={value}/>
+        <TabsContent activeIndex={activeIndex}/>
       </AppBar>
-      <StickerWrapper value={value}/>
+      <StickerWrapper activeIndex={activeIndex}/>
     </div>
   )
 }

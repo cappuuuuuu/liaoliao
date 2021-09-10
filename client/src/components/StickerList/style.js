@@ -37,7 +37,7 @@ export const useStyles = makeStyles((theme) => ({
     overflow: 'hidden',
     padding: '10px',
 
-    '& li': {
+    '& button': {
       display: 'inline-flex',
       boxSizing: 'border-box',
       width: '25%',

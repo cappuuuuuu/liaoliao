@@ -68,7 +68,7 @@ export default function Sticker ({ sendSticker, stickers }) {
                   }}
                   className={classes.stickerPopover}
                 >
-                  <StickerList touchStickerHandler={ touchStickerHandler } stickers={stickers}/>
+                  <StickerList touchStickerHandler={ touchStickerHandler }/>
                 </Popover>
 
                 {/* monbile sticker drawer */}
@@ -81,7 +81,7 @@ export default function Sticker ({ sendSticker, stickers }) {
                     disableBackdropTransition={!isIOS}
                     disableDiscovery={isIOS}
                     >
-                    <StickerList touchStickerHandler={ touchStickerHandler } stickers={stickers}/>
+                  <StickerList touchStickerHandler={ touchStickerHandler }/>
                 </SwipeableDrawer>
             </Toolbar>
         </AppBar>
