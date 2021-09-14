@@ -61,6 +61,7 @@ export const useStyles = makeStyles(() => ({
       height: '320px'
     },
     '& li': {
+      display: 'flex',
       height: '35px',
       lineHeight: '35px',
       backgroundColor: '#32465a',
@@ -73,10 +74,6 @@ export const useStyles = makeStyles(() => ({
       '@media (min-width:992px)': {
         height: '55px'
       },
-      '& div': {
-        display: 'flex',
-        alignItems: 'center'
-      },
       '& .single-avatar': {
         width: '35px',
         verticalAlign: 'top',
@@ -85,6 +82,7 @@ export const useStyles = makeStyles(() => ({
 
         '& > label': {
           backgroundColor: 'transparent',
+          width: '35px',
           height: '30px',
           backgroundSize: 'cover'
         }
@@ -117,5 +115,22 @@ export const useStyles = makeStyles(() => ({
   },
   LogoutLink: {
     textDecoration: 'none'
+  },
+
+  exitToAppIcon: {
+    marginRight: '10px',
+    marginBottom: '2px',
+    width: 20,
+    height: 20
+  },
+
+  userListOnlySelf: {
+    fontSize: '.9rem',
+    marginTop: '20px',
+    color: '#5081AD',
+
+    '& > p': {
+      margin: '5px 0'
+    }
   }
 }))

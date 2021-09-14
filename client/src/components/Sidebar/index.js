@@ -9,9 +9,22 @@ import { avatarData } from '@/redux/slices/avatarDataSlice'
 import { useStyles } from './style'
 import './style.scss'
 
+const ProjectDescription = () => (
+  <div className="project__description">
+    <div className="project__info">
+      <div className="project__info__author">Made By { projectInfo.author }</div>
+      <div className="project__info__version">v{ projectInfo.version }</div>
+    </div>
+    <a className="github__link" href={ projectInfo.githubProjectLink } target="_blank" rel="noopener noreferrer">
+      <img className="github__link__icon" src={require('@/assets/images/brand/github-brands.svg')} alt="github__link"/>
+    </a>
+  </div>
+)
+
 const Sidebar = ({ users, name, avatar }) => {
   const avatarList = useSelector(avatarData)
   const classes = useStyles()
+
   const Profile = () => {
     return (
       <div className={classes.profile}>
@@ -21,45 +34,45 @@ const Sidebar = ({ users, name, avatar }) => {
     )
   }
 
-  const List = () => {
+  const LogoutButton = () => (
+    <div className={classes.buttonBar}>
+      <Link to="/chat/logout">
+        <Button>
+          <ExitToAppIcon className={classes.exitToAppIcon} />
+            登出
+        </Button>
+      </Link>
+    </div>
+  )
+
+  const UserList = () => {
+    const OnlySelfOnline = () => (
+      <div className={classes.userListOnlySelf}>
+        <p>只有你一個人嗎 ?</p>
+        <p>沒關係的 ! 作者陪你聊 <span role="img" aria-label="smile">😂</span></p>
+      </div>
+    )
+
+    const OtherUsersOnline = () => (
+      users
+        .filter(user => user.name !== name)
+        .map(user => (
+          <li key={user.id}>
+            <Avatar imageUrl={avatarList?.[avatar]?.url}/>
+            <span>{user.name}</span>
+          </li>
+        ))
+    )
+
     return (
       <div className={classes.list}>
-        <div style={{ fontSize: '1rem' }}>誰在線上</div>
+        <div>誰在線上</div>
         <ul className={classes.userList}>
-          {users.length > 1
-            ? users
-              .filter(user => user.name !== name)
-              .map((user) => {
-                return (
-                  <li key={user.id}>
-                    <div>
-                      {/* <img src={avatars[user.avatar]} alt="" /> */}
-                      <Avatar imageUrl={avatarList?.[avatar]?.url}/>
-                      <span>{user.name}</span>
-                    </div>
-                  </li>
-                )
-              })
-            : <div style={{ fontSize: '.9rem', marginTop: '20px', color: '#5081AD' }}>
-              <p style={{ margin: '5px 0' }}>只有你一個人嗎 ?</p>
-              <p style={{ margin: '5px 0' }}>沒關係的 ! 作者陪你聊 <span role="img" aria-label="smile">😂</span></p>
-            </div>
+          { users.length > 1
+            ? <OtherUsersOnline />
+            : <OnlySelfOnline />
           }
         </ul>
-
-        <div className="project__description">
-          <div className="project__info">
-            <div className="project__info__author">Made By { projectInfo.author }</div>
-            <div className="project__info__version">v{ projectInfo.version }</div>
-          </div>
-          <a className="github__link" href={ projectInfo.githubProjectLink } target="_blank" rel="noopener noreferrer">
-            <img className="github__link__icon" src={require('@/assets/images/brand/github-brands.svg')} alt=""/>
-          </a>
-        </div>
-
-        <div className={classes.buttonBar}>
-          <Link to="/chat/logout"><Button><ExitToAppIcon style={{ marginRight: '10px', width: 20, height: 20 }} />登出</Button></Link>
-        </div>
       </div>
     )
   }
@@ -67,7 +80,9 @@ const Sidebar = ({ users, name, avatar }) => {
   return (
     <div className="sidebar">
       <Profile />
-      <List />
+      <UserList />
+      <ProjectDescription />
+      <LogoutButton />
     </div>
   )
 }
