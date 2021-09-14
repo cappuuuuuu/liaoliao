@@ -26,14 +26,14 @@ export default function NavBar ({ users, name, avatar }) {
       <AppBar position="static" className={classes.appBar}>
         <Toolbar className={classes.toolBar}>
           <SwipeableDrawer
-              anchor="left"
-              classes={{ paper: classes.drawer }}
-              open={openDrawerStatus}
-              onClose={toggleDrawer(false)}
-              onOpen={toggleDrawer(true)}
-              disableBackdropTransition={!isIOS}
-              disableDiscovery={isIOS}
-            >
+            anchor="left"
+            classes={{ paper: classes.drawer }}
+            open={openDrawerStatus}
+            onClose={toggleDrawer(false)}
+            onOpen={toggleDrawer(true)}
+            disableBackdropTransition={!isIOS}
+            disableDiscovery={isIOS}
+          >
             <Sidebar users={users} name={name} avatar={avatar}/>
           </SwipeableDrawer>
           <Typography className={classes.title}>
