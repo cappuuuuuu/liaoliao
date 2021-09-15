@@ -1,88 +1,72 @@
-import React from 'react'
-import { isIOS } from 'react-device-detect'
+import React, { useState } from 'react'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
-import Popover from '@material-ui/core/Popover'
 import IconButton from '@material-ui/core/IconButton'
 import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon'
-import SwipeableDrawer from '@material-ui/core/SwipeableDrawer'
-import StickerList from '@/components/StickerList'
+import StickerPopover from './StickerPopover'
+import StickerDrawer from './StickerDrawer'
 import { useStyles } from './style'
 
-export default function Sticker ({ sendSticker, stickers }) {
+export default function Sticker ({ sendSticker }) {
   const classes = useStyles()
-  const [state, setState] = React.useState(false) // control mobile sticker
-  const [anchorEl, setAnchorEl] = React.useState(null) // control desktop sticker
 
-  // control desktop sticker popover
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget)
-  }
-  const handleClose = () => {
-    setAnchorEl(null)
-  }
-  const open = Boolean(anchorEl)
-  const id = open ? 'simple-popover' : undefined
+  // Control Desktop Sticker Popover
+  const [popoverAnchorEl, setPopoverAnchorEl] = useState(null)
 
-  const toggleSticker = (open) => (event) => {
-    if (window.innerWidth > 576) {
-      handleClick(event)
-      return
-    }
+  // control Mobile Sticker Drawer
+  const [drawerOpenStatus, setDrawerOpenStatus] = useState(false)
+  const [applyPopover, setApplyPopver] = useState(window.innerWidth > 576)
 
-    if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-      return
-    }
+  window.addEventListener('resize', function () {
+    setApplyPopver(window.innerWidth > 576)
+  })
 
-    // Mobile sticker toggle
-    setState(open)
+  const handlePopoverClose = () => setPopoverAnchorEl(null)
+
+  const togglePopover = (status) => (event) => {
+    setPopoverAnchorEl(event.currentTarget)
   }
 
-  const touchStickerHandler = (e) => {
-    sendSticker(e)
-    setState(false)
-    setAnchorEl(null)
+  const toggleDrawer = (status) => (event) => {
+    setDrawerOpenStatus(status)
+  }
+
+  const touchStickerHandler = event => {
+    sendSticker(event)
+
+    // close Drawer or Popover
+    setDrawerOpenStatus(false)
+    setPopoverAnchorEl(null)
   }
 
   return (
     <div className={classes.root}>
         <AppBar position="static" className={classes.appBar}>
             <Toolbar style={{ minHeight: 'auto', padding: 0 }}>
-                <IconButton onClick={toggleSticker(true)} edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-                    <InsertEmoticonIcon style={{ color: '#5081ad' }}/>
-                </IconButton>
+              <IconButton
+                onClick={applyPopover ? togglePopover(true) : toggleDrawer(true)}
+                edge="start"
+                className={classes.menuButton}
+                color="inherit"
+                aria-label="menu"
+              >
+                <InsertEmoticonIcon className={classes.emotionIcon}/>
+              </IconButton>
 
-                {/* desktop sticker popover */}
-                <Popover
-                  id={id}
-                  open={open}
-                  anchorEl={anchorEl}
-                  onClose={handleClose}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'center'
-                  }}
-                  transformOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'right'
-                  }}
-                  className={classes.stickerPopover}
-                >
-                  <StickerList touchStickerHandler={ touchStickerHandler }/>
-                </Popover>
+              {/* Desktop sticker popover */}
+              <StickerPopover
+                open={Boolean(popoverAnchorEl)}
+                anchorEl={popoverAnchorEl}
+                handleClose={handlePopoverClose}
+                touchStickerHandler={touchStickerHandler}
+              />
 
-                {/* monbile sticker drawer */}
-                <SwipeableDrawer
-                    anchor="bottom"
-                    classes={{ paper: classes.drawer }}
-                    open={state}
-                    onClose={toggleSticker(false)}
-                    onOpen={toggleSticker(true)}
-                    disableBackdropTransition={!isIOS}
-                    disableDiscovery={isIOS}
-                    >
-                  <StickerList touchStickerHandler={ touchStickerHandler }/>
-                </SwipeableDrawer>
+              {/* Mobile sticker drawer */}
+              <StickerDrawer
+                open={drawerOpenStatus}
+                toggleSticker={toggleDrawer}
+                touchStickerHandler={touchStickerHandler}
+              />
             </Toolbar>
         </AppBar>
     </div>

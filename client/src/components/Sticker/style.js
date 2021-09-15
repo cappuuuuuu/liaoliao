@@ -50,6 +50,10 @@ export const useStyles = makeStyles(() => ({
       borderRadius: '10px'
 
     }
+  },
+
+  emotionIcon: {
+    color: '#5081ad'
   }
 
 }))
