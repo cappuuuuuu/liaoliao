@@ -1,13 +1,13 @@
-import React, { forwardRef, useImperativeHandle } from 'react'
+import React, { useState, useEffect, forwardRef, useImperativeHandle } from 'react'
 import { useStyles } from './style'
 import Snackbar from '@material-ui/core/Snackbar'
 import Slide from '@material-ui/core/Slide'
 
 const ConsecutiveSnackbars = forwardRef((props, ref) => {
-  const [snackPack, setSnackPack] = React.useState([])
-  const [open, setOpen] = React.useState(false)
-  const [messageInfo, setMessageInfo] = React.useState(undefined)
-  const [duration, setDuration] = React.useState(0)
+  const [snackPack, setSnackPack] = useState([])
+  const [open, setOpen] = useState(false)
+  const [messageInfo, setMessageInfo] = useState(undefined)
+  const [duration, setDuration] = useState(0)
   const classes = useStyles()
 
   useImperativeHandle(ref, () => ({
@@ -18,28 +18,21 @@ const ConsecutiveSnackbars = forwardRef((props, ref) => {
     },
 
     handleClose: (event, reason) => {
-      if (reason === 'clickaway') {
-        return
-      }
+      if (reason === 'clickaway') return
       setOpen(false)
     }
-
   }))
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (snackPack.length && !messageInfo) {
       setMessageInfo({ ...snackPack[0] })
       setSnackPack((prev) => prev.slice(1))
       setOpen(true)
-    } else if (snackPack.length && messageInfo && open) {
-      setOpen(false)
-    }
+    } else if (snackPack.length && messageInfo && open) setOpen(false)
   }, [snackPack, messageInfo, open])
 
   const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return
-    }
+    if (reason === 'clickaway') return
     setOpen(false)
   }
 
@@ -62,7 +55,6 @@ const ConsecutiveSnackbars = forwardRef((props, ref) => {
         onClose={handleClose}
         onExited={handleExited}
         message={messageInfo ? messageInfo.message : undefined}
-
       />
     </div>
   )
