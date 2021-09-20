@@ -40,7 +40,7 @@ export default function StickerList ({ touchStickerHandler }) {
     </Tabs>
   )
 
-  const StickerImageList = ({ imageUrlList }) => (
+  const StickerButton = ({ imageUrlList }) => (
     imageUrlList.map(item => (
       <Button key={item.description} onClick={touchStickerHandler}>
         <img src={item.url} alt=""/>
@@ -48,7 +48,7 @@ export default function StickerList ({ touchStickerHandler }) {
     ))
   )
 
-  const StickerWrapper = ({ activeIndex }) => (
+  const StickerButtonWrapper = ({ activeIndex }) => (
     <SwipeableViews
       axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
       index={activeIndex}
@@ -58,7 +58,7 @@ export default function StickerList ({ touchStickerHandler }) {
         stickerList.map(sticker => (
           <div key={sticker.name} className={classes.listWrapper} >
             <ul className={classes.stickerList}>
-              <StickerImageList imageUrlList={sticker.data} />
+              <StickerButton imageUrlList={sticker.data} />
             </ul>
           </div>
         ))
@@ -71,7 +71,7 @@ export default function StickerList ({ touchStickerHandler }) {
       <AppBar position="static" color="default">
         <TabsContent activeIndex={activeIndex}/>
       </AppBar>
-      <StickerWrapper activeIndex={activeIndex}/>
+      <StickerButtonWrapper activeIndex={activeIndex}/>
     </div>
   )
 }
