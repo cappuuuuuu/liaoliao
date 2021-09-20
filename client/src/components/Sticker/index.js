@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import IconButton from '@material-ui/core/IconButton'
@@ -12,14 +12,16 @@ export default function Sticker ({ sendSticker }) {
 
   // Control Desktop Sticker Popover
   const [popoverAnchorEl, setPopoverAnchorEl] = useState(null)
+  const [applyPopover, setApplyPopver] = useState(window.innerWidth > 576)
 
   // control Mobile Sticker Drawer
   const [drawerOpenStatus, setDrawerOpenStatus] = useState(false)
-  const [applyPopover, setApplyPopver] = useState(window.innerWidth > 576)
 
-  window.addEventListener('resize', function () {
-    setApplyPopver(window.innerWidth > 576)
-  })
+  useEffect(() => {
+    window.addEventListener('resize', function () {
+      setApplyPopver(window.innerWidth > 576)
+    })
+  }, [])
 
   const handlePopoverClose = () => setPopoverAnchorEl(null)
 
