@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import Button from '@material-ui/core/Button'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAvatarDataThunk, avatarData } from '@/redux/slices/avatarDataSlice'
 import { useSnackBar } from '@/contexts/SnackBarProvider.js'
+import { timeout } from '@/helper'
 
 // component
 import AvatarChoose from '@/components/Avatar/AvatarChoose'
@@ -17,65 +18,55 @@ import './style.scss'
 // context
 import { useSocket } from '@/contexts/SocketProvider.js'
 
-const Authent = (props) => {
-  return (
-        <div className={props.className}>
-            <img src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/217233/puff.svg ' alt="登入中"/>
-            <p>登入中...</p>
-        </div>
-  )
-}
-const Success = (props) => {
-  return (
-        <div className={`success ${props.success}`}>
-            <h2>趕快進來一起 ㄌㄌ 吧 !</h2>
-            <BongoCat />
-        </div>
-  )
-}
+const LoginAuthent = ({ className }) => (
+  <div className={className}>
+    <img src={require('@/assets/images/icon/authent.svg')} alt="登入中"/>
+    <p>登入中...</p>
+  </div>
+)
 
-const LoginFieldsUser = (props) => {
-  return (
-        <div className="login_fields__user" >
-            <input placeholder="輸入暱稱" type="text" onChange = { props.getUser } onKeyDown = { props.onKeyDown }/>
-        </div>
-  )
-}
+const LoginSuccess = ({ loginSuccessClass }) => (
+  <div className={`success ${loginSuccessClass}`}>
+    <h2>趕快進來一起 ㄌㄌ 吧 !</h2>
+    <BongoCat />
+  </div>
+)
 
-const LoginFields = (props) => {
+const LoginForm = ({ nameInputChangeHandler, inputKeyDownHandler, isCheckUserLoading, loginRequestHandler }) => {
   return (
-        <div className="login_fields">
-            <LoginFieldsUser getUser={props.getUser} onKeyDown={ props.onKeyDown }/>
-            <div className="login_fields__submit">
-                <Button className={props.checkProgress ? 'check' : ''} type="submit" onClick= { props.onClick } variant="outlined">
-                    <div className="progress">
-                        <CheckUserLoader />
-                    </div>
-                    <div className="text">
-                        開始聊天
-                    </div>
-                </Button>
-            </div>
-        </div>
-
+    <div className="login_fields">
+      <div className="login_fields__user">
+        <input placeholder="輸入暱稱" type="text" onChange = { nameInputChangeHandler } onKeyDown = { inputKeyDownHandler }/>
+      </div>
+      <div className="login_fields__submit">
+        <Button className={isCheckUserLoading ? 'check' : ''} type="submit" onClick= { loginRequestHandler } variant="outlined">
+          <div className="progress">
+            <CheckUserLoader />
+          </div>
+          <div className="text">開始聊天</div>
+        </Button>
+      </div>
+    </div>
   )
 }
 
 const Login = ({ history }) => {
   const socket = useSocket()
   const dispatch = useDispatch()
+  const { openSnackBar, closeSnackBar } = useSnackBar()
   const avatarList = useSelector(avatarData)
-  const [user, setUser] = useState('') // 登入名字
-  const [avatar, setAvatar] = useState('')
-  const [existUser, setExistUser] = useState(false)
-  const [checkUser, setCheckUser] = useState(false)
-  const [checkProgress, setCheckProgress] = useState(false)
-  const [status, setStatus] = useState('') // 控制登入動畫
-  const [authent, setAuthent] = useState('') // 控制登入動畫
-  const [success, setSuccess] = useState('') // 控制登入動畫
-  const [loadComplete, setLoadComplete] = useState(false)
-  const firstRender = useRef(true)
-  const { openSnackBar } = useSnackBar()
+  const [userName, setUserName] = useState('')
+  const [userAvatar, setUserAvatar] = useState('')
+  const [isExistUserName, setIsExistUserName] = useState(false)
+  const [checkUserName, setCheckUserName] = useState(false)
+  const [isCheckUserLoading, setIsCheckUserLoading] = useState(false)
+
+  // 控制登入動畫
+  const [loginAnimationClass, setLoginAnimationClass] = useState('')
+  const [authentClass, setAuthentClass] = useState('')
+  const [loginSuccessClass, setLoginSuccessClass] = useState('')
+
+  const [pageLoadComplete, setPageLoadComplete] = useState(false)
 
   useEffect(() => {
     if (!avatarList.length) dispatch(getAvatarDataThunk())
@@ -83,118 +74,106 @@ const Login = ({ history }) => {
 
   useEffect(() => {
     if (socket === null) return
-    if (!!window.performance && window.performance.navigation.type === 0) {
-      //! ! 用來檢查 window.performance 是否存在
-      // window.performance.navigation.type ===2 表示使用 back or forward
-      window.location.reload()// 或是其他動作
-    }
 
     setTimeout(() => {
-      setLoadComplete(true)
+      setPageLoadComplete(true)
       openSnackBar('選一個頭貼，輸入暱稱就可以進入聊天室囉', 6000)
     }, 2000)
 
     socket.on('checkResult', (error) => {
       if (error === 'repeat') {
-        setExistUser(true)
+        setIsExistUserName(true)
       }
-      setCheckUser(true)
+      setCheckUserName(true)
     })
   }, [socket])
 
   useEffect(() => {
-    if (firstRender.current) {
-      firstRender.current = false
-    } else if (checkUser) loginHandler()
-  }, [checkUser])
+    if (checkUserName) loginHandler()
+  }, [checkUserName])
 
   const loginRequest = () => {
-    setCheckProgress(true)
-    setCheckUser(false)
-    setExistUser(false)
-    socket.emit('checkUser', user)
+    closeSnackBar()
+    setIsCheckUserLoading(true)
+    setCheckUserName(false)
+    setIsExistUserName(false)
+    socket.emit('checkUser', userName)
   }
 
   const inputKeyDownHandler = (e) => {
     if (e.key === 'Enter') loginRequest()
   }
 
-  const getUser = (e) => {
+  const nameInputChangeHandler = (e) => {
     const name = e.target.value
-    setUser(name.trim())
+    setUserName(name.trim())
   }
 
-  const getAvatar = (e) => {
-    setAvatar(e.target.value)
+  const avatarChangeHandler = (e) => {
+    setUserAvatar(e.target.value)
   }
 
   const loginHandler = () => {
-    if (!avatar) {
-      openSnackBar('選一個頭貼')
-      setCheckProgress(false)
-      return ''
-    }
-    if (!user) {
-      openSnackBar('請輸入暱稱')
-      setCheckProgress(false)
-      return ''
-    }
-    if (user.length > 8) {
-      openSnackBar('名字最多 8 個字')
-      setCheckProgress(false)
-      return ''
-    }
+    const checkLoginProcedure = [
+      { promptText: '選一個頭貼', isFullFill: userAvatar },
+      { promptText: '請輸入暱稱', isFullFill: userName },
+      { promptText: '名字最多 8 個字唷', isFullFill: userName.length < 9 },
+      { promptText: '暱稱已有人使用', isFullFill: !isExistUserName },
+      { promptText: '', isFullFill: checkUserName }
+    ]
 
-    if (existUser) {
-      openSnackBar('暱稱已有人使用')
-      setCheckProgress(false)
-      return
+    const isNotFullFillProcedure = checkLoginProcedure.find(item => !item.isFullFill)
+
+    if (isNotFullFillProcedure) {
+      const snackBarMessage = isNotFullFillProcedure.promptText
+      if (snackBarMessage) openSnackBar(snackBarMessage)
+      return setIsCheckUserLoading(false)
+    } else {
+      loginAnimation()
     }
 
-    if (!checkUser) {
-      return
+    async function loginAnimation () {
+      setIsCheckUserLoading(false)
+      setLoginAnimationClass('tilt')
+
+      await timeout(300)
+      setLoginAnimationClass('tilt shift')
+
+      await timeout(200)
+      setAuthentClass('active')
+
+      await timeout(2000)
+      setLoginAnimationClass('tilt')
+      setAuthentClass('')
+
+      await timeout(300)
+      setLoginAnimationClass('close')
+
+      await timeout(200)
+      setLoginSuccessClass('active')
+
+      await timeout(2500)
+      history.push(`/chat?name=${userName}&avatar=${userAvatar}`)
     }
-
-    setCheckProgress(false)
-    setStatus('test')
-    setTimeout(() => {
-      setStatus('test testtwo')
-    }, 300)
-
-    setTimeout(() => {
-      setAuthent('active')
-    }, 500)
-
-    setTimeout(() => {
-      setStatus('test')
-      setAuthent('')
-    }, 2500)
-
-    setTimeout(() => {
-      setStatus('close')
-    }, 2800)
-
-    setTimeout(() => {
-      setSuccess('active')
-    }, 3000)
-
-    setTimeout(() => {
-      history.push(`/chat?name=${user}&avatar=${avatar}`)
-    }, 5500)
   }
 
   return (
     <div className="login-body">
-        <div className={`login ${status}`}>
-            <div className='login-content'>
-              <AvatarChoose getAvatar={getAvatar}/>
-              <LoginFields onClick={ loginRequest } onKeyDown= { inputKeyDownHandler } getUser={ getUser} checkProgress={checkProgress} />
-              <Success success={success}/>
-            </div>
+        <div className={`login ${loginAnimationClass}`}>
+          <div className='login-content'>
+            <AvatarChoose avatarChangeHandler={avatarChangeHandler}/>
+            <LoginForm
+              loginRequestHandler={ loginRequest }
+              inputKeyDownHandler= { inputKeyDownHandler }
+              nameInputChangeHandler={ nameInputChangeHandler }
+              isCheckUserLoading={isCheckUserLoading}
+            />
+            <LoginSuccess loginSuccessClass={loginSuccessClass}/>
+          </div>
         </div>
-        <Authent className={`authent ${authent}`}/>
+        <LoginAuthent className={`authent ${authentClass}`}/>
         <Bubbles count={20}/>
-        <SquareLoading loadComplete={loadComplete}/>
+        <SquareLoading loadComplete={pageLoadComplete}/>
     </div>
   )
 }

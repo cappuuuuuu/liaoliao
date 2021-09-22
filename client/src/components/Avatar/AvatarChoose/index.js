@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 import { avatarData } from '@/redux/slices/avatarDataSlice'
 import './style.scss'
 
-const AvatarChoose = ({ getAvatar }) => {
+const AvatarChoose = ({ avatarChangeHandler }) => {
   const avatarList = useSelector(avatarData)
 
   return (
@@ -14,7 +14,7 @@ const AvatarChoose = ({ getAvatar }) => {
           avatarList.map((avatar, index) => (
             <Avatar
               index={index}
-              getAvatar={getAvatar}
+              avatarChangeHandler={avatarChangeHandler}
               name={avatar.name}
               imageUrl={avatar.url}
               key={avatar._id}

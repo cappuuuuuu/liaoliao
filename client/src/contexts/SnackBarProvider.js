@@ -14,8 +14,12 @@ export function SnackBarProvider ({ children }) {
     if (message) consecutiveSnackbars.current.handleOpen(message, duration)
   }
 
+  function closeSnackBar () {
+    consecutiveSnackbars.current.handleClose()
+  }
+
   return (
-    <SnackBarContext.Provider value={{ openSnackBar }}>
+    <SnackBarContext.Provider value={{ openSnackBar, closeSnackBar }}>
       <ConsecutiveSnackbars ref={ consecutiveSnackbars }/>
       { children }
     </SnackBarContext.Provider>

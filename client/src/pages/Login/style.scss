@@ -68,7 +68,7 @@
     }
   }
 
-  .test {
+  .tilt {
     top: -100px !important;
     opacity: .8 !important;
     pointer-events: none;
@@ -104,7 +104,7 @@
       margin-top: 30px;
     }
 
-    &.testtwo {
+    &.shift {
       left: -320px;
     }
 
@@ -284,11 +284,11 @@
         }
       }
 
-      &.test {
+      &.tilt {
         top: -200px !important;
       }
 
-      &.testtwo {
+      &.shift {
         left: 0;
       }
 

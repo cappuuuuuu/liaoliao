@@ -12,3 +12,7 @@ export function getConfigsJSON () {
     return { SERVER_ORIGIN: process.env.SERVER_ORIGIN }
   }
 }
+
+export function timeout (ms) {
+  return new Promise(resolve => setTimeout(resolve, ms))
+}
