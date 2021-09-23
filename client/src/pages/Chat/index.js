@@ -33,11 +33,11 @@ const Chat = ({ location }) => {
   const socket = useSocket()
   const dispatch = useDispatch()
   const avatarList = useSelector(avatarData)
-  const [name, setName] = useState('')
-  const [avatar, setAvatar] = useState('')
-  const [users, setUsers] = useState([])
-  const [msg, setMsg] = useState('')
-  const [messages, setMessages] = useState([])
+  const [userName, setUserName] = useState('')
+  const [userAvatar, setUserAvatar] = useState('')
+  const [userList, setUserList] = useState([])
+  const [messageInputValue, setMessageInputValue] = useState('')
+  const [messageList, setMessageList] = useState([])
   const [isTyping, setTyping] = useState(false)
   const [typingStatus, setTypingStatus] = useState([])
   const [loadingHistoryMessage, setLoadingHistoryMessage] = useState(true)
@@ -57,9 +57,10 @@ const Chat = ({ location }) => {
 
   useEffect(() => {
     if (socket === null) return
+
     const { name, avatar } = queryString.parse(location.search)
-    setName(name)
-    setAvatar(avatar)
+    setUserName(name)
+    setUserAvatar(avatar)
 
     const getRecordRequestBody = {
       page: 1,
@@ -73,8 +74,8 @@ const Chat = ({ location }) => {
     if (isIOS) disableBodyScroll(document.getElementById('messages'))
 
     socket.on('userLeft', (leftUser) => {
-      setUsers(users => users.filter((user) => user.name !== leftUser.name))
-      setMessages(messages => [...messages, { isLeftUser: true, name: leftUser.name, time: getTime() }])
+      setUserList(users => users.filter((user) => user.name !== leftUser.name))
+      setMessageList(messageList => [...messageList, { isLeftUser: true, name: leftUser.name, time: getTime() }])
       scroll.scrollToBottom({
         containerId: 'messages',
         duration: 1000
@@ -82,8 +83,8 @@ const Chat = ({ location }) => {
     })
 
     socket.on('join', (newUsers) => {
-      setUsers(newUsers)
-      setMessages(messages => [...messages, { isNewUser: true, name: newUsers[newUsers.length - 1].name, time: getTime() }])
+      setUserList(newUsers)
+      setMessageList(messageList => [...messageList, { isNewUser: true, name: newUsers[newUsers.length - 1].name, time: getTime() }])
       scroll.scrollToBottom({
         containerId: 'messages',
         duration: 1000,
@@ -98,13 +99,13 @@ const Chat = ({ location }) => {
       // 上拉加載
       if (page !== 1) {
         setTimeout(() => {
-          setMessages(messages => [...data, ...messages])
+          setMessageList(messageList => [...data, ...messageList])
           setpullLoading(false)
         }, 750)
       } else {
         // 第一次載入
         const userData = queryString.parse(location.search)
-        setMessages(messages => [...data, ...messages])
+        setMessageList(messageList => [...data, ...messageList])
         socket.emit('join', userData)
         scroll.scrollToBottom({
           containerId: 'messages',
@@ -122,7 +123,7 @@ const Chat = ({ location }) => {
       setTypingStatus({
         isTyping: false
       })
-      setMessages(messages => [...messages, data])
+      setMessageList(messageList => [...messageList, data])
       if (name === data.name) {
         scroll.scrollToBottom({
           containerId: 'messages',
@@ -160,8 +161,8 @@ const Chat = ({ location }) => {
   // 根據是否有人正在打字，傳送某人打字狀態到 server
   useEffect(() => {
     if (socket === null) return
-    socket.emit('typing', { isTyping, name, avatar })
-  }, [name, avatar, socket, isTyping])
+    socket.emit('typing', { isTyping, name: userName, avatar: userAvatar })
+  }, [userName, userAvatar, socket, isTyping])
 
   // 若 viewport底部 距離 messagesContainer底部 400px 以下 ， scrollbar 將滑至底部
   const scrollController = () => {
@@ -179,8 +180,8 @@ const Chat = ({ location }) => {
     }
     const data = {
       typesOf: 'sticker',
-      name,
-      avatar,
+      name: userName,
+      avatar: userAvatar,
       msg: e.target.src,
       time: getTime()
     }
@@ -188,7 +189,7 @@ const Chat = ({ location }) => {
   }
 
   const changeHandler = (e) => {
-    setMsg(e.target.value)
+    setMessageInputValue(e.target.value)
     setTyping(true)
     handleTyping()
   }
@@ -203,10 +204,10 @@ const Chat = ({ location }) => {
   const sendMessage = (e) => {
     e.preventDefault()
     inputText.current.focus()
-    if (!msg) return
+    if (!messageInputValue) return
     const time = getTime()
-    socket.emit('sendMessage', { typesOf: 'text', name, avatar, msg, time })
-    setMsg('')
+    socket.emit('sendMessage', { typesOf: 'text', name: userName, avatar: userAvatar, msg: messageInputValue, time })
+    setMessageInputValue('')
   }
 
   const loadMoreMessage = () => {
@@ -217,7 +218,7 @@ const Chat = ({ location }) => {
         <div className="chat-container">
           <StickerProvider>
             <div className="chat">
-                <Navbar users={users} name={name} avatar={avatar}/>
+                <Navbar userList={userList} userName={userName} avatar={userAvatar}/>
                 <Backdrop open={loadingHistoryMessage} style={{ backgroundColor: 'rgba(0,0,0,.75)', zIndex: '1', position: 'absolute' }}>
                   <TimeLoading />
                 </Backdrop>
@@ -225,29 +226,30 @@ const Chat = ({ location }) => {
                     loadMoreMessage={ loadMoreMessage }
                     loadingHistoryMessage = {loadingHistoryMessage}
                     pullLoading= {pullLoading}
-                    messages={messages}
-                    name={name}
+                    messageList={messageList}
+                    userName={userName}
                     isTyping={typingStatus}
                     ref={{ ref1: messagesContainer, ref2: messageContent }}
                     totalMessageCount={totalMessageCount}
                 />
                 <div className="message-box" ref={messageBox}>
-                    <input type="text"
+                  <input type="text"
                     className="message-input"
                     ref={inputText}
-                    value={msg}
+                    value={messageInputValue}
                     onKeyPress={ e => e.key === 'Enter' ? sendMessage(e) : null }
                     onChange={changeHandler}
-                    placeholder="輸入訊息" />
-                    <Sticker sendSticker={sendSticker}/>
-                    <IconButton className="message-submit" onClick={ sendMessage }>
-                        <SendIcon style={{ color: '#5081ad' }}/>
-                    </IconButton>
+                    placeholder="輸入訊息"
+                  />
+                  <Sticker sendSticker={sendSticker}/>
+                  <IconButton className="message-submit" onClick={ sendMessage }>
+                    <SendIcon style={{ color: '#5081ad' }}/>
+                  </IconButton>
                 </div>
                 <div id="layoutViewport"></div>
             </div>
             <div className='desktopSidebar'>
-                <Sidebar users={users} name={name} avatar={avatar}/>
+                <Sidebar userList={userList} userName={userName} avatar={userAvatar}/>
             </div>
             <div className="bubbles__container" style={ bubbleBackground ? { visibility: 'visible' } : { visibility: 'hidden' }}>
                 <Bubbles count={14}/>

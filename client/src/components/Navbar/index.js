@@ -10,7 +10,7 @@ import MoreVertMenu from '@/components/MoreVertMenu'
 import { isIOS } from 'react-device-detect'
 import { useStyles } from './style'
 
-export default function NavBar ({ users, name, avatar }) {
+export default function NavBar ({ userList, userName, avatar }) {
   const classes = useStyles()
   const [openDrawerStatus, setOpenDrawerStatus] = React.useState(false)
 
@@ -34,7 +34,7 @@ export default function NavBar ({ users, name, avatar }) {
             disableBackdropTransition={!isIOS}
             disableDiscovery={isIOS}
           >
-            <Sidebar users={users} name={name} avatar={avatar}/>
+            <Sidebar userList={userList} userName={userName} avatar={avatar}/>
           </SwipeableDrawer>
           <Typography className={classes.title}>
             <IconButton onClick={toggleDrawer(true)} edge="start" className={classes.menuButton} color="inherit" aria-label="menu">

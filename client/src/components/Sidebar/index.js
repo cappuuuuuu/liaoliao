@@ -21,7 +21,7 @@ const ProjectDescription = () => (
   </div>
 )
 
-const Sidebar = ({ users, name, avatar }) => {
+const Sidebar = ({ userList, userName, avatar }) => {
   const avatarList = useSelector(avatarData)
   const classes = useStyles()
 
@@ -29,7 +29,7 @@ const Sidebar = ({ users, name, avatar }) => {
     return (
       <div className={classes.profile}>
         <Avatar imageUrl={avatarList?.[avatar]?.url}/>
-        <div className={classes.name}>{name}</div>
+        <div className={classes.name}>{userName}</div>
       </div>
     )
   }
@@ -54,11 +54,11 @@ const Sidebar = ({ users, name, avatar }) => {
     )
 
     const OtherUsersOnline = () => (
-      users
-        .filter(user => user.name !== name)
+      userList
+        .filter(user => user.name !== userName)
         .map(user => (
           <li key={user.id}>
-            <Avatar imageUrl={avatarList?.[avatar]?.url}/>
+            <Avatar imageUrl={avatarList?.[user.avatar]?.url}/>
             <span>{user.name}</span>
           </li>
         ))
@@ -68,7 +68,7 @@ const Sidebar = ({ users, name, avatar }) => {
       <div className={classes.list}>
         <div>誰在線上</div>
         <ul className={classes.userList}>
-          { users.length > 1
+          { userList.length > 1
             ? <OtherUsersOnline />
             : <OnlySelfOnline />
           }

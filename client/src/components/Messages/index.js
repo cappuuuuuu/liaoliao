@@ -9,20 +9,20 @@ import Avatar from '@/components/Avatar'
 import { useSelector } from 'react-redux'
 import { avatarData } from '@/redux/slices/avatarDataSlice'
 
-const Date = ({ messages, index }) => {
+const Date = ({ messageList, index }) => {
   if (index === 0) {
     return (
       <div className="message-wrapper broadcast">
           <div className="message new date">
-              {moment((messages[index]).time).format('ll')}
+              {moment((messageList[index]).time).format('ll')}
           </div>
       </div>
     )
-  } else if (moment(messages[index].time).format('ll') !== moment((messages[index - 1]).time).format('ll')) {
+  } else if (moment(messageList[index].time).format('ll') !== moment((messageList[index - 1]).time).format('ll')) {
     return (
       <div className="message-wrapper broadcast">
           <div className="message new date">
-              {moment((messages[index]).time).format('ll')}
+              {moment((messageList[index]).time).format('ll')}
           </div>
       </div>
     )
@@ -30,7 +30,7 @@ const Date = ({ messages, index }) => {
   return null
 }
 
-const Messages = React.forwardRef(({ messages, name, isTyping, loadMoreMessage, pullLoading, totalMessageCount, firstLoadingMessage }, ref) => {
+const Messages = React.forwardRef(({ messageList, userName, isTyping, loadMoreMessage, pullLoading, totalMessageCount, firstLoadingMessage }, ref) => {
   let time, prevMessageTime, repeat
   const avatarList = useSelector(avatarData)
   const socket = useSocket()
@@ -115,18 +115,18 @@ const Messages = React.forwardRef(({ messages, name, isTyping, loadMoreMessage, 
                 <img className="arrow__icon" src={require('@/assets/images/icon/arrow-up.svg')} alt=""/>
             </div>
             <div className="messages-content" name="messgaes-content" ref={ref.ref2}>
-                <div className={ `message-wrapper broadcast load-message-status ${totalMessageCount && messages.filter(item => item.msg).length === totalMessageCount ? 'load-complete' : ''}`}>
+                <div className={ `message-wrapper broadcast load-message-status ${totalMessageCount && messageList.filter(item => item.msg).length === totalMessageCount ? 'load-complete' : ''}`}>
                     <div className="message">已經沒有更多訊息了!</div>
                 </div>
                 <MessageLoader kind={'message'} load={ pullLoading }/>
-                { messages.map((message, i, messages) => {
+                { messageList.map((message, i, messageList) => {
                   repeat = false
 
-                  if (message.name === name) {
+                  if (message.name === userName) {
                     if (message.isNewUser) {
                       return (
                                 <React.Fragment key={message.time}>
-                                    <Date messages={messages} index={i}/>
+                                    <Date messageList={messageList} index={i}/>
                                     <div className="message-wrapper broadcast" key={message.time}>
                                         <div className="message new">
                                             你已進入聊天室
@@ -147,7 +147,7 @@ const Messages = React.forwardRef(({ messages, name, isTyping, loadMoreMessage, 
 
                     return (
                             <React.Fragment key={message.time}>
-                                <Date messages={messages} index={i}/>
+                                <Date messageList={messageList} index={i}/>
                                 <div className="message-wrapper message-personal" name="message" key={message.time}>
                                     <div className="message new">
                                         {message.msg}
@@ -161,7 +161,7 @@ const Messages = React.forwardRef(({ messages, name, isTyping, loadMoreMessage, 
                     if (message.isNewUser) {
                       return (
                                 <React.Fragment key={message.time}>
-                                    <Date messages={messages} index={i}/>
+                                    <Date messageList={messageList} index={i}/>
                                     <div className="message-wrapper broadcast" key={message.time}>
                                         <div className="message new">
                                             {message.name} 已加入聊天室
@@ -173,7 +173,7 @@ const Messages = React.forwardRef(({ messages, name, isTyping, loadMoreMessage, 
                     } else if (message.isLeftUser) {
                       return (
                                 <React.Fragment key={message.time}>
-                                    <Date messages={messages} index={i}/>
+                                    <Date List={messageList} index={i}/>
                                     <div className="message-wrapper broadcast" key={message.time}>
                                         <div className="message new">
                                             {message.name} 離開聊天室
@@ -186,15 +186,15 @@ const Messages = React.forwardRef(({ messages, name, isTyping, loadMoreMessage, 
                     // 同一分鐘內同一人的訊息不顯示頭貼、名字
                     if (i > 0) {
                       time = moment(message.time).format('LT')
-                      prevMessageTime = moment(messages[i - 1].time).format('LT')
-                      if (messages[i - 1].msg && (message.name === messages[i - 1].name) && time === prevMessageTime) {
+                      prevMessageTime = moment(messageList[i - 1].time).format('LT')
+                      if (messageList[i - 1].msg && (message.name === messageList[i - 1].name) && time === prevMessageTime) {
                         repeat = true
                       }
                     }
 
                     return (
                             <React.Fragment key={message.time}>
-                                <Date messages={messages} index={i}/>
+                                <Date messageList={messageList} index={i}/>
                                 <div className={`message-wrapper${repeat ? ' repeat' : ''}`} key={message.time} name="message">
                                     <Avatar imageUrl={avatarList?.[message.avatar]?.url}/>
                                     { message.typesOf === 'sticker'
