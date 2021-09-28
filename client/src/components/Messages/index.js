@@ -30,7 +30,7 @@ const Date = ({ messageList, index }) => {
   return null
 }
 
-const Messages = React.forwardRef(({ messageList, userName, isTyping, loadMoreMessage, pullLoading, totalMessageCount, firstLoadingMessage }, ref) => {
+const Messages = ({ messageList, userName, typingStatus, loadMoreMessage, pullLoading, totalMessageCount, firstLoadingMessage, messageContainer }) => {
   let time, prevMessageTime, repeat
   const avatarList = useSelector(avatarData)
   const socket = useSocket()
@@ -110,11 +110,11 @@ const Messages = React.forwardRef(({ messageList, userName, isTyping, loadMoreMe
   }, [firstLoadingMessage])
 
   return (
-      <div id="messages" className="messages" ref={ref.ref1} onScroll={ scrollHandler }>
+      <div id="messages" className="messages" ref={messageContainer} onScroll={ scrollHandler }>
             <div className={`back__to__top ${backTopButtonActive ? 'active' : ''} ${scrollPosition.arriveTop ? 'arriveTop' : ''}`} onClick={ scrollToTop }>
                 <img className="arrow__icon" src={require('@/assets/images/icon/arrow-up.svg')} alt=""/>
             </div>
-            <div className="messages-content" name="messgaes-content" ref={ref.ref2}>
+            <div className="messages-content" name="messgaes-content">
                 <div className={ `message-wrapper broadcast load-message-status ${totalMessageCount && messageList.filter(item => item.msg).length === totalMessageCount ? 'load-complete' : ''}`}>
                     <div className="message">已經沒有更多訊息了!</div>
                 </div>
@@ -173,7 +173,7 @@ const Messages = React.forwardRef(({ messageList, userName, isTyping, loadMoreMe
                     } else if (message.isLeftUser) {
                       return (
                                 <React.Fragment key={message.time}>
-                                    <Date List={messageList} index={i}/>
+                                    <Date messageList={messageList} index={i}/>
                                     <div className="message-wrapper broadcast" key={message.time}>
                                         <div className="message new">
                                             {message.name} 離開聊天室
@@ -221,22 +221,22 @@ const Messages = React.forwardRef(({ messageList, userName, isTyping, loadMoreMe
                 })}
 
                 {
-                    isTyping.isTyping
-                      ? <div className="message-wrapper typing">
-                            <Avatar imageUrl={avatarList?.[isTyping.avatar]?.url}/>
-                            <div>
-                                <div className="name">{isTyping.name}</div>
-                                <div className="message new loading">
-                                    正在輸入
-                                    <span></span>
-                                </div>
-                            </div>
-                    </div>
-                      : null
+                  typingStatus.isTyping
+                    ? <div className="message-wrapper typing">
+                        <Avatar imageUrl={avatarList?.[typingStatus.avatar]?.url}/>
+                        <div>
+                          <div className="name">{typingStatus.name}</div>
+                          <div className="message new loading">
+                            正在輸入
+                            <span></span>
+                          </div>
+                        </div>
+                      </div>
+                    : null
                 }
             </div>
         </div>
   )
-})
+}
 
 export default Messages

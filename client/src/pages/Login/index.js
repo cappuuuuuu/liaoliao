@@ -153,7 +153,7 @@ const Login = ({ history }) => {
       setLoginSuccessClass('active')
 
       await timeout(2500)
-      history.push(`/chat?name=${userName}&avatar=${userAvatar}`)
+      history.push('/chat', { name: userName, avatar: userAvatar })
     }
   }
 
