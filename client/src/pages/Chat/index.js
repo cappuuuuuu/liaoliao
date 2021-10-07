@@ -10,7 +10,7 @@ import { getAvatarDataThunk, avatarData } from '@/redux/slices/avatarDataSlice'
 import { StickerProvider } from '@/contexts/StickerProvider'
 
 // components
-import Messages from '@/components/Messages'
+import MessageContainer from '@/components/MessageContainer'
 import Navbar from '@/components/Navbar'
 import Sidebar from '@/components/Sidebar'
 import Bubbles from '@/components/Bubbles'
@@ -43,7 +43,7 @@ const Chat = ({ history, location }) => {
   const [someoneIsTyping, setSomeoneIsTyping] = useState(false)
   const [typingStatus, setTypingStatus] = useState({})
   const [loadingHistoryMessage, setLoadingHistoryMessage] = useState(true)
-  const [pullLoading, setPullLoading] = useState(false)
+  const [isPullLoading, setIsPullLoading] = useState(false)
   const [totalMessageCount, setTotalMessageCount] = useState(0)
 
   // useRef
@@ -89,12 +89,23 @@ const Chat = ({ history, location }) => {
     if (isIOS) disableBodyScroll(document.getElementById('messages'))
   }, [])
 
+  // 根據是否有人正在打字，傳送某人打字狀態到 server
+  useEffect(() => {
+    if (socket === null) return
+
+    socket.emit('typing', {
+      isTyping: someoneIsTyping,
+      name: userName,
+      avatar: userAvatar
+    })
+  }, [someoneIsTyping])
+
   useEffect(() => {
     if (socket === null) return
 
     const getMessageRecordRequestBody = {
       page: 1,
-      loadCount: 10
+      loadCount: 20
     }
 
     // 請求歷史訊息
@@ -107,13 +118,14 @@ const Chat = ({ history, location }) => {
     socket.on('userLeft', leftUser => {
       setUserList(userList => userList.filter(user => user.name !== leftUser.name))
 
-      const newMessage = {
-        isLeftUser: true,
+      const broadcastMessage = {
+        type: 'broadcast',
+        feature: 'userLeft',
         name: leftUser.name,
         time: getTime()
       }
 
-      setMessageList(messageList => [...messageList, newMessage])
+      setMessageList(messageList => [...messageList, broadcastMessage])
       scrollToMessageContainerBottom()
     })
 
@@ -121,13 +133,14 @@ const Chat = ({ history, location }) => {
     socket.on('join', newUsers => {
       setUserList(newUsers)
 
-      const newMessage = {
-        isNewUser: true,
+      const broadcastMessage = {
+        type: 'broadcast',
+        feature: 'userJoin',
         name: newUsers[newUsers.length - 1].name,
         time: getTime()
       }
 
-      setMessageList(messageList => [...messageList, newMessage])
+      setMessageList(messageList => [...messageList, broadcastMessage])
       scrollToMessageContainerBottom()
     })
 
@@ -147,7 +160,7 @@ const Chat = ({ history, location }) => {
         // 上拉加載，750ms timeout 修正 safari 滑動回彈導致一次載入兩筆
         setTimeout(() => {
           setMessageList(messageList => [...message, ...messageList])
-          setPullLoading(false)
+          setIsPullLoading(false)
         }, 750)
       }
     })
@@ -184,17 +197,6 @@ const Chat = ({ history, location }) => {
       socket.removeAllListeners()
     }
   }, [socket])
-
-  // 根據是否有人正在打字，傳送某人打字狀態到 server
-  useEffect(() => {
-    if (socket === null) return
-
-    socket.emit('typing', {
-      isTyping: someoneIsTyping,
-      name: userName,
-      avatar: userAvatar
-    })
-  }, [someoneIsTyping])
 
   const sendSticker = event => {
     const { tagName, src: imgElementSrc } = event.target
@@ -247,11 +249,11 @@ const Chat = ({ history, location }) => {
           <Backdrop className={classes.backDrop} open={loadingHistoryMessage} >
             <TimeLoading />
           </Backdrop>
-          <Messages
+          <MessageContainer
             messageContainer={messageContainer}
-            loadMoreMessage={() => setPullLoading(true)}
             loadingHistoryMessage={loadingHistoryMessage}
-            pullLoading= {pullLoading}
+            isPullLoading= {isPullLoading}
+            setIsPullLoading={setIsPullLoading}
             messageList={messageList}
             userName={userName}
             typingStatus={typingStatus}

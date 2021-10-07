@@ -5,6 +5,15 @@ export function getTime () {
   return moment().locale('zh-tw')
 }
 
+export function momentFormatDate (time) {
+  return moment(time).format('ll')
+}
+
+export function momentFormatTime (time) {
+  // Time (without seconds) ex: 19:20
+  return moment(time).format('LT')
+}
+
 export function getConfigsJSON () {
   try {
     return require('@/configs/index.json')
