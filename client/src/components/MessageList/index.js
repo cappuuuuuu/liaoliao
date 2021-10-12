@@ -8,12 +8,12 @@ import { MySelfMessage } from '@/components/Message/MySelfMessage'
 import { BroadcastMessage } from '@/components/Message/BroadcastMessage'
 import { TypingMessage } from '@/components/Message/TypingMessage'
 
-export function MessageList ({ messageList, userName, typingStatus, isPullLoading, totalMessageCount, messageContent }) {
+export function MessageList ({ messageList, userName, typingStatus, isPullLoading, totalMessageCount, messageContent, isLoadAllMessage }) {
   const avatarList = useSelector(avatarData)
 
   return (
     <div className="messages-content" ref={messageContent}>
-      <FullLoadMessage totalMessageCount={totalMessageCount} messageList={messageList}/>
+      { isLoadAllMessage ? <FullLoadMessage isLoadAllMessage={isLoadAllMessage}/> : null }
       <MessageLoading kind={'message'} load={isPullLoading}/>
         {
           messageList.map((message, index, messageList) => {
