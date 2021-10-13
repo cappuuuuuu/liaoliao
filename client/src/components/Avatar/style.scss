@@ -1,6 +1,6 @@
 .single-avatar {
-  display: inline-block;
-  margin: 15px;
+  display: flex;
+  justify-content: center;
 
   label {
     display: inline-block;
@@ -24,8 +24,6 @@
 
 @media (max-width: 576px) {
   .single-avatar {
-    margin: 10px;
-
     label {
       width: 55px;
       height: 55px;

@@ -88,9 +88,12 @@
     z-index: 2;
     margin: auto;
     padding: 60px 40px 50px 40px;
+    width: auto;
     width: 500px;
     height: 80vh;
+    max-height: 70vh;
     background: url('../../assets/images/join-background.png');
+    background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
     opacity: 1;
@@ -100,22 +103,16 @@
     transform-origin: 161px 100%;
     transform: rotateX(0deg);
 
-    .login-content {
-      margin-top: 30px;
-    }
-
     &.shift {
       left: -320px;
     }
 
-    &.close {
-      .login-content {
-        position: absolute;
-        top: 30%;
-        left: 50%;
-        width: 100%;
-        transform: translate(-50%, -50%);
-      }
+    .login-content {
+      position: absolute;
+      top: 38%;
+      left: 50%;
+      width: 100%;
+      transform: translate(-50%, -50%);
     }
 
     .disclaimer {
@@ -155,29 +152,6 @@
 
         &.active {
           opacity: 1;
-        }
-      }
-
-      input[type="text"] {
-        margin: 0 auto;
-        padding: 10px 20px;
-        height: 50px;
-        font-size: 1rem;
-        font-family: "Gudea", sans-serif;
-        text-align: center;
-        color: #94b2d3;
-        background: #fff;
-        border: 2px solid #94b2d3;
-        border-radius: 10px;
-        outline: none;
-        box-shadow: none;
-        transition: .4s;
-        box-sizing: border-box;
-        border-bottom: 5px solid #94b2d3;
-
-        &::placeholder {
-          text-align: center;
-          color: #94b2d3;
         }
       }
 
@@ -251,6 +225,29 @@
   }
 }
 
+.user__name__input {
+  margin: 0 auto;
+  padding: 10px 20px;
+  height: 50px;
+  font-size: 1rem;
+  font-family: "Gudea", sans-serif;
+  text-align: center;
+  color: #94b2d3;
+  background: #fff;
+  border: 2px solid #94b2d3;
+  border-radius: 10px;
+  outline: none;
+  box-shadow: none;
+  transition: .4s;
+  box-sizing: border-box;
+  border-bottom: 5px solid #94b2d3;
+
+  &::placeholder {
+    text-align: center;
+    color: #94b2d3;
+  }
+}
+
 @media (max-width: 576px) {
   .login-body {
     height: 100%;
@@ -264,7 +261,7 @@
 
       .login-content {
         position: absolute;
-        top: 38.5% !important;
+        top: 37.5% !important;
         left: 50%;
         margin-top: 0;
         width: 100%;
@@ -299,7 +296,7 @@
       }
 
       .login_fields {
-        margin-top: 15px;
+        margin-top: 25px;
 
         .login_fields__user {
           margin-right: 0;
@@ -313,6 +310,8 @@
         .login_fields__submit {
           & > button {
             padding: 10px 20px;
+            height: 40px;
+            font-size: 12px;
           }
         }
       }
@@ -330,5 +329,11 @@
         z-index: 3;
       }
     }
+  }
+
+  .user__name__input {
+    width: 140px;
+    height: 40px;
+    font-size: 14px;
   }
 }

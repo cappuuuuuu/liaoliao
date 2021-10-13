@@ -6,6 +6,7 @@
   ul {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
+    grid-gap: 25px;
   }
 
   li {
@@ -45,8 +46,6 @@
 
 @media (max-width: 576px) {
   .avatar-wrapper {
-    margin-top: 25px;
-
     li {
       margin: 10px;
     }

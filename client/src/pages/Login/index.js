@@ -36,10 +36,10 @@ const LoginForm = ({ nameInputChangeHandler, inputKeyDownHandler, isCheckUserLoa
   return (
     <div className="login_fields">
       <div className="login_fields__user">
-        <input placeholder="輸入暱稱" type="text" onChange = { nameInputChangeHandler } onKeyDown = { inputKeyDownHandler }/>
+        <input className="user__name__input" placeholder="輸入暱稱" type="text" onChange={nameInputChangeHandler} onKeyDown ={inputKeyDownHandler}/>
       </div>
       <div className="login_fields__submit">
-        <Button className={isCheckUserLoading ? 'check' : ''} type="submit" onClick= { loginRequestHandler } variant="outlined">
+        <Button className={isCheckUserLoading ? 'check' : ''} type="submit" onClick= {loginRequestHandler} variant="outlined">
           <div className="progress">
             <CheckUserLoader />
           </div>
