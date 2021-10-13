@@ -12,7 +12,7 @@
 # 版本更新 
 > v2.1.6
 * `import axios, eslint, stylelint, editorconfig`
-* 新增 - HTML Tag `<meta property="og:title">, <meta property="og:description">, <meta property="og:image">`
+* 新增 - HTML Tag: Open Graph Protocol `<meta property="og:title">`, etc.
 * 調整 - 頭貼、貼圖 imageUrl 資訊，由後端 API 取得
 * 新增 - 分享功能
 
