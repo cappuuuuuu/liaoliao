@@ -15,6 +15,7 @@
 * 新增 - HTML Tag: Open Graph Protocol `<meta property="og:title">`, etc.
 * 調整 - 頭貼、貼圖 imageUrl 資訊，由後端 API 取得
 * 新增 - 分享功能
+* 新增 - 本地開發環境變數
 * 重構專案
 
 > v2.1.5
@@ -63,7 +64,7 @@
 * 聊天室線上名單
 
 # 架構
-## client 端
+## client side
 * 部署 Netlify
 * 主要架構使用 React Function Component 、React Hooks
 
@@ -74,7 +75,7 @@
   * 與 server side websocket 溝通
 * HTTP Request : 以 axios 套件 取得後端 API 貼圖、頭貼資訊
 
-## server 端
+## server side
 * 部署 Heroku
 * 環境 Node.js, 框架 Express
 * socket.io 建置 WebSocket 服務
@@ -82,12 +83,12 @@
 * `REST API - route: /avatars (GET), /stickers (GET)`
 
 # 專案安裝流程
-## client 端
+## client side    
 1. 安裝相依套件   
 ```
 yarn install
 ```   
-2. Socket.io 連接端點設置   
+2. 設置本地環境變數 - SERVER_ORIGIN  ( 為 socket.io-client 連接的 server endpoint ) 
    
     * 連接至 本地端 server
               
@@ -105,7 +106,7 @@ yarn install
     yarn start    
     ```
 
-## server 端   
+## server side       
 1. 安裝相依套件
          
       ```
