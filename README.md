@@ -11,18 +11,18 @@
 
 # 版本更新 
 > v2.1.6
-* import axios, eslint, stylelint, editorconfig
-* 新增 - HTML Tag `<meta property="og:title"> <meta property="og:description"> <meta property="og:image">`
+* `import axios, eslint, stylelint, editorconfig`
+* 新增 - HTML Tag `<meta property="og:title">, <meta property="og:description">, <meta property="og:image">`
 * 調整 - 頭貼、貼圖 imageUrl 資訊，由後端 API 取得
 * 新增 - 分享功能
 
 > v2.1.5
-* 設置 - webpack alias (簡化路徑別名 '../../src' => '@/')
+* 設置 - webpack alias (簡化路徑別名 `'../../src' => '@/'`)
 * 新增 - 分享功能
 
 > v2.1.4
-* import - redux
-* update - lodash, webpack-dev-server version 
+* `import - redux`
+* `update - lodash, webpack-dev-server version`
 * 新增 - 泡泡背景開關
 * 調整 - 漢堡按鈕樣式
 * 修正 - 剛進入聊天室時就加載第二頁訊息
