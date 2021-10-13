@@ -10,11 +10,12 @@
 # <a href="https://cappuuliaoliao.netlify.app/">Demo 連結</a>
 
 # 版本更新 
-> v2.1.6
+> v2.1.6 (Latest Version)
 * `import axios, eslint, stylelint, editorconfig`
 * 新增 - HTML Tag: Open Graph Protocol `<meta property="og:title">`, etc.
 * 調整 - 頭貼、貼圖 imageUrl 資訊，由後端 API 取得
 * 新增 - 分享功能
+* 重構專案
 
 > v2.1.5
 * 設置 - webpack alias (簡化路徑別名 `'../../src' => '@/'`)
@@ -63,74 +64,55 @@
 
 # 架構
 ## client 端
-* 部署於 Netlify
-* 主要架構使用 React Function Component 配合 Hooks
+* 部署 Netlify
+* 主要架構使用 React Function Component 、React Hooks
 
   * 部分 component 使用 Material-UI 套件 
-    <br>EX :  首頁提示使用者選擇頭貼、輸入暱稱之 **snackbar** 、 聊天室內的 **sidebar drawer** 、 **sticker drawer** 、 **sticker popover**
+    <br>如 :  首頁提示使用者選擇頭貼、輸入暱稱之 **snackbar** 、 聊天室內的 **sidebar drawer** 、 **sticker drawer** 、 **sticker popover**
 * socket.io-client 
 
-  * 連接 server 端建置完成的 WebSocket
+  * 與 server side websocket 溝通
+* HTTP Request : 以 axios 套件 取得後端 API 貼圖、頭貼資訊
+
 ## server 端
-* 部署於 Heroku
-* 環境為 Node.js ， Web 架構使用 express
-* 以 socket.io 建置 WebSocket 服務
-* 透過 mongoose 操作 MongoDB 資料庫 (儲存聊天記錄)
+* 部署 Heroku
+* 環境 Node.js, 框架 Express
+* socket.io 建置 WebSocket 服務
+* 透過 Mongoose 操作 MongoDB 資料庫
+* `REST API - route: /avatars (GET), /stickers (GET)`
 
 # 專案安裝流程
 ## client 端
-<ol>
-  <li>
-    開啟 Terminal 進入 client 資料夾
-    <p></p>
-    <pre><code>cd client</code></pre>
-  </li>
-  <li>
-    安裝 npm 套件
-    <p></p>
-    <pre><code>npm install</code></pre>
-  </li>
-  <li>
-    啟動應用程式，本機運行
-    <p></p>
-    <pre><code>npm run start</code></pre>
-  </li>
-  <li>
-    port 預設開啟在 http://localhost:3000
-  </li>
-  <p></p>
-  <li>
-    socket.io-client 預設連接至部署於 Heroku 之 server <code>https://caputalk.herokuapp.com/</code> <br>
-    <p></p>
-    如欲改連接至本地端 server ， 可至 <code>client/src/App.js</code> 改變端點 
-    <p></p>
-    <pre><code>const endPoint = 'https://caputalk.herokuapp.com/';</code></pre>
-    <p></p>
-    <pre><code>const endPoint = 'localhost:5000';</code></pre>
-  </li>
-</ol>
+1. 安裝相依套件   
+```
+yarn install
+```   
+2. Socket.io 連接端點設置   
+   
+    * 連接至 本地端 server
+              
+      ```
+      yarn server_env --env DEV
+      ```   
+    * 連接至 Heroku Server
+          
+      ```
+      yarn server_env --env PRD
+      ```
+3. 啟動應用程式，本機運行
+         
+    ```
+    yarn start    
+    ```
 
-## server 端
-<ol>
-  <li>
-    開啟 Terminal 進入 server 資料夾
-    <p></p>
-    <pre><code>cd server</code></pre>
-  </li>
-  <li>
-    安裝 npm 套件
-    <p></p>
-    <pre><code>npm install</code></pre>
-  </li>
-  
-  <li>
-    開啟後端 server 
-    <p></p>
-    <pre><code>npm run start</code></pre>
-  </li>
-  
-  <li>
-  Terminal 出現 <code>listening on * : 5000 </code> 訊息代表 server 已成功開啟<br>
-  </li>
-</ol>
-
+## server 端   
+1. 安裝相依套件
+         
+      ```
+      yarn install
+      ```   
+2. 開啟後端 server
+          
+     ```
+     yarn start
+     ```  
