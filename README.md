@@ -4,32 +4,43 @@
 # 匿名即時聊天室
 選個頭貼、想個暱稱就可以進入聊天室聊天
 <p></p>
-主要以 React 搭配 WebSocket 套件 socket.io 來進行前、後端訊息的接收與傳遞<br>
+主要以 React 搭配 WebSocket 套件 socket.io 進行前、後端訊息的接收與傳遞<br>
 建立一個即時性的 Web 聊天 APP
 
-# <a href="https://cappuuliaoliao.netlify.app/">Demo</a>
+# <a href="https://cappuuliaoliao.netlify.app/">Demo 連結</a>
 
 # 版本更新 
+> v2.1.6
+* import axios, eslint, stylelint, editorconfig
+* 新增 - HTML Tag `<meta property="og:title"> <meta property="og:description"> <meta property="og:image">`
+* 調整 - 頭貼、貼圖 imageUrl 資訊，由後端 API 取得
+* 新增 - 分享功能
+
 > v2.1.5
-* 新增分享功能
+* 設置 - webpack alias (簡化路徑別名 '../../src' => '@/')
+* 新增 - 分享功能
 
 > v2.1.4
-* 調整漢堡按鈕樣式、新增泡泡背景開關
-* 修正剛進入聊天室時就加載第二頁訊息
-* 增加訊息全部載入完畢的提示
+* import - redux
+* update - lodash, webpack-dev-server version 
+* 新增 - 泡泡背景開關
+* 調整 - 漢堡按鈕樣式
+* 修正 - 剛進入聊天室時就加載第二頁訊息
+* 新增 - 訊息全部載入完畢的提示
 
 > v2.1.3
-* Github 連結新增動畫
+* 新增 - Github 連結動畫
 
 > v2.1.2
-* 修正safari 滾動回彈一次加載兩頁訊息
+* 修正 - safari 滾動回彈一次加載兩頁訊息
 
 > v2.1.0
-* 新增吐槽白熊貼圖
-* 訊息日期新增年份
-* 修改泡泡背景上升長度、飛行時間
-* 新增聊天室置頂按鈕
-* 新增作者名稱、版本
+* 新增 - 下拉加載訊息功能
+* 新增 - 吐槽白熊貼圖
+* 新增 - 訊息日期年份
+* 調整 - 泡泡背景上升長度、飛行時間
+* 新增 - 聊天室置頂按鈕
+* 新增 - sidebar 作者名稱、版本
 
 # 聊天室功能
 * 基本的日期、時間、傳送貼圖訊息 
