@@ -10,6 +10,9 @@
 # <a href="https://cappuuliaoliao.netlify.app/">Demo 連結</a>
 
 # 版本更新 
+> v2.1.7 (Latest Version)
+* 修正 - BongoCat (登入過場動畫) 跑版 
+
 > v2.1.6 (Latest Version)
 * `import axios, eslint, stylelint, editorconfig`
 * 新增 - HTML Tag: Open Graph Protocol `<meta property="og:title">`, etc.
