@@ -13,7 +13,7 @@
 > v2.1.7 (Latest Version)
 * 修正 - BongoCat (登入過場動畫) 跑版 
 
-> v2.1.6 (Latest Version)
+> v2.1.6
 * `import axios, eslint, stylelint, editorconfig`
 * 新增 - HTML Tag: Open Graph Protocol `<meta property="og:title">`, etc.
 * 調整 - 頭貼、貼圖 imageUrl 資訊，由後端 API 取得
