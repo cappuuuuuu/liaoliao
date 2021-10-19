@@ -69,16 +69,18 @@ const Login = ({ history }) => {
   const [pageLoadComplete, setPageLoadComplete] = useState(false)
 
   useEffect(() => {
-    if (!avatarList.length) dispatch(getAvatarDataThunk())
+    async function getAvatarData () {
+      await dispatch(getAvatarDataThunk())
+
+      setPageLoadComplete(true)
+      openSnackBar('選一個頭貼，輸入暱稱就可以進入聊天室囉', 6000)
+    }
+
+    if (!avatarList.length) getAvatarData()
   }, [])
 
   useEffect(() => {
     if (socket === null) return
-
-    setTimeout(() => {
-      setPageLoadComplete(true)
-      openSnackBar('選一個頭貼，輸入暱稱就可以進入聊天室囉', 6000)
-    }, 2000)
 
     socket.on('checkResult', (error) => {
       if (error === 'repeat') {

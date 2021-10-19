@@ -5,7 +5,7 @@ export const getAvatarDataThunk = createAsyncThunk(
   'avatarData/getAvatarData',
   async () => {
     const response = await getAvatars()
-    return response
+    return Promise.resolve(response)
   }
 )
 
