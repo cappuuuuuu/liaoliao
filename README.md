@@ -7,9 +7,15 @@
 主要以 React 搭配 WebSocket 套件 socket.io 進行前、後端訊息的接收與傳遞<br>
 建立一個即時性的 Web 聊天 APP
 
-# <a href="https://cappuuliaoliao.netlify.app/">Demo 連結</a>
+# <a href="https://cappuuliaoliao.netlify.app/" target="_blank">Demo 連結</a>
 
-# 版本更新 
+# 版本更新
+> v2.2.0
+* 修正 - 無法觸發下拉加載訊息 II (計算 scrollTop 小數點問題)
+
+> v2.1.9
+* 修正 - 無法觸發下拉加載訊息
+
 > v2.1.8
 * 修正 - 登入頁面等待頭貼資料取完才結束 Loading
 
