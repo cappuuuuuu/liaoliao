@@ -57,10 +57,10 @@ const Chat = ({ history, location }) => {
     setSomeoneIsTyping(false)
   }, 1000), [])
 
-  const scrollToMessageContainerBottom = () => {
+  const scrollToMessageContainerBottom = (duration = 1000) => {
     scroll.scrollToBottom({
       containerId: 'messages',
-      duration: 1000,
+      duration,
       ignoreCancelEvents: true
     })
   }
@@ -132,16 +132,20 @@ const Chat = ({ history, location }) => {
     // 接收某人加入聊天室之訊息
     socket.on('join', newUsers => {
       setUserList(newUsers)
+      const userJoinName = newUsers[newUsers.length - 1].name
 
       const broadcastMessage = {
         type: 'broadcast',
         feature: 'userJoin',
-        name: newUsers[newUsers.length - 1].name,
+        name: userJoinName,
         time: getTime()
       }
 
       setMessageList(messageList => [...messageList, broadcastMessage])
-      scrollToMessageContainerBottom()
+
+      // 0: duration，若為自己進入聊天室則直接滑至底部
+      if (userName !== userJoinName) scrollToMessageContainerBottom(0)
+      else scrollToMessageContainerBottom()
     })
 
     // 載入歷史訊息
@@ -152,10 +156,10 @@ const Chat = ({ history, location }) => {
       if (page === 1) {
         // 第一次載入
         setMessageList(messageList => [...messageList, ...message])
-        scrollToMessageContainerBottom()
+        scrollToMessageContainerBottom(0)
 
         // 1100ms timeout: 等待歷史訊息載入後滑動至底部時，才解除 Loading
-        setTimeout(() => setLoadingHistoryMessage(false), 1100)
+        setTimeout(() => setLoadingHistoryMessage(false), 1500)
       } else {
         // 上拉加載，750ms timeout 修正 safari 滑動回彈導致一次載入兩筆
         setTimeout(() => {
