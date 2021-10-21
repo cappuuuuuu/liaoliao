@@ -57,10 +57,10 @@ const Chat = ({ history, location }) => {
     setSomeoneIsTyping(false)
   }, 1000), [])
 
-  const scrollToMessageContainerBottom = (duration = 1000) => {
+  const scrollToMessageContainerBottom = () => {
     scroll.scrollToBottom({
       containerId: 'messages',
-      duration,
+      duration: 1000,
       ignoreCancelEvents: true
     })
   }
@@ -142,10 +142,7 @@ const Chat = ({ history, location }) => {
       }
 
       setMessageList(messageList => [...messageList, broadcastMessage])
-
-      // 0: duration，若為自己進入聊天室則直接滑至底部
-      if (userName !== userJoinName) scrollToMessageContainerBottom(0)
-      else scrollToMessageContainerBottom()
+      scrollToMessageContainerBottom()
     })
 
     // 載入歷史訊息

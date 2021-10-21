@@ -47,7 +47,7 @@ const MessageContainer = ({ userName, messageList, typingStatus, isPullLoading, 
 
     // 判斷是否滾到聊天室底部
     if (!scrollArriveBottom) {
-      const isArriveBottom = messageContainer.current.scrollTop + messageContainer.current.offsetHeight === messageContainer.current.scrollHeight
+      const isArriveBottom = messageContainer.current.scrollTop + messageContainer.current.offsetHeight + 1 >= messageContainer.current.scrollHeight
       if (isArriveBottom) setScrollArriveBottom(true)
     }
   }
