@@ -10,6 +10,14 @@
 # [Demo 連結](https://cappuuliaoliao.netlify.app/)
 
 # 版本更新
+> v2.2.2
+* 修正 - 置頂按鈕隱藏問題
+
+> v2.2.1
+
+* 樣式修正 - sidebar 登出按鈕設置 text-decoration: none
+* 修正 - 下拉加載訊息更新畫面時發生閃爍
+
 > v2.2.0
 * 修正 - 無法觸發下拉加載訊息 II (計算 scrollTop 小數點問題)
 
