@@ -36,7 +36,7 @@ const Sidebar = ({ userList, userName, avatar }) => {
 
   const LogoutButton = () => (
     <div className={classes.buttonBar}>
-      <Link to="/chat/logout">
+      <Link className="logout__button" to="/chat/logout">
         <Button>
           <ExitToAppIcon className={classes.exitToAppIcon} />
             登出
