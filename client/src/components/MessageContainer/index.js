@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, useMemo } from 'react'
+import React, { useRef, useState, useMemo, useLayoutEffect } from 'react'
 import { useSocket } from '@/contexts/SocketProvider.js'
 import { BackToTopButton } from '@/components/BackToTopButton'
 import { MessageList } from '@/components/MessageList'
@@ -52,7 +52,7 @@ const MessageContainer = ({ userName, messageList, typingStatus, isPullLoading, 
     }
   }
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!isPullLoading) {
       // 計算載入新訊息的高度 (載入訊息後高度 - 載入訊息前高度 - 65) , 65px 為 Loading 元件的高度
       setCurrentLoadMessagePage(currentLoadMessagePage => currentLoadMessagePage + 1)
