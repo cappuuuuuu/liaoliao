@@ -12,19 +12,19 @@ const scrollToTop = () => {
 }
 
 export function BackToTopButton ({ messageContainer }) {
-  const [scrollPosition, setScrollPosition] = useState({ arriveTop: false })
-  const [active, setActive] = useState(false)
+  const [isScrollArriveTop, setIsScrollArriveTop] = useState(false)
+  const [buttonActive, setButtonActive] = useState(false)
 
   const scrollDebounce = useCallback(debounce(() => {
-    setActive(false)
-
-    if (messageContainer.current.scrollTop === 0) setScrollPosition({ ...scrollPosition, arriveTop: true })
-    else setScrollPosition({ ...scrollPosition, arriveTop: false })
+    setButtonActive(false)
   }, 1000), [])
 
   const handleBackToTopButtonScroll = () => {
     scrollDebounce()
-    setActive(true)
+    setButtonActive(true)
+
+    if (messageContainer.current.scrollTop === 0) setIsScrollArriveTop(true)
+    else setIsScrollArriveTop(false)
   }
 
   useEffect(() => {
@@ -34,7 +34,7 @@ export function BackToTopButton ({ messageContainer }) {
   }, [])
 
   return (
-    <div className={`back__to__top ${active && !scrollPosition.arriveTop ? 'active' : ''}`} onClick={ scrollToTop }>
+    <div className={`back__to__top ${buttonActive && !isScrollArriveTop ? 'active' : ''}`} onClick={ scrollToTop }>
       <img className="arrow__icon" src={require('@/assets/images/icon/arrow-up.svg')} alt=""/>
     </div>
   )
