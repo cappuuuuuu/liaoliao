@@ -10,7 +10,7 @@
 # [Demo 連結](https://cappuuliaoliao.netlify.app/)
 
 # 版本更新
-> v2.2.2
+> v2.2.2 (Latest Version)
 * 修正 - 置頂按鈕隱藏問題
 
 > v2.2.1
@@ -27,7 +27,7 @@
 > v2.1.8
 * 修正 - 登入頁面等待頭貼資料取完才結束 Loading
 
-> v2.1.7 (Latest Version)
+> v2.1.7
 * 修正 - BongoCat (登入過場動畫) 跑版 
 
 > v2.1.6
