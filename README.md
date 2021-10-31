@@ -10,7 +10,10 @@
 # [Demo 連結](https://cappuuliaoliao.netlify.app/)
 
 # 版本更新
-> v2.2.2 (Latest Version)
+> v2.2.3 (Latest Version)
+* 修正 - mobile-device 點擊置頂按鈕未消失問題
+
+> v2.2.2
 * 修正 - 置頂按鈕隱藏問題
 
 > v2.2.1
