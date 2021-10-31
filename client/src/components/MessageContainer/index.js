@@ -63,7 +63,7 @@ const MessageContainer = ({ userName, messageList, typingStatus, isPullLoading, 
 
   return (
     <div id="messages" className="messages" ref={messageContainer} onScroll={scrollHandler}>
-      <BackToTopButton messageContainer={messageContainer}/>
+      <BackToTopButton isLoadAllMessage={isLoadAllMessage} messageContainer={messageContainer}/>
       <MessageList
         messageList={messageList}
         userName={userName}

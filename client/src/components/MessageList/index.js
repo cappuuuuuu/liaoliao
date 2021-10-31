@@ -13,7 +13,7 @@ export function MessageList ({ messageList, userName, typingStatus, isPullLoadin
 
   return (
     <div className="messages-content" ref={messageContent}>
-      { isLoadAllMessage ? <FullLoadMessage isLoadAllMessage={isLoadAllMessage}/> : null }
+      { isLoadAllMessage ? <FullLoadMessage/> : null }
       <MessageLoading kind={'message'} load={isPullLoading}/>
         {
           messageList.map((message, index, messageList) => {

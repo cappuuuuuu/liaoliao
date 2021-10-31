@@ -11,7 +11,7 @@ const scrollToTop = () => {
   })
 }
 
-export function BackToTopButton ({ messageContainer }) {
+export function BackToTopButton ({ messageContainer, isLoadAllMessage }) {
   const [isScrollArriveTop, setIsScrollArriveTop] = useState(false)
   const [buttonActive, setButtonActive] = useState(false)
 
@@ -23,7 +23,7 @@ export function BackToTopButton ({ messageContainer }) {
     scrollDebounce()
     setButtonActive(true)
 
-    if (messageContainer.current.scrollTop === 0) setIsScrollArriveTop(true)
+    if (messageContainer.current.scrollTop === 0 && isLoadAllMessage) setIsScrollArriveTop(true)
     else setIsScrollArriveTop(false)
   }
 
@@ -31,7 +31,8 @@ export function BackToTopButton ({ messageContainer }) {
     if (!messageContainer.current) return
 
     messageContainer.current.addEventListener('scroll', handleBackToTopButtonScroll)
-  }, [])
+    return () => messageContainer.current.removeEventListener('scroll', handleBackToTopButtonScroll)
+  }, [isLoadAllMessage])
 
   return (
     <div className={`back__to__top ${buttonActive && !isScrollArriveTop ? 'active' : ''}`} onClick={ scrollToTop }>
