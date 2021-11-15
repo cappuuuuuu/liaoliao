@@ -11,6 +11,7 @@ import Bubbles from '@/components/Bubbles'
 import BongoCat from '@/components/BongoCat'
 import SquareLoading from '@/components/Loading/SquareLoading'
 import CheckUserLoader from '@/components/Loading/CircleLoading'
+import FloatButton from '@/components/FloatButton'
 
 // CSS
 import './style.scss'
@@ -176,6 +177,7 @@ const Login = ({ history }) => {
         <LoginAuthent className={`authent ${authentClass}`}/>
         <Bubbles count={20}/>
         <SquareLoading loadComplete={pageLoadComplete}/>
+        <FloatButton/>
     </div>
   )
 }
