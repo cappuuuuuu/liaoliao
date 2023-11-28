@@ -74,7 +74,7 @@ const Login = ({ history }) => {
       await dispatch(getAvatarDataThunk())
 
       setPageLoadComplete(true)
-      openSnackBar('選一個頭貼，輸入暱稱就可以進入聊天室囉', 6000)
+      openSnackBar('選一個頭貼，輸入暱稱就可以進入聊天室囉', 6000)
     }
 
     if (!avatarList.length) getAvatarData()
