@@ -17,7 +17,7 @@ export default function xhr ({
 
   const response = axios(options)
     .then(res => {
-      return Promise.resolve(res.data)
+      return Promise.resolve(res.data.data)
     })
     .catch(err => {
       console.error(err)
